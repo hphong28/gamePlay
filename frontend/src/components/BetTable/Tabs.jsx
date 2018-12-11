@@ -1,132 +1,196 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import SwipeableViews from "react-swipeable-views";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import classNames from "classnames";
+import MyBetTable from "./TableMyBets.jsx";
+import AllBetTable from "./TableAllBets.jsx";
+import ResultTable from "./TableResults.jsx";
+import "./styles.css";
 
-import TableMyBets from "./TableAllBets.jsx";
-import TableAllBets from "./TableAllBets.jsx";
-import TableResults from "./TableResults.jsx";
+class Tab extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      BetData: {
+        MyBetTable: [
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          }
+        ],
 
-function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
-      {children}
-    </Typography>
-  );
-}
+        AllBetTable: [
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          }
+        ],
 
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired
-};
+        ResultTable: [
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 }
+        ]
+      },
+      index: 0,
+      tab1Active: "tablinks active",
+      tab2Active: "tablinks",
+      tab3Active: "tablinks"
+    };
 
-const styles = theme => ({
-  root: {
-    backgroundColor: "#000033",
-    width: 500
-  },
-
-  tabs: {
-    backgroundColor: "#000033",
-    width: 500,
-    position: "static"
+    this.handleClick1 = this.handleClick1.bind(this);
+    this.handleClick2 = this.handleClick2.bind(this);
+    this.handleClick3 = this.handleClick3.bind(this);
   }
-});
 
-class InfoTable extends React.Component {
-  state = {
-    value: 0
-  };
+  handleClick1() {
+    this.setState({ index: 0 });
+    this.setState({ tab1Active: "tablinks active" });
+    this.setState({ tab2Active: "tablinks" });
+    this.setState({ tab3Active: "tablinks" });
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    console.log(this.state.index);
+    console.log(this.state.tab1Active);
+    console.log(this.state.tab2Active);
+    console.log(this.state.tab3Active);
 
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
+    console.log("hello world");
+  }
+
+  handleClick2() {
+    this.setState({ index: 1 });
+
+    this.setState({ tab1Active: "tablinks" });
+    this.setState({ tab2Active: "tablinks active" });
+    this.setState({ tab3Active: "tablinks" });
+
+    console.log(this.state.index);
+    console.log(this.state.tab1Active);
+    console.log(this.state.tab2Active);
+    console.log(this.state.tab3Active);
+
+    console.log("hello everybody");
+  }
+
+  handleClick3() {
+    this.setState({ index: 2 });
+
+    this.setState({ tab1Active: "tablinks" });
+    this.setState({ tab2Active: "tablinks" });
+    this.setState({ tab3Active: "tablinks active" });
+
+
+  }
 
   render() {
-    const { classes, theme } = this.props;
-
     return (
-      <div className={classes.root}>
-        <Paper className={classNames(classes.root)}>
-          <AppBar className={classNames(classes.tabs)}>
-            <Tabs
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              fullWidth
-            >
-              <Tab style={{ color: "#a6a6a6" }} label="My Bets" />
-              <Tab style={{ color: "#a6a6a6" }} label="All Bets" />
-              <Tab style={{ color: "#a6a6a6" }} label="Results" />
-            </Tabs>
-          </AppBar>
+      <div className="myApp">
+        <div className="tab">
+          <button className={this.state.tab1Active} onClick={this.handleClick1}>
+            My bets
+          </button>
 
-          <SwipeableViews
-            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-            index={this.state.value}
-            onChangeIndex={this.handleChangeIndex}
-          >
-            <TabContainer dir={theme.direction}>
-              <TableMyBets />
-            </TabContainer>
-            <TabContainer dir={theme.direction}>
-              <TableAllBets />
-            </TabContainer>
-            <TabContainer dir={theme.direction}>
-              <TableResults />
-            </TabContainer>
-          </SwipeableViews>
+          <button className={this.state.tab2Active} onClick={this.handleClick2}>
+            All bets
+          </button>
 
-          <div style={{ padding: "20px" }}>
-            <Paper
-              elevation={24}
-              style={{ padding: "10px", backgroundColor: "#001340" }}
-            >
-              <Grid container spacing={40}>
-                <Grid item> </Grid>
-                <Grid item>
-                  <Typography
-                    style={{ color: "#a6a6a6", fontSize: 18 }}
-                    variant="h5"
-                  >
-                    Blockdevteam
-                  </Typography>
-                </Grid>
-
-                <Grid item> </Grid>
-
-                <Grid item>
-                  <Typography
-                    style={{ color: "#a6a6a6", fontSize: 18 }}
-                    variant="h6"
-                  >
-                    250 EOS
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Paper>
+          <button className={this.state.tab3Active} onClick={this.handleClick3}>
+            Results
+          </button>
+        </div>
+        <div className="tabcontent">
+          {/*if you set overflow in "scroll", there will be 2 sroll: at the right side and at the bottom*/}
+          <div style={{ maxHeight: "400px", overflow: "auto" }}>
+            <TabContent index={this.state.index} data={this.state.BetData} />
           </div>
-        </Paper>
+          <div className="footerContent">
+            <p className="column"> BlockDevTeam </p>
+            <p className="column"> 25 EOS </p>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-InfoTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
-};
+function TabContent(props) {
+  if (props.index === 0) {
+    return <MyBetTable data={props.data} />;
+  } else if (props.index === 1) {
+    return <AllBetTable data={props.data} />;
+  } else if (props.index === 2) {
+    return <ResultTable data={props.data} />;
+  } else {
+    //do nothing
+  }
+}
 
-export default withStyles(styles, { withTheme: true })(InfoTable);
+export default Tab;
