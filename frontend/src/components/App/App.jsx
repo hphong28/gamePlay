@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // Components
-import { Header, BetTable, RollingDice } from 'components';
+import { Header, BetTable } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
 
 class App extends Component {
@@ -13,13 +13,13 @@ class App extends Component {
       time2dice: 1,
       numberOfDices:3,
 
-      dice1timer:"1s",
+      dice1timer:"4s",
       dice1value: 1,
 
-      dice2timer:"1s",
+      dice2timer:"3s",
       dice2value: 3,
 
-      dice3timer:"1s",
+      dice3timer:"2s",
       dice3value: 4
     };
 
@@ -27,10 +27,11 @@ class App extends Component {
       <div className="App">
         <Header />
         <div className="dice_board">
+
         <div className="dice_board_center">
             <DiceBoard />
-            </div>
-            <RollingDice {...dice}/>
+        </div>
+
         </div>        
         <div className="dice_table">
           <BetTable />

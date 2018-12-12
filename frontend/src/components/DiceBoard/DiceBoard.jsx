@@ -3,6 +3,7 @@ import React from 'react';
 
 import Dice from 'components/Dice/Dice.jsx'
 import './DiceBoard.css';
+import RollingDice from 'components/Dice/RollingDice.jsx';
 
 class DiceBoard extends React.Component {
     constructor(props) {
@@ -11,6 +12,7 @@ class DiceBoard extends React.Component {
             squares: Array(30).fill(null),
         };
     }
+    
     handleClick(i) {
         const squares = this.state.squares.slice();
         squares[i] = 'X';
@@ -25,11 +27,25 @@ class DiceBoard extends React.Component {
                 rate={rate}
                 onClick={() => this.handleClick(i)}
             />
+            
         );
     }
 
     render() {
-
+        const dice = {
+            countDown: true,
+            time2dice: 1,
+            numberOfDices:3,
+      
+            dice1timer:"4s",
+            dice1value: 1,
+      
+            dice2timer:"3s",
+            dice2value: 3,
+      
+            dice3timer:"2s",
+            dice3value: 4
+          };
         return (
             <div className="DiceBoard">
                 <div className="DiceBoardRow1">
@@ -44,6 +60,13 @@ class DiceBoard extends React.Component {
                             {this.renderSquare(2, 3, 3, 150)}
                         </div>
                         <div className="ThreeDice">
+                        <RollingDice
+                phase={0}
+                counttimer={9}
+                dice1={1}
+                dice2={5}
+                dice3={3}
+            />
                         </div>
                         <div className="group1">
                             {this.renderSquare(3, 3, 4, 150)}
