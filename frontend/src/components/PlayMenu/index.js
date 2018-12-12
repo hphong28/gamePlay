@@ -1,4 +1,4 @@
-import './PlayMenu';
+import './PlayMenu.css';
 
 import PlayMenu from './PlayMenu';
 

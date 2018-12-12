@@ -35,7 +35,10 @@ class App extends Component {
         <div className="dice_table">
           <BetTable />
         </div>
-        <PlayMenu/>
+        <div className="play_menu">
+          <PlayMenu/>
+        </div>        
+
       </div>
     );
   }
