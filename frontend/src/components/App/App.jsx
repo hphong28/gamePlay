@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // Components
-import { Header, BetTable, RollingDice } from 'components';
+import { Header, BetTable, RollingDice, PlayMenu } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
 
 class App extends Component {
@@ -35,6 +35,7 @@ class App extends Component {
         <div className="dice_table">
           <BetTable />
         </div>
+        <PlayMenu/>
       </div>
     );
   }
