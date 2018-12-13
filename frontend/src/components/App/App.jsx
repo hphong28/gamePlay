@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // Components
 
-import { Header, BetTable, PlayMenu } from 'components';
+import { Header, BetTable, PlayMenu, Referral } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <div className="dice_board">
+        {/* <div className="dice_board">
 
         <div className="dice_board_center">
             <DiceBoard />
@@ -36,9 +36,9 @@ class App extends Component {
         </div>        
         <div className="dice_table">
           <BetTable />
-        </div>
+        </div> */}
         <div className="play_menu">
-          <PlayMenu/>
+          <Referral/>
         </div>        
 
       </div>

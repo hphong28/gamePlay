@@ -1,0 +1,124 @@
+@font-face {
+    font-family: 'MyriadPro';
+    src: url("./fonts/Myriad-Pro-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.ReferralCss{
+    font-family: 'MyriadPro'; 
+    color: white;
+    background-color: #424D55;
+    width: 850px;
+    height: 543px;
+    border-radius: 20px;
+    margin: auto;
+}
+
+.HeaderReferral{
+    color: #CCCCCC;
+    display: block;
+    font-size: 48pt;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.WrapLinkRefferal{
+    padding-top: 20px;
+    margin-left: 80px;
+    display: block;
+}
+
+.InputRefferal{
+    width: 520px;
+    height: 65px;
+    color: #FFFFFF;
+    background-color: #283846;
+    border-radius: 10px;
+    font-size: 33pt;
+    margin-right: 20px;
+    text-align: center;
+}
+.CopyButton{
+    width: 130px;
+    height: 65px;
+    color: #FFFFFF;
+    background-color: #0691F9 ;
+    border-radius: 10px;
+    font-size: 30pt;
+    cursor: pointer;
+}
+
+.DetailReferral{
+    display: block;
+    color: #FFFFFF;
+    font-size: 18pt;
+    margin-top: 20px;
+    text-align: left;
+    padding-left: 60px;
+}
+.SloganReferral{
+    margin-top: 20px;
+    display: block;
+    color: #CCCCCC;
+    font-size: 40pt;
+    text-align: center;
+}
+
+.WrapTotalReferral{
+    display: block;
+    font-size: 18pt;
+    margin-top: 22px;
+    
+}
+.TextTotal{
+    float: left;
+    display: inline;
+    margin-left: 50px;
+}
+.ValueTotal{
+    color: orange;
+    display: inline;
+}
+
+.TextTotalEarn{
+    float: right;
+    display: inline;
+}
+.ValueTotalEarn{
+    color: orange;
+    display: inline;
+    margin-right: 50px;
+}
+
+.WrapTableReferral{
+    margin-top: 60px;
+    display: block;
+    background-color: #1C2041 ;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 26pt;
+    width: 645px;
+    height: 135px;
+    margin-left: 90px;
+    padding: 8px 8px 8px 8px;
+}
+.TableReferral{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 18pt;
+}
+.TableReferral tbody{
+    background-color: #171933;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+.TableReferral td{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+}
