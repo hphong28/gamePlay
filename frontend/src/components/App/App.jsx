@@ -64,6 +64,10 @@ class App extends Component {
             <BetTable />
           </div>
 
+          <div className="play_menu">
+            <PlayMenu/>
+          </div> 
+
         </div>
         }
 
