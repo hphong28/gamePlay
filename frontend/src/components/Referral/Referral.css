@@ -15,6 +15,14 @@
     margin: auto;
 }
 
+.CloseButton{
+    font-size: 18pt;
+    float: right;
+    margin-right: 15px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
 .HeaderReferral{
     color: #CCCCCC;
     display: block;

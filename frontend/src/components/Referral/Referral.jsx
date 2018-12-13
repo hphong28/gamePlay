@@ -6,6 +6,9 @@ class Referral extends Component {
     render() {
         return (
             <div className="ReferralCss">
+                <div>
+                    <button className="CloseButton"> X </button>
+                </div>
                 <div className="HeaderReferral">
                     Invite friend for Rewards!
                 </div>
