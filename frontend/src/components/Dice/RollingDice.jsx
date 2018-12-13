@@ -2,9 +2,9 @@ import React from 'react';
 import './RollingDice.css';
 import './DiceNo.css';
 
-import rolling_dice1 from './images/rolling_dice_md_1.png'
-import rolling_dice2 from './images/rolling_dice_md_2.png'
-import rolling_dice3 from './images/rolling_dice_md_3.png'
+import rolling_dice1 from './images/rolling_dice1.png'
+import rolling_dice2 from './images/rolling_dice2.png'
+import rolling_dice3 from './images/rolling_dice3.png'
 
 class RollingDice extends React.Component {
     constructor(props) {
@@ -12,7 +12,8 @@ class RollingDice extends React.Component {
         this.state = {
             time: 0,
             timeout: 0,
-            rolling: 0
+            rolling: 0,
+            msg: "start betting..."
         };
         this.startTimer = this.startTimer.bind(this)
         this.stopTimer = this.stopTimer.bind(this)
@@ -32,13 +33,15 @@ class RollingDice extends React.Component {
             this.stopTimer();
             this.startTimer(100)
             this.setState({
-                timeout: 1
+                timeout: 1,
+                msg: "wait result..."
             })
         }
         if (this.state.rolling === 50) {
             this.stopTimer();
             this.setState({
-                timeout: 2
+                timeout: 2,
+                msg: "the result ..."
             })
         }
 
@@ -56,28 +59,29 @@ class RollingDice extends React.Component {
     }
 
     render() {
-        if ((this.props.phase === 0) && (this.state.timeout === 0)) {
-            return (
-                <div class="countdown">{this.state.time}</div>
-            );
-        } else if (this.state.timeout === 1) {
-            return (
-                <div class="radom">
-                    <div className={`item ${this.state.rolling % 3 == 0 ? " active" : ""}`}><img src={rolling_dice1} alt={"rolling-dice-1"}></img></div>
-                    <div className={`item ${this.state.rolling % 3 == 1 ? " active" : ""}`}><img src={rolling_dice2} alt={"rolling-dice-2"}></img></div>
-                    <div className={`item ${this.state.rolling % 3 == 2 ? " active" : ""}`}><img src={rolling_dice3} alt={"rolling-dice-3"}></img></div>
+        return (
+            <div className="dice_header">
+            <div className="player_num">
+            <p></p>
+            </div>
+            <div className="result">
+                <div className={`countdown ${this.state.timeout  == 0 ? "active" : ""}`}>{this.state.time}</div>
+                <div className={`dice_rolling ${this.state.timeout == 1 ? "active" : ""}`}>
+                    <div className={`item ${this.state.rolling % 3 == 0 ? "active" : ""}`}><img src={rolling_dice1} alt={"rolling-dice-1"}></img></div>
+                    <div className={`item ${this.state.rolling % 3 == 1 ? "active" : ""}`}><img src={rolling_dice2} alt={"rolling-dice-2"}></img></div>
+                    <div className={`item ${this.state.rolling % 3 == 2 ? "active" : ""}`}><img src={rolling_dice3} alt={"rolling-dice-3"}></img></div>
                 </div>
-
-            );
-        } else if (this.state.timeout === 2) {
-            return (
-                <div className="dice_result">
-                    <div className={`dice_md_item ${"dice_md_num" + this.props.dice1}`} ></div>
-                    <div className={`dice_md_item ${"dice_md_num" + this.props.dice2}`} ></div>
-                    <div className={`dice_md_item ${"dice_md_num" + this.props.dice3}`} ></div>
+                <div className={`dice_result ${this.state.timeout == 2 ? " active" : ""}`}>
+                    <div className={`dice_x_item ${"dice_x_num" + this.props.dice1}`} ></div>
+                    <div className={`dice_x_item ${"dice_x_num" + this.props.dice2}`} ></div>
+                    <div className={`dice_x_item ${"dice_x_num" + this.props.dice3}`} ></div>
                 </div>
-            );
-        }
+            </div>
+             <div className="bet_msg">
+             {this.state.msg}
+             </div>
+             </div>
+        );
     }
 }
 
