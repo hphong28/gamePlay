@@ -58,7 +58,7 @@ class App extends Component {
 
         {
           this.state.Referral ?
-            <div className="play_menu">
+            <div className="How_To_Play">
               <Referral />
             </div>
             :
