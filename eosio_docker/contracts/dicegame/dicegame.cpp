@@ -1,14 +1,14 @@
 #include "dicegame.hpp"
+#include <eosio.token.hpp>
 
 #define GLOBAL_ID_BET 101
 #define GLOBAL_ID_HISTORY_INDEX 102
 #define GLOBAL_ID_ACTIVE 103
 #define GLOBAL_ID_ROUND 104
 #define GLOBAL_ID_ROUND_DURATION 105
-#define GLOBAL_ID_ROUND_MAX_BETS 106
+#define GLOBAL_ID_ROUND_MAX_BETTOR 106
 
 #define SINGLE_BET_MAX_PERCENT 5
-
 
 dicegame::dicegame(account_name _self)
     : contract(_self),
@@ -16,7 +16,8 @@ dicegame::dicegame(account_name _self)
       _players(_self, _self),
       _games(_self, _self),
       _bets(_self, _self),
-      _seed(_self, _self)
+      _seed(_self, _self),
+      _bettokens(_self, _self)
 {
 }
 
@@ -40,8 +41,11 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     auto active_pos = _globals.find(GLOBAL_ID_ACTIVE);
     eosio_assert(active_pos != _globals.end() && active_pos->val, "Maintaining ...");
 
-    // eosio::token bet_token("eosio.token");
-    // eosio::asset contract_balance = bet_token.get_balance(_self, transfer_data.quantity.symbol);
+    // check contract balance can take over this bet or not?
+    // eosio::symbol_name sym_name = eosio::symbol_type(transfer_data.quantity.symbol).name();
+    // auto token_iter = _bettoken.find(sym_name);
+    // eosio::token bet_token(token_iter->contract);
+    // eosio::asset balance = bet_token.get_balance(_self, sym_name);
     // int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT / 100);
     // eosio_assert(transfer_data.quantity <= max, "Bet amount exceeds");
 
@@ -68,7 +72,9 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
 
     auto betid_itr = _globals.find(GLOBAL_ID_BET);
     eosio_assert(betid_itr != _globals.end(), "Unknown global id");
-    
+
+    // To do: check max bettor: GLOBAL_ID_ROUND_MAX_BETTOR
+
     // Todo: check bet_num by eosio_assert
 
     _bets.emplace(_self, [&](auto &bet) {
@@ -80,6 +86,63 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
         bet.active = 1;
         bet.bet_at = eosio::time_point_sec(now());
     });
+}
+
+/// @abi action
+void dicegame::initialize()
+{
+    require_auth(_self);
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_BET;
+        a.val = 0;
+    });
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_HISTORY_INDEX;
+        a.val = 0;
+    });
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_ACTIVE;
+        a.val = 0;
+    });
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_ROUND;
+        a.val = 0;
+    });
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_ROUND_DURATION;
+        a.val = 0;
+    });
+
+    _globals.emplace(_self, [&](auto &a) {
+        a.id = GLOBAL_ID_ROUND_MAX_BETTOR;
+        a.val = 0;
+    });
+}
+
+void dicegame::setbettoken(eosio::symbol_name sym, account_name contract, uint64_t min, uint64_t max)
+{
+    auto token_iter = _bettokens.find(sym);
+    if (token_iter == _bettokens.end())
+    {
+        _bettokens.emplace(_self, [&](auto &a) {
+            a.token_name = eosio::symbol_type(sym).name();
+            a.contract = contract;
+            a.min_bet = min;
+            a.max_bet = max;
+        });
+    }
+    else
+    {
+        _bettokens.modify(token_iter, 0, [&](auto &a) {
+            a.min_bet = min;
+            a.max_bet = max;
+        });
+    }
 }
 
 void dicegame::setactived(bool actived)
@@ -171,13 +234,8 @@ void dicegame::revealdice(account_name username)
     eosio_assert(round_duration_itr != _globals.end(), "Unknown global id");
     uint64_t round_duration = round_duration_itr->val;
 
-    auto round_max_bets_itr = _globals.find(GLOBAL_ID_ROUND_MAX_BETS);
-    eosio_assert(round_max_bets_itr != _globals.end(), "Unknown global id");
-    uint64_t round_max_bets = round_max_bets_itr->val;
-
     auto game_itr = _games.find(current_round);
     eosio_assert(game_itr->status == ONGOING, "current game hasn't active yet");
-    eosio_assert((game_itr->player_num >= round_max_bets), "current game doesn't reached to limitation");
 
     // get radom for three bet:
     _games.modify(game_itr, 0, [&](auto &game) {
@@ -189,6 +247,12 @@ void dicegame::revealdice(account_name username)
     });
 }
 
+void dicegame::mine(uint64_t bet_id)
+{
+    require_auth(_self);
+    //Todo: return reward for all peoples who are win
+}
+
 void dicegame::endgame(account_name username)
 {
     // Ensure this action is authorized by the player
@@ -197,10 +261,10 @@ void dicegame::endgame(account_name username)
     // add action to stop game
 }
 
-
 uint64_t dicegame::get_bet_reward(uint8_t bet_case, int64_t amount)
 {
     //return bet_dict.at(bet_case) * amount + amount;
+    // Todo
     return 0;
 }
 
@@ -259,4 +323,4 @@ int dicegame::random(const int range)
         }                                                                                                       \
     }
 
-EOSIO_ABI_EX(dicegame, (transfer)(setactived)(setglobal)(login)(startgame)(revealdice)(mine)(endgame)(playgame)(nextround))
+EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setactived)(setglobal)(login)(startgame)(revealdice)(mine)(endgame)(playgame)(nextround))
