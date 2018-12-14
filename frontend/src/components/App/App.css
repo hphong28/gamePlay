@@ -28,7 +28,7 @@ body {
 }
 
 .App {
-  min-height: 100vh;
+  min-height: 200vh;
   /* background-image: url("./images/Game_background.jpg"); */
   /* background-size: cover; */
   background: #171933;
@@ -36,12 +36,13 @@ body {
 }
 
 .dice_board{
-  min-width:800px;
-  height: 400px;
-  width:60%;
-  display:inline-block;
+  min-width:830px;
+  height: 450px;
+  /* width:60%; */
+  /* display:inline-block; */
   margin: 0 auto;
   text-align:center;
+  float: left;
 }
 
 .dice_board_center{
@@ -49,10 +50,12 @@ body {
   margin: 0 auto;
 }
 .dice_table{
-  width:500px;
-  height: 400px;
+  width:40%;
+  height: 450px;
+  float: left;
+  padding-top:30px;
   /* background-color: red; */
-  display:inline-block;
+  /* display:inline-block; */
 }
 .row{
   position: relative;
@@ -60,4 +63,6 @@ body {
 }
 .play_menu{
   position: relative;
+  
+  float: left;
 }

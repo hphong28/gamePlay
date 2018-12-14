@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { Header, BetTable, PlayMenu, Referral, HowToPlay } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
+import RollingDice from 'components/Dice/RollingDice.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -95,11 +96,9 @@ class App extends Component {
           :
             null
         }
-
       </div>
     );
   }
-
 }
 
 // Map all state to component props (for redux to connect)

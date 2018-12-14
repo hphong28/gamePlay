@@ -60,13 +60,6 @@ class DiceBoard extends React.Component {
                             {this.renderSquare(2, 3, 3, 150)}
                         </div>
                         <div className="ThreeDice">
-                        <RollingDice
-                phase={0}
-                counttimer={9}
-                dice1={1}
-                dice2={5}
-                dice3={3}
-            />
                         </div>
                         <div className="group1">
                             {this.renderSquare(3, 3, 4, 150)}
