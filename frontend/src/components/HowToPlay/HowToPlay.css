@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'MyriadPro';
+    src: url("./fonts/Myriad-Pro-Regular.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+.HowToPlayStyle{
+    font-family: 'MyriadPro'; 
+    color: white;
+    background-color: #424D55;
+    width: 850px;
+    height: 543px;
+    border-radius: 20px;
+    margin: auto;
+}
+.CloseButtonHowToPlay{
+    font-size: 18pt;
+    float: right;
+    margin-right: 15px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.HeaderHowToPlay{
+    color: #E6E6E6 ;
+    display: block;
+    font-size: 48pt;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.DetailHowToPlay{
+    color: #CCCCCC ;
+    display: block;
+    padding-left: 50px;
+
+}
+.DetailHowToPlay p{
+    font-size: 18pt;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.DetailHowToPlay a{
+    color: #3366FF;
+}
+.OneLineCss{
+    line-height: 1.8;
+}

@@ -29,7 +29,7 @@ class Header extends Component {
 			LoginStatus: false,
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
-		this.handleClick = this.handleClick.bind(this);
+		// this.handleReferral = this.handleReferral.bind(this);
 	}
 	//before render
 	componentWillMount() {
@@ -106,12 +106,9 @@ class Header extends Component {
 		}
 
 	}
-	handleClick(e) {
-		console.log("tam_ result click");
-		const { user: { win_count, name } } = this.props;
-		console.log('tam_ 22', win_count, name);
-		console.log('tam_ 22', ApiService.hasIdentity());
-	}
+	// handleReferral(e) {
+		// this.props.handleReferralAction(e);
+	// }
 	render() {
 		return (
 			<div className="navbar">
@@ -126,9 +123,9 @@ class Header extends Component {
 						<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 						<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 
-						<li className="menu_link"><a href="#" >Referral</a></li>
+						<li className="menu_link"><a href="#" onClick={this.props.handleReferral}>Referral</a></li>
 						<li className="menu_link"><a href="#" >Rule</a></li>
-						<li className="menu_link"><a href="#" onClick={this.handleClick}>How To Play</a></li>
+						<li className="menu_link"><a href="#" onClick={this.props.handleHowToPlay}>How To Play</a></li>
 						<li><button className="Login_button" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button></li>
 					</ul>
 				</nav>
