@@ -152,6 +152,7 @@ private:
   {
     uint64_t id;
     uint64_t bet_round;
+    account_name contract;
     account_name bettor;
     uint64_t bet_case;
     eosio::asset bet_amount;

@@ -42,9 +42,9 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     eosio_assert(active_pos != _globals.end() && active_pos->val, "Maintaining ...");
 
     // check contract balance can take over this bet or not?
-    // eosio::symbol_name sym_name = eosio::symbol_type(transfer_data.quantity.symbol).name();
-    // auto token_iter = _bettoken.find(sym_name);
-    // eosio::token bet_token(token_iter->contract);
+    eosio::symbol_name sym_name = eosio::symbol_type(transfer_data.quantity.symbol).name();
+    auto token_iter = _bettokens.find(sym_name);
+    eosio::token bet_token(token_iter->contract);
     // eosio::asset balance = bet_token.get_balance(_self, sym_name);
     // int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT / 100);
     // eosio_assert(transfer_data.quantity <= max, "Bet amount exceeds");
@@ -80,6 +80,7 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     _bets.emplace(_self, [&](auto &bet) {
         bet.id = betid_itr->val;
         bet.bet_round = current_round;
+        bet.contract = token_iter->contract;
         bet.bettor = transfer_data.from;
         bet.bet_case = bet_case;
         bet.bet_amount = transfer_data.quantity;
