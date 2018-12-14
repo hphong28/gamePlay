@@ -35,20 +35,6 @@ class App extends Component {
   }
 
   render() {
-    const dice = {
-      countDown: true,
-      time2dice: 1,
-      numberOfDices: 3,
-
-      dice1timer: "4s",
-      dice1value: 1,
-
-      dice2timer: "3s",
-      dice2value: 3,
-
-      dice3timer: "2s",
-      dice3value: 4
-    };
 
     return (
       <div className="App">
@@ -78,6 +64,13 @@ class App extends Component {
           ((this.state.Referral == false) && (this.state.HowToPlay == false))?
             <div >
               <div className="dice_board">
+              <RollingDice
+                phase={0}
+                counttimer={12}
+                dice1={1}
+                dice2={5}
+                dice3={3}
+            />
 
                 <div className="dice_board_center">
                   <DiceBoard />
