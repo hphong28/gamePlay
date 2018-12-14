@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // Components
 
-import { Header, BetTable, PlayMenu, Referral } from 'components';
+import { Header, BetTable, PlayMenu, Referral, HowToPlay } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
 
 class App extends Component {
@@ -11,18 +11,26 @@ class App extends Component {
     super(props);
     this.state = {
       Referral: false,
+      HowToPlay: false,
     }
 
     this.handleReferralAction = this.handleReferralAction.bind(this);
-    // this.handleReferral = this.handleReferral.bind(this);
+    this.handleHowToPlayAction = this.handleHowToPlayAction.bind(this);
   }
 
   handleReferralAction() {
-
     console.log('tam_ handle referral');
-    this.setState({ Referral: !this.state.Referral })
-
-
+    this.setState({
+      Referral: !this.state.Referral,
+      HowToPlay: false
+    })
+  }
+  handleHowToPlayAction() {
+    console.log('tam_ handle HowToPlay');
+    this.setState({
+      HowToPlay: !this.state.HowToPlay,
+      Referral: false
+    })
   }
 
   render() {
@@ -43,36 +51,50 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header {...this.props} handleReferral={this.handleReferralAction} />
-        {/* <Header {...this.props} /> */}
+        <Header {...this.props}
+          handleReferral={this.handleReferralAction}
+          handleHowToPlay={this.handleHowToPlayAction} />
 
         {
           this.state.Referral ?
-          <div className="play_menu">
-            <Referral />
-          </div>
-          : 
-          <div >
-          <div className="dice_board">
-
-            <div className="dice_board_center">
-              <DiceBoard />
+            <div className="play_menu">
+              <Referral />
             </div>
-
-          </div>
-          <div className="dice_table">
-            <BetTable />
-          </div>
-
-          <div className="play_menu">
-            <PlayMenu/>
-          </div> 
-
-        </div>
+            :
+            null
         }
 
+        {
+          this.state.HowToPlay ?
+            <div className="How_To_Play">
+              <HowToPlay />
+            </div>
+            : 
+            null
+        }
 
+        {
+          ((this.state.Referral == false) && (this.state.HowToPlay == false))?
+            <div >
+              <div className="dice_board">
 
+                <div className="dice_board_center">
+                  <DiceBoard />
+                </div>
+
+              </div>
+              <div className="dice_table">
+                <BetTable />
+              </div>
+
+              <div className="play_menu">
+                <PlayMenu />
+              </div>
+
+          </div>
+          :
+            null
+        }
 
       </div>
     );

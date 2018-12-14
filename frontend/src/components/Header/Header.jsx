@@ -125,7 +125,7 @@ class Header extends Component {
 
 						<li className="menu_link"><a href="#" onClick={this.props.handleReferral}>Referral</a></li>
 						<li className="menu_link"><a href="#" >Rule</a></li>
-						<li className="menu_link"><a href="#" >How To Play</a></li>
+						<li className="menu_link"><a href="#" onClick={this.props.handleHowToPlay}>How To Play</a></li>
 						<li><button className="Login_button" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button></li>
 					</ul>
 				</nav>
