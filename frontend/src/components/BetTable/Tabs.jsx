@@ -44,6 +44,76 @@ class Tab extends React.Component {
             Prediction: "1 1 1",
             Bet: "2 EOS",
             Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "920",
+            Player: "Blockdevteam",
+            Prediction: "1 1 1",
+            Bet: "2 EOS",
+            Type: "WIN"
           }
         ],
 
@@ -89,10 +159,43 @@ class Tab extends React.Component {
             Prediction: "2 2 2",
             Bet: "200 EOS",
             Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
+          },
+          {
+            BlockID: "100",
+            Player: "BlockEOSteam",
+            Prediction: "2 2 2",
+            Bet: "200 EOS",
+            Type: "WIN"
           }
         ],
 
         ResultTable: [
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
+          { Round: 1, Results: "2 2 2", Total: 6 },
           { Round: 1, Results: "2 2 2", Total: 6 },
           { Round: 1, Results: "2 2 2", Total: 6 },
           { Round: 1, Results: "2 2 2", Total: 6 },

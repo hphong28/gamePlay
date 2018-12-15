@@ -5,6 +5,8 @@
     background: url("./images/dice3.png") no-repeat; 
     position: relative;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* .DiceBoardRow1 {
@@ -37,14 +39,11 @@
 
  .ThreeDice{
     width:140px;
-    height:86px;
+    /* height:86px; */
     display:inline-block;
     text-align: center;
     margin:3px;
     /* background-color:#FF0000; */
- }
- .ThreeDice:hover{
-    background-color:#FF0000;
  }
 
  .DiceBoardRow2 {

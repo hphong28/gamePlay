@@ -49,7 +49,6 @@ private:
     SINGLE_6 = 27,
   };
 
-
   const map<bet_case, uint8_t> bet_dict = {
       {SMALL, 1},
       {BIG, 1},
@@ -88,7 +87,7 @@ private:
     std::string memo;
   };
 
-// @abi table globals i64
+  // @abi table globals i64
   struct global
   {
     uint64_t id;
@@ -99,7 +98,19 @@ private:
   };
   typedef eosio::multi_index<N(globals), global> globals_table;
 
-// @abi table players i64
+  //@abi table tradetokens
+  struct bettoken
+  {
+    eosio::symbol_name token_name;
+    account_name contract;
+    uint64_t min_bet;
+    uint64_t max_bet;
+    uint64_t primary_key() const { return token_name; };
+    EOSLIB_SERIALIZE(bettoken, (token_name)(contract)(min_bet)(max_bet));
+  };
+  typedef eosio::multi_index<N(bettokens), bettoken> bettoken_table;
+
+  // @abi table players i64
   struct player
   {
     account_name bettor;
@@ -141,6 +152,7 @@ private:
   {
     uint64_t id;
     uint64_t bet_round;
+    account_name contract;
     account_name bettor;
     uint64_t bet_case;
     eosio::asset bet_amount;
@@ -154,28 +166,37 @@ private:
 
   typedef eosio::multi_index<N(bets), bet_info> bets_table;
 
-   // @abi table seed
-    struct seed {
-      uint64_t        key = 1;
-      uint32_t        value = 1;
+  // @abi table seed
+  struct seed
+  {
+    uint64_t key = 1;
+    uint32_t value = 1;
 
-      auto primary_key() const { return key; }
-    };
+    auto primary_key() const { return key; }
+  };
 
-    typedef eosio::multi_index<N(seed), seed> seed_table;
+  typedef eosio::multi_index<N(seed), seed> seed_table;
 
   globals_table _globals;
   players_table _players;
   games_table _games;
   bets_table _bets;
   seed_table _seed;
+  bettoken_table _bettokens;
 
-int random(const int range);
-uint64_t get_bet_reward(uint8_t bet_case, int64_t amount);
+  int random(const int range);
+  uint64_t get_bet_reward(uint8_t bet_case, int64_t amount);
+
 public:
   dicegame(account_name _self);
 
   void transfer(uint64_t sender, uint64_t receiver);
+
+  ///@abi action
+  void initialize();
+
+  ///@abi action
+  void setbettoken(eosio::symbol_name sym, account_name contract, uint64_t min, uint64_t max);
 
   ///@abi action
   void setactived(bool actived);
@@ -202,5 +223,4 @@ public:
   void playgame(account_name username, uint8_t bet_num);
   ///@abi action
   void nextround(account_name username);
-
 };
