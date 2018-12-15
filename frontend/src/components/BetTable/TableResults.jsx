@@ -5,14 +5,17 @@ import "./styles.css";
 
 function ResultTable(props) {
   return (
-    <table id="customers">
-      <thead>
+    <div>
+    <table id="customers" className="st_header">
+      <thead >
         <tr>
           <th>Round</th>
           <th>Results</th>
           <th>Table</th>
         </tr>
       </thead>
+    </table>
+    <table id="customers">
       <tbody>
         <tr>
           <td>{props.data.ResultTable[0].Round}</td>
@@ -66,6 +69,7 @@ function ResultTable(props) {
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 

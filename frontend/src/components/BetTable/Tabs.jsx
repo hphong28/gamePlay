@@ -100,80 +100,39 @@ class Tab extends React.Component {
           { Round: 1, Results: "2 2 2", Total: 6 }
         ]
       },
-      index: 0,
-      tab1Active: "tablinks active",
-      tab2Active: "tablinks",
-      tab3Active: "tablinks"
+      index: 0
     };
 
-    this.handleClick1 = this.handleClick1.bind(this);
-    this.handleClick2 = this.handleClick2.bind(this);
-    this.handleClick3 = this.handleClick3.bind(this);
-  }
+    this.handleClick = this.handleClick.bind(this);
+}
 
-  handleClick1() {
-    this.setState({ index: 0 });
-    this.setState({ tab1Active: "tablinks active" });
-    this.setState({ tab2Active: "tablinks" });
-    this.setState({ tab3Active: "tablinks" });
-
-    console.log(this.state.index);
-    console.log(this.state.tab1Active);
-    console.log(this.state.tab2Active);
-    console.log(this.state.tab3Active);
-
-    console.log("hello world");
-  }
-
-  handleClick2() {
-    this.setState({ index: 1 });
-
-    this.setState({ tab1Active: "tablinks" });
-    this.setState({ tab2Active: "tablinks active" });
-    this.setState({ tab3Active: "tablinks" });
-
-    console.log(this.state.index);
-    console.log(this.state.tab1Active);
-    console.log(this.state.tab2Active);
-    console.log(this.state.tab3Active);
-
-    console.log("hello everybody");
-  }
-
-  handleClick3() {
-    this.setState({ index: 2 });
-
-    this.setState({ tab1Active: "tablinks" });
-    this.setState({ tab2Active: "tablinks" });
-    this.setState({ tab3Active: "tablinks active" });
-
-
+  handleClick(i) {
+    this.setState({ index: i });
   }
 
   render() {
     return (
       <div className="myApp">
         <div className="tab">
-          <button className={this.state.tab1Active} onClick={this.handleClick1}>
+          <button className={this.state.index ===0 ?"active":"" } onClick={() => this.handleClick(0)}>
             My bets
           </button>
 
-          <button className={this.state.tab2Active} onClick={this.handleClick2}>
+          <button className={this.state.index ===1 ?"active":""} onClick={() => this.handleClick(1)}>
             All bets
           </button>
 
-          <button className={this.state.tab3Active} onClick={this.handleClick3}>
+          <button className={this.state.index ===2 ?"active":""} onClick={() => this.handleClick(2)}>
             Results
           </button>
         </div>
         <div className="tabcontent">
-          {/*if you set overflow in "scroll", there will be 2 sroll: at the right side and at the bottom*/}
-          <div style={{ maxHeight: "400px", overflow: "auto" }}>
-            <TabContent index={this.state.index} data={this.state.BetData} />
-          </div>
+          <TabContent index={this.state.index} data={this.state.BetData} />
+        </div>
+        <div className="footWrapper">
           <div className="footerContent">
-            <p className="column"> BlockDevTeam </p>
-            <p className="column"> 25 EOS </p>
+              <p className="column"> BlockDevTeam </p>
+              <p className="column"> 25 EOS </p>
           </div>
         </div>
       </div>

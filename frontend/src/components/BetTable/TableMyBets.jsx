@@ -4,8 +4,9 @@ import "./styles.css";
 
 function MyBetTable(props) {
   return (
-    <table id="customers">
-      <thead>
+    <div>
+    <table id="customers" className="st_header">
+      <thead >
         <tr>
           <th>Block ID</th>
           <th>Player</th>
@@ -14,6 +15,8 @@ function MyBetTable(props) {
           <th>Type</th>
         </tr>
       </thead>
+    </table>
+    <table id="customers">
       <tbody>
         <tr>
           <td>{props.data.MyBetTable[0].BlockID}</td>
@@ -87,6 +90,7 @@ function MyBetTable(props) {
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 

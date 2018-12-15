@@ -5,8 +5,9 @@ import "./styles.css";
 
 function AllBetTable(props) {
   return (
-    <table id="customers">
-      <thead>
+    <div>
+    <table id="customers" className="st_header">
+      <thead >
         <tr>
           <th>Block ID</th>
           <th>Player</th>
@@ -15,6 +16,8 @@ function AllBetTable(props) {
           <th>Type</th>
         </tr>
       </thead>
+    </table>
+    <table id="customers">
       <tbody>
         <tr>
           <td>{props.data.AllBetTable[0].BlockID}</td>
@@ -88,6 +91,7 @@ function AllBetTable(props) {
         </tr>
       </tbody>
     </table>
+    </div>
   );
 }
 

@@ -49,8 +49,7 @@ body {
   margin: 0 auto;
 }
 .dice_table{
-  width:500px;
-  height: 400px;
+  width:40%;
   /* background-color: red; */
   display:inline-block;
 }
