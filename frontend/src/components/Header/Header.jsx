@@ -53,10 +53,6 @@ class Header extends Component {
 		const { Login } = this.props;
 		Login();
 		if (this.state.LoginStatus) {
-			// ApiService.LogOutScatter();
-			// this.setState({
-			// 	LoginStatus: false,
-			// });
 			ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
 				if (connected) {
 					window.ScatterJS = null;
@@ -68,10 +64,6 @@ class Header extends Component {
 			});
 
 		} else {
-			// ApiService.LoginScatter();
-			// this.setState({
-			// 	LoginStatus: true,
-			// });
 			ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
 				console.log('tam_ connected', connected);
 
@@ -99,10 +91,6 @@ class Header extends Component {
 			const win = window
 			win.ScatterJS = win.ScatterEOS = win.scatter = undefined
 
-			//If it connected to scatter, forget its Identify
-			// if(Scatter.scatter.identity){
-			//     Scatter.scatter.forgetIdentity()
-			// }
 		}
 
 	}
@@ -112,27 +100,32 @@ class Header extends Component {
 	render() {
 		return (
 			<div className="navbar">
+				<ul className="nav">
+					<li><a href="https://www.google.com/"><img src={logo} alt=" " className="logo" /></a></li>
 
-				<div className="logo_wrap">
-					<a href="https://www.google.com/"><img src={logo} alt=" " className="logo" /></a>
-				</div>
+					<li className="Login_wrap">
+						<div>
+							<a className={`${this.state.LoginStatus?'':'NameOfUserLogin'}`}>{'haong ngoc tam'}</a>
+							{/* <ul>
+								<li>
+									<button className="ButtonCss" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button>
+								</li>
+							</ul> */}
+						</div>
+					</li>
 
-				<div className="icon_wrap">
-					<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
-					<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
-					<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
-				</div>
 
-				<div className="Menu_Wrap">
-						<a href="#" onClick={this.props.handleReferral}>Referral</a>
-						<a href="#" >Rule</a>
-						<a href="#" onClick={this.props.handleHowToPlay}>How To Play</a>
-				</div>
+					<li className="Menu"><div href="#" onClick={this.props.handleReferral}>Referral</div></li>
+					<li className="Menu"><a href="#" >Rule</a></li>
+					<li className="Menu"><a href="#" onClick={this.props.handleHowToPlay}>How To Play</a></li>
 
-				<div className="InfoOwner_Wrap">
-						<button className="NameOfOwner">{'haong ngoc tam'}</button>
-						<button className="Logout_button" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button>
-				</div>
+					<li className="icon_wrap">
+						<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
+						<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
+						<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
+					</li>
+				</ul>
+
 
 			</div>
 		);
