@@ -51,11 +51,7 @@
     color: red;
 }
 
-.NameOfUserLogin{
-    font-size: 18px;
-}
-
-.ButtonCss{
+.ButtonLogin{
     background-image: linear-gradient(to right, #4272E8 , #00B8E9);
     padding-left: 20px;
     padding-right: 20px;
@@ -73,5 +69,51 @@
     display: block;
     margin: auto;
     letter-spacing: 3px;
+}
+
+.Logout_wrap{
+    float: right;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 30px;
+
+}
+
+.user_icon{
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+}
+
+
+.NameOfUserLogoin{
+    font-size: 19px;
+    color: white;
+}
+.Logout_wrap a:hover{
+    color: #4272E8;
+}
+.Logout_wrap button:hover{
+    color: red;
+}
+
+.ButtonLogout{
+    background-image: linear-gradient(to right, #4272E8 , #00B8E9);
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-align: center;
+    flex: 1 1 auto;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    display: block;
+    letter-spacing: 3px;
+    margin-top: 28px;
 }
 
