@@ -134,7 +134,7 @@ class Header extends Component {
 
 							<li className="Logout_wrap">
 								<div>
-									<img src={user_icon} alt=" " className="user_icon" />
+									<div className="userLogoLayout"><img src={user_icon} alt=" " className="user_icon" /></div>
 									<a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}>{this.state.ScatterName}</a>
 									<ul>
 										<li>
