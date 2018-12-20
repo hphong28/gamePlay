@@ -105,12 +105,13 @@ class Header extends Component {
 
 					<li className="Login_wrap">
 						<div>
-							<a className={`${this.state.LoginStatus?'':'NameOfUserLogin'}`}>{'haong ngoc tam'}</a>
-							{/* <ul>
+							{/* <a className={`${this.state.LoginStatus?'':'NameOfUserLogin'}`}>{'haong ngoc tam'}</a> */}
+							<ul>
 								<li>
+									{/* <button className="ButtonCss" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button> */}
 									<button className="ButtonCss" onClick={this.handleLoginClick}>{this.state.LoginStatus ? 'LogOut' : 'LogIn'}</button>
 								</li>
-							</ul> */}
+							</ul>
 						</div>
 					</li>
 

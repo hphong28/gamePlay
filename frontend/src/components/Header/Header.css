@@ -43,12 +43,12 @@
 
 .Login_wrap{
     float: right;
-    padding-top: 34px;
+    padding-top: 26px;
     padding-left: 10px;
     padding-right: 30px;
 }
 .Login_wrap :hover{
-    color: #4272E8;
+    color: red;
 }
 
 .NameOfUserLogin{
@@ -61,6 +61,7 @@
     padding-right: 20px;
     padding-top: 1px;
     padding-bottom: 1px;
+    margin-top: 0px;
     text-align: center;
     flex: 1 1 auto;
     transition: 0.5s;
