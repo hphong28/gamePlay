@@ -73,21 +73,22 @@
 
 .Logout_wrap{
     float: right;
-    padding-top: 22px;
+    padding-top: 35px;
     padding-left: 10px;
     padding-right: 30px;
 
 }
-.userLogoLayout{
-    display: inline-block;
-}
 
 .user_icon{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     float: left;
     margin-right: 10px;
-    margin-top: 10px;
+}
+.exit_icon{
+    width: 10px;
+    height: 10px;
+    margin-left: 5px;
 }
 
 
@@ -104,6 +105,7 @@
 }
 
 .ButtonLogout{
+    width: 90%;
     background-image: linear-gradient(to right, #4272E8 , #00B8E9);
     padding-left: 20px;
     padding-right: 20px;
@@ -120,5 +122,6 @@
     display: block;
     letter-spacing: 3px;
     margin-top: 28px;
+    float: right;
 }
 

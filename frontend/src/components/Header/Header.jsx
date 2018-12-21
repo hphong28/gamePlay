@@ -13,6 +13,7 @@ import medium_icon from './images/MEDIUM.svg'
 import telegram_icon from './images/TELEGRAM.svg'
 
 import user_icon from './images/user.svg'
+import exit_icon from './images/exit.svg'
 
 const { Blockchains } = ScatterJS
 
@@ -134,9 +135,15 @@ class Header extends Component {
 
 							<li className="Logout_wrap">
 								<div>
-									<div className="userLogoLayout"><img src={user_icon} alt=" " className="user_icon" /></div>
-									<a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}>{this.state.ScatterName}</a>
+									
+									{/* <a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}><img src={user_icon} alt=" " className="user_icon" />{this.state.ScatterName}</a> */}
 									<ul>
+										<li>
+											<img src={user_icon} alt=" " className="user_icon" />
+											<a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}>{this.state.ScatterName}</a>
+											<img src={exit_icon} alt=" " className="exit_icon" />
+										</li>
+
 										<li>
 											{this.state.LogoutingStatus?
 												<button className="ButtonLogout" onClick={this.handleLogoutClick}>{'LogOut'}</button> : null}
