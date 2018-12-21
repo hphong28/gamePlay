@@ -7,6 +7,8 @@ import { ApiService } from 'services';
 
 import ScatterJS from 'scatterjs-core';
 
+import { Referral, HowToPlay } from 'components';
+
 import logo from './images/logo.png'
 import mail_icon from './images/MAIL.svg'
 import medium_icon from './images/MEDIUM.svg'
@@ -32,6 +34,10 @@ class Header extends Component {
 			LoginStatus: false,
 			LogoutingStatus: false,
 			ScatterName: '',
+			ReferralStatus: false,
+			HowToPlayStatus: false,
+
+
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
 		this.handleLogoutClick = this.handleLogoutClick.bind(this);
@@ -79,6 +85,7 @@ class Header extends Component {
 						this.setState({
 							LoginStatus: true,
 							ScatterName: ScatterJS.scatter.identity.accounts[0].name,
+							LogoutingStatus: false,
 						});
 
 					}
@@ -112,6 +119,10 @@ class Header extends Component {
 	}
 	handleReferral() {
 		console.log('tam_ handleReferral')
+		this.setState({
+			ReferralStatus: !this.state.ReferralStatus,
+			HowToPlayStatus: false,
+		});
 
 	}
 	handleRule() {
@@ -120,6 +131,11 @@ class Header extends Component {
 	}
 	handleHowToPlay() {
 		console.log('tam_ handleHowToPlay')
+		console.log('tam_ handleReferral')
+		this.setState({
+			HowToPlayStatus: !this.state.HowToPlayStatus,
+			ReferralStatus: false,
+		});
 
 	}
 	handleOutsideClick(e) {
@@ -132,7 +148,7 @@ class Header extends Component {
 	render() {
 		return (
 			<div ref={node => { this.node = node; }} >
-				<div className="navbar" onClick={this.toggleLogOutClick}>
+				<div className="navbar" >
 					<ul className="nav">
 						<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
 
@@ -151,8 +167,6 @@ class Header extends Component {
 
 								<li className="Logout_wrap">
 									<div>
-
-										{/* <a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}><img src={user_icon} alt=" " className="user_icon" />{this.state.ScatterName}</a> */}
 										<ul>
 											<li>
 												<img src={user_icon} alt=" " className="user_icon" />
@@ -180,9 +194,27 @@ class Header extends Component {
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 						</li>
 					</ul>
-
-
 				</div>
+				{
+					this.state.ReferralStatus ?
+						<div className='PopUp_Wrap'>
+							<Referral />
+						</div>
+
+						: null
+				}
+				{
+					this.state.HowToPlayStatus ?
+						<div className='PopUp_Wrap'>
+							<HowToPlay />
+						</div>
+
+						: null
+
+				}
+
+
+
 			</div>
 		);
 	}
