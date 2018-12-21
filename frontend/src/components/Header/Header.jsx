@@ -36,8 +36,6 @@ class Header extends Component {
 			ScatterName: '',
 			ReferralStatus: false,
 			HowToPlayStatus: false,
-
-
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
 		this.handleLogoutClick = this.handleLogoutClick.bind(this);
@@ -210,7 +208,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closePopUp.bind(this)}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName}/>
 						</div>
 
 						: null

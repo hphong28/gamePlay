@@ -13,9 +13,10 @@ class Referral extends Component {
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
                 </div>
+                {console.log('tam_ Referral props rec', this.props)}
 
                     <div className="WrapLinkRefferal">
-                        <input className="InputRefferal" value="https://1play.io/referral" />
+                        <input className="InputRefferal" value={`https://1play.io/#ref=`+ this.props.NameScat} />
                         <button className="CopyButton"> COPY </button>
                     </div>
 
