@@ -39,6 +39,8 @@ class Header extends Component {
 		this.handleReferral = this.handleReferral.bind(this);
 		this.handleRule = this.handleRule.bind(this);
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
+
+		this.handleOutsideClick = this.handleOutsideClick.bind(this);
 	}
 	//before render
 	componentWillMount() {
@@ -84,7 +86,7 @@ class Header extends Component {
 			}
 		})
 	}
-	handleLogoutClick(){
+	handleLogoutClick() {
 		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
 			if (connected) {
 				window.ScatterJS = null;
@@ -96,76 +98,91 @@ class Header extends Component {
 		});
 
 	}
-	toggleLogOutClick(){
+	toggleLogOutClick() {
 		console.log('tam_ togle')
+		if (!this.state.LogoutingStatus) {
+			document.addEventListener('click', this.handleOutsideClick, false);
+		} else {
+			document.removeEventListener('click', this.handleOutsideClick, false);
+		}
+
 		this.setState({
 			LogoutingStatus: !this.state.LogoutingStatus,
 		});
 	}
-	handleReferral(){
+	handleReferral() {
 		console.log('tam_ handleReferral')
 
 	}
-	handleRule(){
+	handleRule() {
 		console.log('tam_ handleRule')
 
 	}
-	handleHowToPlay(){
+	handleHowToPlay() {
 		console.log('tam_ handleHowToPlay')
 
 	}
+	handleOutsideClick(e) {
+		console.log("'tam_ test click");
+		if (this.node.contains(e.target))
+			return;
+
+		this.toggleLogOutClick();
+	}
 	render() {
 		return (
-			<div className="navbar">
-				<ul className="nav">
-					<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
+			<div ref={node => { this.node = node; }} >
+				<div className="navbar" onClick={this.toggleLogOutClick}>
+					<ul className="nav">
+						<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
 
-					{
-						(!this.state.LoginStatus) ?
+						{
+							(!this.state.LoginStatus) ?
 
-							< li className="Login_wrap">
-								<div>
-									<ul>
-										<li>
-											<button className="ButtonLogin" onClick={this.handleLoginClick}>{'LogIn'}</button>
-										</li>
-									</ul>
-								</div>
-							</li> :
+								< li className="Login_wrap">
+									<div>
+										<ul>
+											<li>
+												<button className="ButtonLogin" onClick={this.handleLoginClick}>{'LogIn'}</button>
+											</li>
+										</ul>
+									</div>
+								</li> :
 
-							<li className="Logout_wrap">
-								<div>
-									
-									{/* <a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}><img src={user_icon} alt=" " className="user_icon" />{this.state.ScatterName}</a> */}
-									<ul>
-										<li>
-											<img src={user_icon} alt=" " className="user_icon" />
-											<a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}>{this.state.ScatterName}</a>
-											<img src={exit_icon} alt=" " className="exit_icon" />
-										</li>
+								<li className="Logout_wrap">
+									<div>
 
-										<li>
-											{this.state.LogoutingStatus?
-												<button className="ButtonLogout" onClick={this.handleLogoutClick}>{'LogOut'}</button> : null}
-										</li>
-									</ul>
-								</div>
+										{/* <a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}><img src={user_icon} alt=" " className="user_icon" />{this.state.ScatterName}</a> */}
+										<ul>
+											<li>
+												<img src={user_icon} alt=" " className="user_icon" />
+												<a className="NameOfUserLogoin" onClick={this.toggleLogOutClick}>{this.state.ScatterName}</a>
+												<img src={exit_icon} alt=" " className="exit_icon" />
+											</li>
 
-							</li>
-					}
+											<li>
+												{this.state.LogoutingStatus ?
+													<button className="ButtonLogout" onClick={this.handleLogoutClick}>{'LogOut'}</button> : null}
+											</li>
+										</ul>
+									</div>
 
-					<li className="Menu"><div href="#" onClick={this.handleReferral}>Referral</div></li>
-					<li className="Menu"><a href="#" onClick={this.handleRule}>Rule</a></li>
-					<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
+								</li>
+						}
 
-					<li className="icon_wrap">
-						<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
-						<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
-						<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
-					</li>
-				</ul>
+						<li className="Menu"><div href="#" onClick={this.handleReferral}>Referral</div></li>
+						<li className="Menu"><a href="#" onClick={this.handleRule}>Rule</a></li>
+						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
+
+						<li className="icon_wrap">
+							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
+							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
+							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
+						</li>
+					</ul>
 
 
+				</div>
 			</div>
 		);
 	}
