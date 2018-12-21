@@ -99,6 +99,7 @@ class Header extends Component {
 			ScatterJS.scatter.forgetIdentity();
 			this.setState({
 				LoginStatus: false,
+				ScatterName: '',
 			});
 		});
 
