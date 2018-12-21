@@ -147,21 +147,15 @@ class Header extends Component {
 		this.toggleLogOutClick();
 	}
 
-	closeHowToPlay(){
-		console.log('tam_ close how to play');
+	closePopUp(){
+		console.log('tam_ close pop up');
 		this.setState({
 			HowToPlayStatus: false,
 			ReferralStatus: false,
 		});
 
 	}
-	closeReferral(){
-		console.log('tam_ closeReferral')
-		this.setState({
-			HowToPlayStatus: false,
-			ReferralStatus: false,
-		});
-	}
+
 
 	render() {
 		return (
@@ -216,7 +210,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closeReferral.bind(this)}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)}/>
 						</div>
 
 						: null
@@ -224,7 +218,7 @@ class Header extends Component {
 				{
 					this.state.HowToPlayStatus ?
 						<div className='PopUp_Wrap'>
-							<HowToPlay onCloseHowToPlay={this.closeHowToPlay.bind(this)}/>
+							<HowToPlay onCloseHowToPlay={this.closePopUp.bind(this)}/>
 						</div>
 
 						: null
