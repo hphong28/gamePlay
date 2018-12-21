@@ -4,7 +4,11 @@
     font-weight: normal;
     font-style: normal;
   }
-
+.HowToPlayWrap{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0, 0.5);
+}
 .HowToPlayStyle{
     font-family: 'MyriadPro'; 
     color: white;
@@ -13,6 +17,11 @@
     height: 543px;
     border-radius: 20px;
     margin: auto;
+    position: fixed;
+    left: 25%;
+    right: 25%;
+    top: 25%;
+    bottom: 25%;
 }
 .CloseButtonHowToPlay{
     font-size: 18pt;
