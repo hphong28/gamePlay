@@ -12,7 +12,7 @@ import mail_icon from './images/MAIL.svg'
 import medium_icon from './images/MEDIUM.svg'
 import telegram_icon from './images/TELEGRAM.svg'
 
-import user_icon from './images/user.svg'
+import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
 
 const { Blockchains } = ScatterJS
