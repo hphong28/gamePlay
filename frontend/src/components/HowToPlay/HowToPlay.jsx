@@ -8,7 +8,7 @@ class HowToPlay extends Component {
             <div className="HowToPlayWrap">
                 <div className="HowToPlayStyle">
                     <div>
-                        <button className="CloseButtonHowToPlay"> X </button>
+                        <button className="CloseButtonHowToPlay" onClick={this.props.onCloseHowToPlay}> X </button>
                     </div>
                     <div className="HeaderHowToPlay">
                         How To Play
@@ -18,7 +18,7 @@ class HowToPlay extends Component {
                         <p>1, Prepare your EOS account.<br /></p>
 
                         <p className="OneLineCss">2, If you didn't install Scatter yet, please follow this<br /></p>
-                        <p><a>Install Scatter</a> to install Scatter<br /></p>
+                        <p><a href="https://get-scatter.com/">Install Scatter</a> to install Scatter<br /></p>
 
                         <p className="OneLineCss">3, Press the login button to login through Scatter.<br /></p>
 

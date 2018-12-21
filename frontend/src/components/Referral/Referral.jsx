@@ -8,7 +8,7 @@ class Referral extends Component {
             <div className="ReferralWrap">
                 <div className="ReferralCss">
                     <div>
-                        <button className="CloseButtonReferral"> X </button>
+                        <button className="CloseButtonReferral" onClick={this.props.onCloseReferral}> X </button>
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!

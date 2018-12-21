@@ -129,6 +129,7 @@ class Header extends Component {
 		console.log('tam_ handleRule')
 
 	}
+
 	handleHowToPlay() {
 		console.log('tam_ handleHowToPlay')
 		console.log('tam_ handleReferral')
@@ -136,8 +137,8 @@ class Header extends Component {
 			HowToPlayStatus: !this.state.HowToPlayStatus,
 			ReferralStatus: false,
 		});
-
 	}
+
 	handleOutsideClick(e) {
 		console.log("'tam_ test click");
 		if (this.node.contains(e.target))
@@ -145,6 +146,23 @@ class Header extends Component {
 
 		this.toggleLogOutClick();
 	}
+
+	closeHowToPlay(){
+		console.log('tam_ close how to play');
+		this.setState({
+			HowToPlayStatus: false,
+			ReferralStatus: false,
+		});
+
+	}
+	closeReferral(){
+		console.log('tam_ closeReferral')
+		this.setState({
+			HowToPlayStatus: false,
+			ReferralStatus: false,
+		});
+	}
+
 	render() {
 		return (
 			<div ref={node => { this.node = node; }} >
@@ -198,7 +216,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral />
+							<Referral onCloseReferral={this.closeReferral.bind(this)}/>
 						</div>
 
 						: null
@@ -206,7 +224,7 @@ class Header extends Component {
 				{
 					this.state.HowToPlayStatus ?
 						<div className='PopUp_Wrap'>
-							<HowToPlay />
+							<HowToPlay onCloseHowToPlay={this.closeHowToPlay.bind(this)}/>
 						</div>
 
 						: null
