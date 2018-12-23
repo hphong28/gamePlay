@@ -290,5 +290,5 @@ $ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 
 ##### play next round...
 
 ````bash
-
+$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 startgame '[""]' -p dicedice1234
 ````
