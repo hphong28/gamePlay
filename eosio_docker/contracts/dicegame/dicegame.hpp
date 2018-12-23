@@ -2,6 +2,10 @@
 #include <eosiolib/asset.hpp>
 #include <eosiolib/time.hpp>
 #include <eosiolib/symbol.hpp>
+#include <eosiolib/types.hpp>
+#include <eosiolib/currency.hpp>
+#include <eosiolib/public_key.hpp>
+
 
 using namespace std;
 class dicegame : public eosio::contract
@@ -17,67 +21,35 @@ private:
 
   };
 
-  enum bet_case : uint8_t
-  {
-    SMALL = 0,
-    BIG = 1,
-    TRIPLE_ONE = 2,
-    TRIPLE_TWO = 3,
-    TRIPLE_THREE = 4,
-    TRIPLE_FOUR = 5,
-    TRIPLE_FIVE = 6,
-    TRIPLE_SIX = 7,
-    NUM_4 = 8,
-    NUM_5 = 9,
-    NUM_6 = 10,
-    NUM_7 = 11,
-    NUM_8 = 12,
-    NUM_9 = 13,
-    NUM_10 = 14,
-    NUM_11 = 15,
-    NUM_12 = 16,
-    NUM_13 = 17,
-    NUM_14 = 18,
-    NUM_15 = 19,
-    NUM_16 = 20,
-    NUM_17 = 21,
-    SINGLE_1 = 22,
-    SINGLE_2 = 23,
-    SINGLE_3 = 24,
-    SINGLE_4 = 25,
-    SINGLE_5 = 26,
-    SINGLE_6 = 27,
-  };
-
-  const map<bet_case, uint8_t> bet_dict = {
-      {SMALL, 1},
-      {BIG, 1},
-      {TRIPLE_ONE, 150},
-      {TRIPLE_TWO, 150},
-      {TRIPLE_THREE, 150},
-      {TRIPLE_FOUR, 150},
-      {TRIPLE_FIVE, 150},
-      {TRIPLE_SIX, 150},
-      {NUM_4, 150},
-      {NUM_5, 150},
-      {NUM_6, 150},
-      {NUM_7, 150},
-      {NUM_8, 150},
-      {NUM_9, 150},
-      {NUM_10, 150},
-      {NUM_11, 150},
-      {NUM_12, 150},
-      {NUM_13, 150},
-      {NUM_14, 150},
-      {NUM_15, 150},
-      {NUM_16, 150},
-      {NUM_17, 150},
-      {SINGLE_1, 1},
-      {SINGLE_2, 1},
-      {SINGLE_3, 1},
-      {SINGLE_4, 1},
-      {SINGLE_5, 1},
-      {SINGLE_6, 1}};
+  const map<std::string, uint64_t> betcase_reward = {
+      {"SMALL", 1},
+      {"BIG", 1},
+      {"TRIPLE_1", 150},
+      {"TRIPLE_2", 150},
+      {"TRIPLE_3", 150},
+      {"TRIPLE_4", 150},
+      {"TRIPLE_5", 150},
+      {"TRIPLE_6", 150},
+      {"NUM_4", 150},
+      {"NUM_5", 150},
+      {"NUM_6", 150},
+      {"NUM_7", 150},
+      {"NUM_8", 150},
+      {"NUM_9", 150},
+      {"NUM_10", 150},
+      {"NUM_11", 150},
+      {"NUM_12", 150},
+      {"NUM_13", 150},
+      {"NUM_14", 150},
+      {"NUM_15", 150},
+      {"NUM_16", 150},
+      {"NUM_17", 150},
+      {"SINGLE_1", 1},
+      {"SINGLE_2", 1},
+      {"SINGLE_3", 1},
+      {"SINGLE_4", 1},
+      {"SINGLE_5", 1},
+      {"SINGLE_6", 1}};
 
   struct st_transfer
   {
@@ -98,7 +70,7 @@ private:
   };
   typedef eosio::multi_index<N(globals), global> globals_table;
 
-  //@abi table tradetokens
+  //@abi table bettokens
   struct bettoken
   {
     eosio::symbol_name token_name;
@@ -117,22 +89,21 @@ private:
     account_name referral;
     uint64_t bet_total;
     uint64_t bet_payout;
-    eosio::time_point_sec last_time;
-
     uint64_t primary_key() const { return bettor; }
 
-    EOSLIB_SERIALIZE(player, (bettor)(referral)(bet_total)(bet_payout)(last_time))
+    EOSLIB_SERIALIZE(player, (bettor)(referral)(bet_total)(bet_payout))
   };
 
   typedef eosio::multi_index<N(players), player> players_table;
 
-  // @abi table games i64
+  // @abi table game1s i64
   struct game
   {
     uint64_t round;
     uint8_t dice_one = 0;
     uint8_t dice_two = 0;
     uint8_t dice_three = 0;
+    vector<std::string> result;
     eosio::time_point_sec start_at;
     eosio::time_point_sec stop_at;
     uint32_t player_num = 0;
@@ -142,29 +113,33 @@ private:
 
     uint64_t primary_key() const { return round; }
 
-    EOSLIB_SERIALIZE(game, (round)(dice_one)(dice_two)(dice_three)(start_at)(stop_at)(player_num)(total_amount)(status)(seed))
+    EOSLIB_SERIALIZE(game, (round)(dice_one)(dice_two)(dice_three)(result)(start_at)(stop_at)(player_num)(total_amount)(status)(seed))
   };
 
-  typedef eosio::multi_index<N(games), game> games_table;
+  typedef eosio::multi_index<N(game1s), game> games_table;
 
-  //@abi table bets i64
+  //@abi table bet2s i64
   struct bet_info
   {
     uint64_t id;
-    uint64_t bet_round;
+    uint64_t round;
     account_name contract;
     account_name bettor;
-    uint64_t bet_case;
+    std::string bet_case;
     eosio::asset bet_amount;
+    eosio::asset pay_out;
     bool active;
     eosio::time_point_sec bet_at;
 
     uint64_t primary_key() const { return id; }
-
-    EOSLIB_SERIALIZE(bet_info, (id)(bet_round)(bettor)(bet_case)(bet_amount)(active)(bet_at))
+    uint64_t get_round() const { return round; }
+    uint64_t get_better() const { return bettor; }
+    EOSLIB_SERIALIZE(bet_info, (id)(round)(contract)(bettor)(bet_case)(bet_amount)(pay_out)(active)(bet_at))
   };
 
-  typedef eosio::multi_index<N(bets), bet_info> bets_table;
+  typedef eosio::multi_index<N(bet2s), bet_info, 
+  eosio::indexed_by<N(by_round), eosio::const_mem_fun<bet_info, uint64_t, &bet_info::get_round>>, 
+  eosio::indexed_by<N(by_bettor), eosio::const_mem_fun<bet_info, uint64_t, &bet_info::get_better>>> bets_table;
 
   // @abi table seed
   struct seed
@@ -181,11 +156,29 @@ private:
   players_table _players;
   games_table _games;
   bets_table _bets;
-  seed_table _seed;
   bettoken_table _bettokens;
+  seed_table _seed;
 
   int random(const int range);
-  uint64_t get_bet_reward(uint8_t bet_case, int64_t amount);
+
+  eosio::asset get_bet_reward(string bet_case, eosio::asset amount_atm);
+  uint64_t get_global_val(const uint64_t global_id);
+  void set_global_val(const uint64_t global_id, uint64_t global_val);
+
+  template <typename Map>
+  typename Map::const_iterator
+  find_prefix(Map const &map, typename Map::key_type const &key)
+  {
+    typename Map::const_iterator it = map.upper_bound(key);
+    while (it != map.begin())
+    {
+      --it;
+      if (key.substr(0, it->first.size()) == it->first)
+        return it;
+    }
+
+    return map.end(); // map contains no prefix
+  }
 
 public:
   dicegame(account_name _self);
@@ -196,10 +189,7 @@ public:
   void initialize();
 
   ///@abi action
-  void setbettoken(eosio::symbol_name sym, account_name contract, uint64_t min, uint64_t max);
-
-  ///@abi action
-  void setactived(bool actived);
+  void setbettoken(eosio::asset token_name, account_name contract, uint64_t min, uint64_t max);
 
   // @abi action
   void setglobal(uint64_t id, uint64_t val);
@@ -208,19 +198,14 @@ public:
   void login(account_name player, account_name referal);
 
   ///@abi action
-  void startgame(account_name username);
+  void startgame();
 
   ///@abi action
-  void revealdice(account_name username);
+  void revealdice();
 
   ///@abi action
   void mine(uint64_t bet_id);
 
   ///@abi action
-  void endgame(account_name username);
-
-  ///@abi action
-  void playgame(account_name username, uint8_t bet_num);
-  ///@abi action
-  void nextround(account_name username);
+  void clearrow(uint64_t table, uint64_t row);
 };
