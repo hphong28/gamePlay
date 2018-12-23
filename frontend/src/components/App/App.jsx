@@ -31,15 +31,13 @@ class App extends Component {
 
           <div className="dice_board_center">
             <DiceBoard />
-            {/* <div className="play_menu"> */}
-              <PlayMenu />
-            {/* </div> */}
+            <PlayMenu />
           </div>
 
         </div>
-        {/* <div className="dice_table">
+        <div className="dice_table">
           <BetTable />
-        </div> */}
+        </div>
 
 
 
