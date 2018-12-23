@@ -19,14 +19,53 @@ class PlayMenu extends Component {
 
         <div className="WrapIconBet">
           <ul>
-              <li><a href="https://mail.google.com/"><img src={bet0_5} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet1} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet2} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet5} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet10} alt=" " className="iconBet" /></a></li>
-          </ul> 
+            <li><img src={bet0_5} alt=" " className="iconBet" /></li>
+            <li><img src={bet1} alt=" " className="iconBet" /></li>
+            <li><img src={bet2} alt=" " className="iconBet" /></li>
+            <li><img src={bet5} alt=" " className="iconBet" /></li>
+            <li><img src={bet10} alt=" " className="iconBet" /></li>
+          </ul>
         </div>
-       
+
+        <div className="BetAmount_Wrap">
+
+          <div className="BetAmount">
+            <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+            <div className="BetAmountValue"> 5.0</div>
+            <div className="BetAmountToken"> EOS</div>
+          </div>
+
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">CPU</div>
+          </div>
+
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">NET</div>
+          </div>
+
+
+
+
+        </div>
+
+
+
+
+
+        {/* <div className="inforIcon_Wrap">
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">CPU</div>
+          </div>
+
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">NET</div>
+          </div>
+        </div> */}
+
 
       </div>
     );

@@ -32,33 +32,6 @@
     margin-top: 15px;
 }
 
-.info_wrap{
-    position: relative;
-    margin-top: 18px;
-    margin-right: 10px;
-    float: right;
-    border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    border:2px solid #00B8E9; 
-    height: 45px;
-    width: 45px;
-
-}
-.info_value{
-    position: absolute;
-    font-size: 8pt;
-    top: 8px;
-    left: 5px;
-
-}
-.info_label{
-    position: absolute;
-    font-size: 8pt;
-    top: 24px;
-    left: 10px;
-}
-
 .infoIcon{
     width: 40px;
     height: 40px;

@@ -20,7 +20,7 @@ class App extends Component {
       <div className="App">
         <Header {...this.props} />
 
-        <div className="dice_board">
+        {/* <div className="dice_board">
           <RollingDice
             phase={0}
             counttimer={12}
@@ -36,7 +36,7 @@ class App extends Component {
         </div>
         <div className="dice_table">
           <BetTable />
-        </div>
+        </div> */}
 
         <div className="play_menu">
           <PlayMenu />
