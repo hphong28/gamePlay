@@ -17,6 +17,9 @@ import telegram_icon from './images/TELEGRAM.svg'
 import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
 
+
+
+
 const { Blockchains } = ScatterJS
 
 export const MAIN_NETWORK = {
@@ -204,6 +207,18 @@ class Header extends Component {
 							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 						</li>
+						{/* <li className="inforIcon_Wrap">
+							<div className="info_wrap">
+								<div className="info_value">100%</div>
+								<div className="info_label">CPU</div>
+								</div>
+
+							<div className="info_wrap">
+								<div className="info_value">100%</div>
+								<div className="info_label">NET</div>
+							</div>
+
+						</li> */}
 					</ul>
 				</div>
 				{

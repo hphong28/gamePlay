@@ -12,37 +12,6 @@
     margin-left: 20px;
 }
 
-.HeaderPlayMenu{
-    display: block;
-    font-size: 20px;
-}
-
-.BetAmount{
-    display: inline-block;
-    width: 180px;
-    height: 52px;
-    background-color: #1C2041;
-    border-radius: 10px;
-    padding: 6px 5px;
-}
-.BetAmountLogo{
-    float: left;
-    width: 40px;
-    height: 40px;
-}
-.BetAmountValue{
-    float: left;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 8px;
-    font-size: 25pt;
-
-}
-.BetAmountToken{
-    float: left;
-    padding-top: 15px;
-}
-
 .WrapIconBet{
     display: inline-block;
     width: 500px;
@@ -55,53 +24,4 @@
     margin-top: 15px;
     margin-right: 10px;
     margin-left: 10px;
-}
-
-.WrapTableBetAndButton{
-    display: block;
-    margin-top: 10px;
-    /* background-color: #1C2041 ; */
-
-}
-.PlayButton{
-    float: left;
-    background-image: linear-gradient(to right, #4272E8 , #00B8E9);
-    flex: 1 1 auto;
-    height: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    margin-left: 20px;
-    text-align: center;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
-    border-radius: 20px;
-    font-size: 25px;
-    cursor: pointer;
-}
-.WrapTableBet{
-    float: left;
-    width: 500px;
-    border-radius: 5px;
-    background-color: #1C2041 ;
-    font-size: 16px;
-    padding: 8px 8px 8px 8px;
-}
-.TableBet{
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.TableBet tbody{
-    background-color: #171933 ;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.TableBet td{
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-left: 20px;
 }
