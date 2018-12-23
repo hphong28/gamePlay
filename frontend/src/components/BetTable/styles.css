@@ -1,35 +1,37 @@
 .myApp {
   text-align: center;
   position: relative;
-  max-width: 550px;
+  max-width: 300px;
+  
 }
 /* Style the tab */
 .tab {
   overflow: hidden;
-
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: #1c2041;
-  float: center;
-  cursor: pointer;
-  padding: 14px 16px;
+  /* cursor: pointer; */
+  padding: 14px 25px;
   transition: 0.3s;
-  width: 33.33%;
-  font-size: 16px;
+  font-size: 18px;
   color: #b3b3b3;
-  font-weight: bold
+  font-weight: bold;
+  width: 33.33%;
+  white-space: nowrap;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
   color: #ffffff;
+  text-shadow: 0 0 3px #ffffff;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
   color: #ffffff;
+  text-shadow: 0 0 3px #ffffff;
 }
 
 /* Style the tab content */
@@ -40,9 +42,10 @@
   color: #b3b3b3;
   background-color: #1c2041;
 
-  max-height: 400px;
+  max-height: 460px;
   /*if you set overflow in "scroll", there will be 2 sroll: at the right side and at the bottom*/
   overflow: auto;
+  
 }
 
 #customers {
@@ -51,16 +54,15 @@
   width: 100%;
 }
 
-
 #customers td {
-  padding: 20px;
+  padding: 5px;
 }
 
- tr:nth-child(odd) {
+tr:nth-child(odd) {
   background-color: #171933;
 }
 
- tr:hover {
+tr:hover {
   background-color: #262b59;
 }
 
@@ -70,7 +72,7 @@
   text-align: center;
   background-color: #1c2041;
   color: #03c4ff;
-  padding: 15px
+  padding: 15px;
 }
 
 /* nowrap mean not making new line in the table cell*/
@@ -89,7 +91,7 @@ table tr {
 }
 
 .column {
-  width: 30%; /* three boxes (use 25% for four, and 50% for two, etc) */
+  width: 50%; /* three boxes (use 25% for four, and 50% for two, etc) */
 
   display: inline-block;
 }
@@ -104,10 +106,16 @@ table tr {
   background: transparent; /* make scrollbar transparent */
 }
 
+/* this class for the sticky header*/
 .st_header {
   position: sticky;
   position: -webkit-sticky;
   top: 0px;
-  border-bottom: 1px solid #262b59
-
+  border-bottom: 1px solid #262b59;
 }
+
+/* add following rule for overwritten the default layout of browser
+src:https://stackoverflow.com/questions/28109062/cancel-vertical-align-property
+*/
+thead, tbody, tfoot { vertical-align: middle } 
+td, th, tr { vertical-align: inherit } 
