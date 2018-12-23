@@ -9,21 +9,23 @@
     font-family: 'MyriadPro'; 
     color: white;
     font-size: 20px;
-    position: relative;
-    /* width: 400px;
+    /* position: relative; */
+    /* width: 700px;
     height: 100px; */
 }
 
 .WrapIconBet{
     display: block;  
+    width: 700px;
+    height: 50px;
 }
 .WrapIconBet li{
     float: left;    
     cursor: pointer;
 }
 .iconBet{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 20px;
@@ -31,7 +33,7 @@
 
 .BetAmount_Wrap{
     display: block;
-    margin-left: 75px;
+    /* margin-left: 75px; */
 }
 
 .BetAmount{

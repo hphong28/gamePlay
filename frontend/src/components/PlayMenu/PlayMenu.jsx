@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import bet0_5 from './images/0_5.png'
-import bet1 from './images/1.png'
-import bet2 from './images/2.png'
-import bet5 from './images/5.png'
-import bet10 from './images/10.png'
+import bet0_1 from './images/0_1.svg'
+import bet0_2 from './images/0_5.svg'
+import bet5 from './images/5.svg'
+import bet10 from './images/10.svg'
+import bet50 from './images/50.svg'
 import LogoBetAmount from './images/LogoBetAmount.png'
 
 
@@ -19,11 +19,11 @@ class PlayMenu extends Component {
 
         <div className="WrapIconBet">
           <ul>
-            <li><img src={bet0_5} alt=" " className="iconBet" /></li>
-            <li><img src={bet1} alt=" " className="iconBet" /></li>
-            <li><img src={bet2} alt=" " className="iconBet" /></li>
+            <li><img src={bet0_1} alt=" " className="iconBet" /></li>
+            <li><img src={bet0_2} alt=" " className="iconBet" /></li>
             <li><img src={bet5} alt=" " className="iconBet" /></li>
             <li><img src={bet10} alt=" " className="iconBet" /></li>
+            <li><img src={bet50} alt=" " className="iconBet" /></li>
           </ul>
         </div>
 
