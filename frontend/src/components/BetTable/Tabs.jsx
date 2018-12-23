@@ -11,196 +11,246 @@ class Tab extends React.Component {
       BetData: {
         MyBetTable: [
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 1,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 1,
+            type: 4,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 2,
+            type: 3,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 2,
+            type: 1,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 3,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 3,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 3,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 3,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 4,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 4,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 4,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 4,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 5,
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 5,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            round: 5,
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           }
         ],
 
         AllBetTable: [
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 1,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "920",
-            Player: "Blockdevteam",
-            Prediction: "1 1 1",
-            Bet: "2 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 3,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 4,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 4,
+            value: 17,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 11,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           },
           {
-            BlockID: "100",
-            Player: "BlockEOSteam",
-            Prediction: "2 2 2",
-            Bet: "200 EOS",
-            Type: "WIN"
+            player: "BlockEOSteam",
+            type: 2,
+            value: 5,
+            dice1: 2,
+            dice2: 3,
+            dice3: 4,
+            bet: "200 EOS"
           }
         ],
 
         ResultTable: [
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 },
-          { Round: 1, Results: "2 2 2", Total: 6 }
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 },
+          { Results: "2 2 2", Total: 6 }
         ]
       },
       index: 0
@@ -226,7 +276,7 @@ class Tab extends React.Component {
           </button>
 
           <button className={this.state.index ===2 ?"active":""} onClick={() => this.handleClick(2)}>
-            Results
+            Records
           </button>
         </div>
         <div className="tabcontent">

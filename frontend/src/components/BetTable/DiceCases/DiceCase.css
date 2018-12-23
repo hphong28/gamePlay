@@ -1,0 +1,21 @@
+.case_threedice{
+   width: 120px;
+   height: 40px;
+   /* text-align: center; */
+   padding-left: 20px;
+   padding-top: 5px;
+   margin-left: auto;
+   margin-right: auto;
+
+}
+
+.case_single{
+    width: 32px;
+    height: 33px;
+    /* text-align: center; */
+    /* padding-left: 20px;
+    padding-top: 5px; */
+    margin-left: auto;
+    margin-right: auto;
+ 
+ }
