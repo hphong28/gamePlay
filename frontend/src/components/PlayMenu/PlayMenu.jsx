@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import bet0_5 from './images/0_5.png'
-import bet1 from './images/1.png'
-import bet2 from './images/2.png'
-import bet5 from './images/5.png'
-import bet10 from './images/10.png'
+import bet0_1 from './images/0_1.svg'
+import bet0_2 from './images/0_5.svg'
+import bet5 from './images/5.svg'
+import bet10 from './images/10.svg'
+import bet50 from './images/50.svg'
 import LogoBetAmount from './images/LogoBetAmount.png'
 
 
@@ -16,55 +16,56 @@ class PlayMenu extends Component {
 
     return (
       <div className="menuPlay">
-        <div className="HeaderPlayMenu">
-          BET AMOUNT
-        </div>
-        <div className="BetAmount">
-            <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
-            <div className="BetAmountValue"> 5.0</div>
-            <div className="BetAmountToken"> EOS</div>
-        </div>
 
         <div className="WrapIconBet">
           <ul>
-              <li><a href="https://mail.google.com/"><img src={bet0_5} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet1} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet2} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet5} alt=" " className="iconBet" /></a></li>
-              <li><a href="https://mail.google.com/"><img src={bet10} alt=" " className="iconBet" /></a></li>
-          </ul> 
+            <li><img src={bet0_1} alt=" " className="iconBet" /></li>
+            <li><img src={bet0_2} alt=" " className="iconBet" /></li>
+            <li><img src={bet5} alt=" " className="iconBet" /></li>
+            <li><img src={bet10} alt=" " className="iconBet" /></li>
+            <li><img src={bet50} alt=" " className="iconBet" /></li>
+          </ul>
         </div>
 
-        <div className="WrapTableBetAndButton">
-          <div className="WrapTableBet">
-            <table className="TableBet">
-              <thead>
-                <tr>
-                  <td>BET AMOUNT</td>
-                  <td>PAYOUT TO WIN</td>
-                  <td>PREDICTION</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>... </td>
-                  <td>... </td>
-                  <td>... </td>
-                </tr>
-                <tr>
-                  <td>... </td>
-                  <td>... </td>
-                  <td>... </td>
-                </tr>
-              </tbody>
-            </table>
+        <div className="BetAmount_Wrap">
 
+          <div className="BetAmount">
+            <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+            <div className="BetAmountValue"> 5.0</div>
+            <div className="BetAmountToken"> EOS</div>
           </div>
 
-          <button className="PlayButton">PLAY</button>
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">CPU</div>
+          </div>
+
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">NET</div>
+          </div>
+
+
+
 
         </div>
-        
+
+
+
+
+
+        {/* <div className="inforIcon_Wrap">
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">CPU</div>
+          </div>
+
+          <div className="info_wrap">
+            <div className="info_value">100%</div>
+            <div className="info_label">NET</div>
+          </div>
+        </div> */}
+
 
       </div>
     );
