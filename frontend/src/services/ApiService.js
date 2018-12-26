@@ -72,14 +72,14 @@ class ApiService {
         console.log('tam_ get data');
 
         try {
-            const rpc = new Rpc.JsonRpc('http://jungle2.cryptolions.io:80');
+            const rpc = new Rpc.JsonRpc(process.env.REACT_APP_EOS_HTTP_ENDPOINT);
 
             console.log('tam_ rpc', rpc)
             const result = await rpc.get_table_rows({
                 "json": true,
-                "code": "dicedice1234",    // contract who owns the table
-                "scope": "dicedice1234",   // scope of the table
-                "table": "globals",    // name of the table as specified by the contract abi
+                "code": process.env.REACT_APP_EOS_CONTRACT_NAME,    // contract who owns the table
+                "scope": process.env.REACT_APP_EOS_CONTRACT_NAME,   // scope of the table
+                "table": process.env.REACT_APP_EOS_GLOBAL_TABLE_NAME,    // name of the table as specified by the contract abi
                 "limit": 10,
             });
             console.log('tam_ result', result)
