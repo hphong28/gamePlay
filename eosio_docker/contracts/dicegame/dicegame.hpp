@@ -87,14 +87,15 @@ private:
   {
     account_name bettor;
     account_name referral;
-    uint64_t bet_total;
-    uint64_t bet_payout;
+    uint64_t bet_total; // only accept EOS
+    eosio::time_point_sec last_update;
     uint64_t primary_key() const { return bettor; }
-
-    EOSLIB_SERIALIZE(player, (bettor)(referral)(bet_total)(bet_payout))
+    uint64_t get_referral() const { return referral; }
+    EOSLIB_SERIALIZE(player, (bettor)(referral)(bet_total)(last_update))
   };
 
-  typedef eosio::multi_index<N(players), player> players_table;
+  typedef eosio::multi_index<N(players), player,
+  eosio::indexed_by<N(by_referral), eosio::const_mem_fun<player, uint64_t, &player::get_referral>>> players_table;
 
   // @abi table game1s i64
   struct game
@@ -107,7 +108,7 @@ private:
     eosio::time_point_sec start_at;
     eosio::time_point_sec stop_at;
     uint32_t player_num = 0;
-    uint32_t total_amount = 0;
+    uint32_t total_amount = 0; //should be removed
     uint8_t status = SUSPEND;
     checksum256 seed;
 
@@ -153,7 +154,7 @@ private:
   typedef eosio::multi_index<N(seed), seed> seed_table;
 
   globals_table _globals;
-  players_table _players;
+  // players_table _players;
   games_table _games;
   bets_table _bets;
   bettoken_table _bettokens;
@@ -208,4 +209,10 @@ public:
 
   ///@abi action
   void clearrow(uint64_t table, uint64_t row);
+
+    ///@abi action
+  void claimbet(account_name player, uint64_t bet_id);
+
+    ///@abi action
+  void claimref(account_name ref);
 };

@@ -141,6 +141,7 @@ $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice123
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.4000 EOS" "SINGLE_1-dicedicedice"
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.5000 EOS" "TRIPLE_3-ilovedice123"
 
+$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 bet2s
 {
   "rows": [{
       "id": 0,

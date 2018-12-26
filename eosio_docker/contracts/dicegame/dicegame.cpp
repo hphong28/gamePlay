@@ -9,12 +9,14 @@
 #define GLOBAL_ID_ROUND_DURATION_SEC 104
 #define GLOBAL_ID_ROUND_MAX_PLAYERS 105
 
+#define GLOBAL_ID_REF_REWARD_SKILL 1
+
 #define SINGLE_BET_MAX_PERCENT 5
 
 dicegame::dicegame(account_name _self)
     : contract(_self),
       _globals(_self, _self),
-      _players(_self, _self),
+      //   _players(_self, _self),
       _games(_self, _self),
       _bets(_self, _self),
       _bettokens(_self, _self),
@@ -32,7 +34,6 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     {
         return;
     }
-
 
     eosio_assert(transfer_data.quantity.symbol == eosio::string_to_symbol(4, "EOS"), "Only accepts EOS");
     eosio_assert(transfer_data.quantity.is_valid(), "Invalid token transfer");
@@ -55,7 +56,7 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     std::string bet_str = transfer_data.memo.substr(0, first_break);
     std::string ref_str = transfer_data.memo.substr(first_break + 1, second_break - first_break - 1);
 
-    account_name referral = N(dicegame);
+    account_name referral = N('dicegame');
 
     const account_name possible_ref = eosio::string_to_name(ref_str.c_str());
 
@@ -63,6 +64,28 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
     {
         referral = possible_ref;
     }
+
+    players_table _players_table(_self, sym_name);
+    auto existing = _players_table.find(transfer_data.from);
+
+    if (existing == _players_table.end())
+    {
+        _players_table.emplace(_self, [&](auto &player) {
+            player.bettor = transfer_data.from;
+            player.referral = referral;
+            player.bet_total = transfer_data.quantity.amount;
+            player.last_update = eosio::time_point_sec(now());
+        });
+    }
+    else
+    {
+        _players_table.modify(existing, 0, [&](auto &player) {
+            player.referral = referral;
+            player.bet_total += transfer_data.quantity.amount;
+            player.last_update = eosio::time_point_sec(now());
+        });
+    }
+
     // check bet case is valid
     auto betcase_itr = find_prefix(betcase_reward, bet_str);
     eosio_assert(betcase_itr != betcase_reward.end(), "Bet case doesn't exist");
@@ -88,7 +111,6 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
         game.player_num += 1;
     });
     // Todo: check bet_num by eosio_assert
-    print("\n>>> lvwuoc>>> ", transfer_data.quantity);
     _bets.emplace(_self, [&](auto &bet) {
         bet.id = betid_itr->val;
         bet.round = current_round;
@@ -179,20 +201,20 @@ void dicegame::setglobal(uint64_t id, uint64_t val)
 void dicegame::login(account_name bettor, account_name referral)
 {
     require_auth(_self);
-    auto pos = _players.find(bettor);
-    if (pos == _players.end())
-    {
-        _players.emplace(_self, [&](auto &player) {
-            player.bettor = bettor;
-            player.referral = referral;
-        });
-    }
-    else
-    {
-        _players.modify(pos, 0, [&](auto &player) {
-            player.referral = referral;
-        });
-    }
+    // auto pos = _players.find(bettor);
+    // if (pos == _players.end())
+    // {
+    //     _players.emplace(_self, [&](auto &player) {
+    //         player.bettor = bettor;
+    //         player.referral = referral;
+    //     });
+    // }
+    // else
+    // {
+    //     _players.modify(pos, 0, [&](auto &player) {
+    //         player.referral = referral;
+    //     });
+    // }
 }
 
 void dicegame::startgame()
@@ -333,25 +355,35 @@ void dicegame::clearrow(uint64_t table, uint64_t row)
     require_auth(_self);
     switch (table)
     {
-        case 0:
-        {
-            auto game_itr = _games.find(row);
-            eosio_assert(game_itr != _games.end(), "Game row not found");
-            _games.erase(game_itr);
-            break;
-        }
-        case 1:
-        {
-            auto bet_itr = _bets.find(row);
-            eosio_assert(bet_itr != _bets.end(), "Bet row not found");
-            _bets.erase(bet_itr);
-            break;
-        }
-        default:
-        {
-            break;
-        }
+    case 0:
+    {
+        auto game_itr = _games.find(row);
+        eosio_assert(game_itr != _games.end(), "Game row not found");
+        _games.erase(game_itr);
+        break;
     }
+    case 1:
+    {
+        auto bet_itr = _bets.find(row);
+        eosio_assert(bet_itr != _bets.end(), "Bet row not found");
+        _bets.erase(bet_itr);
+        break;
+    }
+    default:
+    {
+        break;
+    }
+    }
+}
+
+void dicegame::claimbet(account_name player, uint64_t bet_id)
+{
+}
+
+///@abi action
+void dicegame::claimref(account_name ref)
+{
+    // send
 }
 
 eosio::asset dicegame::get_bet_reward(string bet_case, eosio::asset amount_atm)
@@ -432,4 +464,4 @@ int dicegame::random(const int range)
         }                                                                                                       \
     }
 
-EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setglobal)(login)(startgame)(revealdice)(mine)(clearrow))
+EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setglobal)(login)(startgame)(revealdice)(mine)(clearrow)(claimbet)(claimref))
