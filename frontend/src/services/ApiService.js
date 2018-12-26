@@ -1,4 +1,4 @@
-import Eos from 'eosjs'
+import { Eos, Rpc } from 'eosjs'
 import Scatter from 'scatterjs-core'
 import ScatterEOS from 'scatterjs-plugin-eosjs'
 
@@ -21,12 +21,12 @@ export const MAIN_NETWORK = {
 export const TEST_NETWORK = {
     blockchain: Blockchains.EOS,
     protocol: 'http',
-    host: 'jungle.cryptolions.io',
-    port: 18888,
-    chainId: '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca'
+    host: 'jungle2.cryptolions.io',
+    port: 80,
+    chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
 
-const network ={
+const network = {
     chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
     blockchain: 'eos',
 }
@@ -35,7 +35,7 @@ class ApiService {
     static async LoginScatter() {
         console.log('tam_ login scatter');
 
-        Scatter.plugins( new ScatterEOS() )
+        Scatter.plugins(new ScatterEOS())
         const connected = await Scatter.scatter.connect(Scatter.Blockchains.EOS)
 
         if (!connected) {
@@ -52,21 +52,49 @@ class ApiService {
         // }
 
         //connect to scatter
-        Scatter.scatter.getIdentity({accounts: [MAIN_NETWORK]});
+        Scatter.scatter.getIdentity({ accounts: [MAIN_NETWORK] });
     }
 
-    static hasIdentity() { 
-		Scatter.scatter.connect(Scatter.Blockchains.EOS).then(connected => {
-		  if(connected){
-			  window.ScatterJS = null;
-          }
-          return Scatter.scatter.identity;
+    static hasIdentity() {
+        Scatter.scatter.connect(Scatter.Blockchains.EOS).then(connected => {
+            if (connected) {
+                window.ScatterJS = null;
+            }
+            return Scatter.scatter.identity;
         });
-        
-        
+
+
     }
-    static LogOutScatter() { 
+    static LogOutScatter() {
         Scatter.scatter.forgetIdentity();
+    }
+    static async GetData() {
+        console.log('tam_ get data');
+
+        try {
+            const rpc = new Rpc.JsonRpc('http://jungle2.cryptolions.io:80');
+
+            console.log('tam_ rpc', rpc)
+            const result = await rpc.get_table_rows({
+                "json": true,
+                "code": "dicedice1234",    // contract who owns the table
+                "scope": "dicedice1234",   // scope of the table
+                "table": "globals",    // name of the table as specified by the contract abi
+                "limit": 10,
+            });
+            console.log('tam_ result', result)
+            return result.rows[0];
+        } catch (err) {
+            console.error(err);
+        }
+
+
+
+
+
+
+
+
     }
 
 
