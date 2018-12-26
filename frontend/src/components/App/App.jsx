@@ -31,6 +31,7 @@ class App extends Component {
 
           <div className="dice_board_center">
             <DiceBoard />
+            <PlayMenu />
           </div>
 
         </div>
@@ -38,9 +39,7 @@ class App extends Component {
           <BetTable />
         </div>
 
-        <div className="play_menu">
-          <PlayMenu />
-        </div>
+
 
 
       </div>

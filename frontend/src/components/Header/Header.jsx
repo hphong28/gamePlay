@@ -17,6 +17,9 @@ import telegram_icon from './images/TELEGRAM.svg'
 import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
 
+
+
+
 const { Blockchains } = ScatterJS
 
 export const MAIN_NETWORK = {
@@ -62,6 +65,8 @@ class Header extends Component {
 	}
 	//after render
 	componentDidMount() {
+		console.log('tam_ start to call');
+		ApiService.GetData();
 	}
 
 
@@ -204,6 +209,7 @@ class Header extends Component {
 							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 						</li>
+
 					</ul>
 				</div>
 				{
