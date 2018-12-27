@@ -141,7 +141,6 @@ $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice123
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.4000 EOS" "SINGLE_1-dicedicedice"
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.5000 EOS" "TRIPLE_3-ilovedice123"
 
-$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 bet2s
 {
   "rows": [{
       "id": 0,
@@ -292,4 +291,62 @@ $ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 
 
 ````bash
 $ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 startgame '[""]' -p dicedice1234
+
+$ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.5000 EOS" "TRIPLE_3-ilovedice123"
+
+$ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.6000 EOS" "SMALL-dicedicedice"
+
+$ cleos -u http://jungle2.cryptolions.io:80 transfer "dicedicedice" "dicedice1234" "0.5000 EOS" "TRIPLE_3-ilovedice123"
+````
+
+##### get referral...
+````bash
+$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players
+{
+  "rows": [{
+      "bettor": "dicedicedice",
+      "referral": "ilovedice123",
+      "bet_total": 5000,
+      "last_update": "2018-12-26T15:32:46"
+    },{
+      "bettor": "ilovedice123",
+      "referral": "dicedicedice",
+      "bet_total": 11000,
+      "last_update": "2018-12-26T15:28:15"
+    }
+  ],
+  "more": false
+}
+````
+
+##### search by referral...
+````bash
+$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players --index 2 --key-type i64 --lower "ilovedice123" --upper "ilovedice123"
+{
+  "rows": [{
+      "bettor": "dicedicedice",
+      "referral": "ilovedice123",
+      "bet_total": 5000,
+      "last_update": "2018-12-26T15:32:46"
+    },{
+      "bettor": "quoctest1234",
+      "referral": "ilovedice123",
+      "bet_total": 5000,
+      "last_update": "2018-12-26T15:43:45"
+    },{
+      "bettor": "quoctest1243",
+      "referral": "ilovedice123",
+      "bet_total": 25000,
+      "last_update": "2018-12-26T15:44:24"
+    },{
+      "bettor": "tamtest12345",
+      "referral": "ilovedice123",
+      "bet_total": 15000,
+      "last_update": "2018-12-26T15:53:40"
+    }
+  ],
+  "more": false
+}
+
+
 ````
