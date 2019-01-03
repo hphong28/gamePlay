@@ -68,37 +68,35 @@ class ApiService {
     static LogOutScatter() {
         Scatter.scatter.forgetIdentity();
     }
-    static async GetData() {
-        console.log('tam_ get data');
 
+    static async  GetData() {
+        console.log('tam123_ get data');
         try {
-            const rpc = new Rpc.JsonRpc(process.env.REACT_APP_EOS_HTTP_ENDPOINT);
-
-            console.log('tam_ rpc', rpc)
-            const result = await rpc.get_table_rows({
-                "json": true,
-                "code": process.env.REACT_APP_EOS_CONTRACT_NAME,    // contract who owns the table
-                "scope": process.env.REACT_APP_EOS_CONTRACT_NAME,   // scope of the table
-                "table": process.env.REACT_APP_EOS_GLOBAL_TABLE_NAME,    // name of the table as specified by the contract abi
-                "limit": 10,
-            });
-            console.log('tam_ result', result)
-            return result.rows[0];
-        } catch (err) {
-            console.error(err);
+          const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                scope: 'EOS',
+                code: 'dicedice1234',
+                table: 'players',
+                lower_bound: 'ilovedice123',
+                upper_bound: 'ilovedice123',
+                index_position: "2",
+                key_type: "i64",
+                reverse: "true",
+                json: "true",
+            }),
+          });
+          const responseJson = await response.json();
+          console.log(responseJson.rows)
+          return responseJson.rows;
+        } catch (error) {
+          console.log(error);
         }
-
-
-
-
-
-
-
-
-    }
-
-
-
+      }
 
 }
 
