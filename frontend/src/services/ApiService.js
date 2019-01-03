@@ -87,7 +87,7 @@ class ApiService {
             }),
           });
           const responseJson = await response.json();
-          console.log(responseJson.rows)
+          console.log('tam_ responseJson.rows', responseJson.rows)
           return responseJson.rows;
         } catch (error) {
           console.log(error);

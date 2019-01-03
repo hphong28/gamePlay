@@ -38,7 +38,9 @@ class Header extends Component {
 			LogoutingStatus: false,
 			ScatterName: '',
 			ReferralStatus: false,
+			ReferralData: [],
 			HowToPlayStatus: false,
+
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
 		this.handleLogoutClick = this.handleLogoutClick.bind(this);
@@ -59,6 +61,7 @@ class Header extends Component {
 				this.setState({
 					LoginStatus: true,
 					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
+					ReferralData: ApiService.GetData(),
 				});
 			}
 		});
@@ -66,7 +69,17 @@ class Header extends Component {
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
-		ApiService.GetData();
+		var data = ApiService.GetData().then(p =>{
+			console.log('tam_ my p ', p)
+			// this.setState({
+			// 	ReferralData: p,
+
+			// })
+			this.state.ReferralData = p;
+
+		})
+
+
 	}
 
 
@@ -215,7 +228,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData}/>
 						</div>
 
 						: null

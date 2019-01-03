@@ -3,6 +3,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Referral extends Component {
+
+    DisplayReferral(){
+        this.props.ReferralEarn.map(data => {
+            return(
+                <tr>
+                    <td>{data.Object}</td>
+                    <td>{data.bet_total}</td>
+                </tr>
+            );
+        })
+    }
+
+
+    
     render() {
         return (
             <div className="ReferralWrap">
@@ -43,10 +57,14 @@ class Referral extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>... </td>
-                                    <td>... </td>
-                                </tr>
+                                {/* {this.props.ReferralEarn.map(data =>)} */}
+ 
+                                {/* <tr> */}
+                                    {/* <td>... </td> */}
+                                    {/* <td>... </td> */}
+                                    {console.log('tam_ table referal', this.props.ReferralEarn)}
+                                {/* </tr> */}
+                                {/* {DisplayReferral()} */}
 
                             </tbody>
                         </table>
