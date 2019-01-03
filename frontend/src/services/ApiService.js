@@ -74,10 +74,6 @@ class ApiService {
         try {
           const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
             method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
             body: JSON.stringify({
                 scope: 'EOS',
                 code: 'dicedice1234',
