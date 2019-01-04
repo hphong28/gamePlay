@@ -69,11 +69,11 @@ class Header extends Component {
 		console.log('tam_ start to call');
 		ApiService.GetData().then(RawData =>{
 			console.log('tam_ my p ', RawData)
-			this.setState({
-				ReferralData: RawData
-			})
+			// this.setState({
+			// 	ReferralData: RawData
+			// })
 
-			// this.state.ReferralData = RawData;
+			this.state.ReferralData = RawData;
 
 		})
 

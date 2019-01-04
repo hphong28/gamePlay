@@ -44,7 +44,7 @@ class Referral extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
+                                {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
                                     console.log('tam_ data in map', data)
                                     return (
                                         <tr>
@@ -52,7 +52,7 @@ class Referral extends Component {
                                             <td>{data.bet_total}</td>
                                         </tr>
                                     );
-                                }): null} */}
+                                }): null}
 
                             </tbody>
                         </table>
