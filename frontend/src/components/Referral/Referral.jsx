@@ -9,7 +9,7 @@ class Referral extends Component {
             <div className="ReferralWrap">
                 <div className="ReferralCss">
                     <div>
-                        <button className="CloseButtonReferral" onClick={this.props.onCloseReferral}> X </button>
+                        <a href="#" onClick={this.props.onCloseReferral} class="CloseButtonReferral"></a>
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
@@ -22,7 +22,7 @@ class Referral extends Component {
                     </div>
 
                     <div className="DetailReferral">
-                        Refer a friend and earn 10% of house edge on all their wagers!<br />
+                        Refer a friend and earn 10% of house edge on all their wagers!<br /><br/>
                         Referral bonus is not paid if a wagers is refunded.
                 </div>
 
@@ -44,7 +44,7 @@ class Referral extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
+                                {/* {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
                                     console.log('tam_ data in map', data)
                                     return (
                                         <tr>
@@ -52,7 +52,7 @@ class Referral extends Component {
                                             <td>{data.bet_total}</td>
                                         </tr>
                                     );
-                                }): null}
+                                }): null} */}
 
                             </tbody>
                         </table>

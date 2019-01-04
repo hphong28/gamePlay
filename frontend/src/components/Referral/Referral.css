@@ -4,17 +4,24 @@
     font-weight: normal;
     font-style: normal;
   }
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url("./fonts/helvetica.ttf");
+    font-weight: normal;
+    font-style: normal;
+  }
 .ReferralWrap{
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0, 0.5);
 }
 .ReferralCss{
-    font-family: 'MyriadPro'; 
+    font-family: 'Helvetica'; 
     color: white;
     background-color: #424D55;
-    width: 850px;
-    height: 543px;
+    width: 700px;
+    height: 500px;
     border-radius: 20px;
     margin: auto;
     position: fixed;
@@ -24,63 +31,86 @@
     bottom: 25%;
 }
 
-.CloseButtonReferral{
-    font-size: 18pt;
-    float: right;
+.CloseButtonReferral {
+    opacity: 0.3;
     margin-right: 15px;
-    margin-top: 4px;
+    margin-top: 5px;
+    margin-right: 14px;
     cursor: pointer;
-}
+    position: absolute;
+    right: 32px;
+    top: 10px;
+  }
+  .CloseButtonReferral:hover {
+    opacity: 1;
+  }
+  .CloseButtonReferral:before, .CloseButtonReferral:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 25px;
+    width: 4px;
+    background-color: white;
+  }
+  .CloseButtonReferral:before {
+    transform: rotate(45deg);
+  }
+  .CloseButtonReferral:after {
+    transform: rotate(-45deg);
+  }
 
 .HeaderReferral{
     color: #CCCCCC;
     display: block;
-    font-size: 48pt;
+    font-size: 32pt;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 30px;
     padding-bottom: 20px;
-
 }
 
 .WrapLinkRefferal{
-    padding-top: 20px;
+    /* padding-top: 20px; */
     margin-left: 80px;
     display: block;
 }
 
 .InputRefferal{
-    width: 520px;
-    height: 65px;
+    width: 400px;
+    height: 55px;
     color: #FFFFFF;
     background-color: #283846;
     border-radius: 10px;
-    font-size: 23pt;
+    font-size: 17pt;
     margin-right: 20px;
     text-align: center;
 }
 .CopyButton{
     width: 130px;
-    height: 65px;
+    height: 55px;
     color: #FFFFFF;
-    background-color: #0691F9 ;
+    background-color: #409EFF ;
+    border-color: #409EFF;
     border-radius: 10px;
-    font-size: 30pt;
+    font-size: 24pt;
     cursor: pointer;
+}
+.CopyButton:hover{
+    background-color: #79c4fc;
 }
 
 .DetailReferral{
     display: block;
     color: #FFFFFF;
-    font-size: 18pt;
+    font-size: 14pt;
     margin-top: 20px;
     text-align: left;
-    padding-left: 60px;
+    padding-left: 30px;
 }
 .SloganReferral{
     margin-top: 20px;
     display: block;
     color: #CCCCCC;
-    font-size: 40pt;
+    font-size: 30pt;
     text-align: center;
 }
 
@@ -119,7 +149,7 @@
     font-size: 26pt;
     width: 645px;
     height: 135px;
-    margin-left: 90px;
+    margin-left: 26px;
     padding: 8px 8px 8px 8px;
 }
 .TableReferral{
