@@ -27,6 +27,11 @@
     margin-right: 10px;
     margin-top: 20px;
 }
+.iconBet:hover{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
 
 .BetAmount_Wrap{
     display: block;
