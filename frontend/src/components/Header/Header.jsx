@@ -59,8 +59,14 @@ class Header extends Component {
 				this.setState({
 					LoginStatus: true,
 					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-					ReferralData: ApiService.GetData(),
+					// ReferralData: ApiService.GetData(),
 				});
+				ApiService.GetData().then(RawData =>{
+					console.log('tam_ my p ', RawData)
+	
+					this.state.ReferralData = RawData;
+		
+				})
 			}
 		});
 	}
@@ -101,6 +107,13 @@ class Header extends Component {
 							ScatterName: ScatterJS.scatter.identity.accounts[0].name,
 							LogoutingStatus: false,
 						});
+
+						ApiService.GetData().then(RawData =>{
+							console.log('tam_ my p ', RawData)
+			
+							this.state.ReferralData = RawData;
+				
+						})
 
 					}
 				});
