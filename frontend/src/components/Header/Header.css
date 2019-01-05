@@ -45,7 +45,9 @@
     padding-right: 17px;
 }
 .Menu :hover{
-    color: #4272E8;
+    color: white;
+    text-shadow: 0 0 10px white;
+    
 }
 
 .Login_wrap{
@@ -55,7 +57,8 @@
     padding-right: 30px;
 }
 .Login_wrap :hover{
-    color: red;
+    color: white;
+    text-shadow: 0 0 10px white;
 }
 
 .ButtonLogin{
@@ -105,10 +108,12 @@
 
 }
 .Logout_wrap a:hover{
-    color: #4272E8;
+    color: white;
+    text-shadow: 0 0 10px white;
 }
 .Logout_wrap button:hover{
-    color: red;
+    color: white;
+    text-shadow: 0 0 10px white;
 }
 
 .ButtonLogout{
