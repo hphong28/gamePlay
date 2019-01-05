@@ -215,4 +215,7 @@ public:
 
     ///@abi action
   void claimref(account_name ref);
+
+      ///@abi action
+  void dailyreward(account_name ref);
 };

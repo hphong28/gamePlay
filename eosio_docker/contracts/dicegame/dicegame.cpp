@@ -13,14 +13,15 @@
 
 #define SINGLE_BET_MAX_PERCENT 5
 
-#define DAILY_BONUS_REWARD_DURATION 24*60*60
-#define DAILY_BONUS_REWARD_AMOUNT 1
+#define DAILY_BONUS_REWARD_DURATION 24 * 60 * 60
+#define DAILY_BONUS_REWARD_AMOUNT 30000
 
+#define GAME_SYMBOL S(4, ONE)
+#define GAME_TOKEN_CONTRACT N(onetoken1234)
 
 dicegame::dicegame(account_name _self)
     : contract(_self),
       _globals(_self, _self),
-      //   _players(_self, _self),
       _games(_self, _self),
       _bets(_self, _self),
       _bettokens(_self, _self),
@@ -39,96 +40,102 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
         return;
     }
 
-    eosio_assert(transfer_data.quantity.symbol == eosio::string_to_symbol(4, "EOS"), "Only accepts EOS");
-    eosio_assert(transfer_data.quantity.is_valid(), "Invalid token transfer");
-    eosio_assert(transfer_data.quantity.amount > 0, "Quantity must be positive");
-
-    auto active_pos = _globals.find(GLOBAL_ID_ACTIVE);
-    eosio_assert(active_pos != _globals.end() && active_pos->val, "Maintaining ...");
-
-    eosio::symbol_name sym_name = eosio::symbol_type(transfer_data.quantity.symbol).name();
-    auto token_iter = _bettokens.find(sym_name);
-    eosio_assert(token_iter != _bettokens.end(), "bet token doesn't allow");
-    eosio::token bet_token(token_iter->contract);
-    eosio::asset balance = bet_token.get_balance(_self, sym_name);
-
-    int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT / 100);
-    eosio_assert(transfer_data.quantity.amount <= max, "Bet amount exceeds");
-
-    const std::size_t first_break = transfer_data.memo.find("-");
-    const std::size_t second_break = transfer_data.memo.find('-', first_break + 1);
-    std::string bet_str = transfer_data.memo.substr(0, first_break);
-    std::string ref_str = transfer_data.memo.substr(first_break + 1, second_break - first_break - 1);
-
-    account_name referral = N('dicegame');
-
-    const account_name possible_ref = eosio::string_to_name(ref_str.c_str());
-
-    if (possible_ref != _self && possible_ref != transfer_data.from && is_account(possible_ref))
+    //eosio_assert(transfer_data.quantity.symbol == eosio::string_to_symbol(4, "EOS"), "Only accepts EOS");
+    if (transfer_data.memo == "deposit")
     {
-        referral = possible_ref;
-    }
-
-    players_table _players_table(_self, sym_name);
-    auto existing = _players_table.find(transfer_data.from);
-
-    if (existing == _players_table.end())
-    {
-        _players_table.emplace(_self, [&](auto &player) {
-            player.bettor = transfer_data.from;
-            player.referral = referral;
-            player.bet_total = transfer_data.quantity.amount;
-            player.last_update = eosio::time_point_sec(now());
-        });
     }
     else
     {
-        _players_table.modify(existing, 0, [&](auto &player) {
-            player.referral = referral;
-            player.bet_total += transfer_data.quantity.amount;
-            player.last_update = eosio::time_point_sec(now());
+        eosio_assert(transfer_data.quantity.is_valid(), "Invalid token transfer");
+        eosio_assert(transfer_data.quantity.amount > 0, "Quantity must be positive");
+
+        auto active_pos = _globals.find(GLOBAL_ID_ACTIVE);
+        eosio_assert(active_pos != _globals.end() && active_pos->val, "Maintaining ...");
+
+        eosio::symbol_name sym_name = eosio::symbol_type(transfer_data.quantity.symbol).name();
+        auto token_iter = _bettokens.find(sym_name);
+        eosio_assert(token_iter != _bettokens.end(), "bet token doesn't allow");
+        eosio::token bet_token(token_iter->contract);
+        eosio::asset balance = bet_token.get_balance(_self, sym_name);
+
+        int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT / 100);
+        eosio_assert(transfer_data.quantity.amount <= max, "Bet amount exceeds");
+
+        const std::size_t first_break = transfer_data.memo.find("-");
+        const std::size_t second_break = transfer_data.memo.find('-', first_break + 1);
+        std::string bet_str = transfer_data.memo.substr(0, first_break);
+        std::string ref_str = transfer_data.memo.substr(first_break + 1, second_break - first_break - 1);
+
+        account_name referral = N('dicegame');
+
+        const account_name possible_ref = eosio::string_to_name(ref_str.c_str());
+
+        if (possible_ref != _self && possible_ref != transfer_data.from && is_account(possible_ref))
+        {
+            referral = possible_ref;
+        }
+
+        players_table _players_table(_self, sym_name);
+        auto existing = _players_table.find(transfer_data.from);
+
+        if (existing == _players_table.end())
+        {
+            _players_table.emplace(_self, [&](auto &player) {
+                player.bettor = transfer_data.from;
+                player.referral = referral;
+                player.bet_total = transfer_data.quantity.amount;
+                player.last_update = eosio::time_point_sec(now());
+            });
+        }
+        else
+        {
+            _players_table.modify(existing, 0, [&](auto &player) {
+                player.referral = referral;
+                player.bet_total += transfer_data.quantity.amount;
+                player.last_update = eosio::time_point_sec(now());
+            });
+        }
+
+        // check bet case is valid
+        auto betcase_itr = find_prefix(betcase_reward, bet_str);
+        eosio_assert(betcase_itr != betcase_reward.end(), "Bet case doesn't exist");
+
+        auto round_itr = _globals.find(GLOBAL_ID_ROUND);
+        eosio_assert(round_itr != _globals.end(), "Unknown global id");
+        uint64_t current_round = round_itr->val;
+
+        auto betid_itr = _globals.find(GLOBAL_ID_BET);
+        eosio_assert(betid_itr != _globals.end(), "Unknown global id");
+
+        auto round_max_players_itr = _globals.find(GLOBAL_ID_ROUND_MAX_PLAYERS);
+        eosio_assert(round_max_players_itr != _globals.end(), "Unknown global id");
+        uint64_t round_max_players = round_max_players_itr->val;
+
+        auto game_itr = _games.find(current_round);
+
+        eosio_assert((game_itr->status == ONGOING), "Game does't not start yet");
+
+        eosio_assert((game_itr->player_num < round_max_players), "Game was reached to max players ");
+
+        _games.modify(game_itr, 0, [&](auto &game) {
+            game.player_num += 1;
+        });
+        // Todo: check bet_num by eosio_assert
+        _bets.emplace(_self, [&](auto &bet) {
+            bet.id = betid_itr->val;
+            bet.round = current_round;
+            bet.contract = token_iter->contract;
+            bet.bettor = transfer_data.from;
+            bet.bet_case = bet_str;
+            bet.bet_amount = transfer_data.quantity;
+            bet.active = 1;
+            bet.bet_at = eosio::time_point_sec(now());
+        });
+
+        _globals.modify(betid_itr, 0, [&](auto &betid) {
+            betid.val += 1;
         });
     }
-
-    // check bet case is valid
-    auto betcase_itr = find_prefix(betcase_reward, bet_str);
-    eosio_assert(betcase_itr != betcase_reward.end(), "Bet case doesn't exist");
-
-    auto round_itr = _globals.find(GLOBAL_ID_ROUND);
-    eosio_assert(round_itr != _globals.end(), "Unknown global id");
-    uint64_t current_round = round_itr->val;
-
-    auto betid_itr = _globals.find(GLOBAL_ID_BET);
-    eosio_assert(betid_itr != _globals.end(), "Unknown global id");
-
-    auto round_max_players_itr = _globals.find(GLOBAL_ID_ROUND_MAX_PLAYERS);
-    eosio_assert(round_max_players_itr != _globals.end(), "Unknown global id");
-    uint64_t round_max_players = round_max_players_itr->val;
-
-    auto game_itr = _games.find(current_round);
-
-    eosio_assert((game_itr->status == ONGOING), "Game does't not start yet");
-
-    eosio_assert((game_itr->player_num < round_max_players), "Game was reached to max players ");
-
-    _games.modify(game_itr, 0, [&](auto &game) {
-        game.player_num += 1;
-    });
-    // Todo: check bet_num by eosio_assert
-    _bets.emplace(_self, [&](auto &bet) {
-        bet.id = betid_itr->val;
-        bet.round = current_round;
-        bet.contract = token_iter->contract;
-        bet.bettor = transfer_data.from;
-        bet.bet_case = bet_str;
-        bet.bet_amount = transfer_data.quantity;
-        bet.active = 1;
-        bet.bet_at = eosio::time_point_sec(now());
-    });
-
-    _globals.modify(betid_itr, 0, [&](auto &betid) {
-        betid.val += 1;
-    });
 }
 
 /// @abi action
@@ -390,6 +397,37 @@ void dicegame::claimref(account_name ref)
     // send
 }
 
+void dicegame::dailyreward(account_name account)
+{
+    require_auth(account);
+
+    eosio::symbol_name sym_name = eosio::symbol_type(GAME_SYMBOL).name();
+    players_table _players_table(_self, sym_name);
+    auto existing = _players_table.find(account);
+
+    if (existing == _players_table.end())
+    {
+        _players_table.emplace(_self, [&](auto &player) {
+            player.bettor = account;
+            player.last_update = eosio::time_point_sec(now());
+        });
+    }
+    else
+    {
+        int remain_time = eosio::time_point_sec(now()).sec_since_epoch() - existing->last_update.sec_since_epoch() - (int)DAILY_BONUS_REWARD_DURATION;
+        char str_remain_time[128];
+        sprintf(str_remain_time, "Please wait after %d seconds", remain_time);
+        eosio_assert(remain_time >= 0, str_remain_time);
+        _players_table.modify(existing, 0, [&](auto &player) {
+            player.last_update = eosio::time_point_sec(now());
+        });
+    }
+    auto daily_reward = eosio::asset(DAILY_BONUS_REWARD_AMOUNT, GAME_SYMBOL);
+
+    eosio::transaction transfer;
+    transfer.actions.emplace_back(eosio::permission_level{_self, N(active)}, GAME_TOKEN_CONTRACT, N(transfer), std::make_tuple(_self, account, daily_reward, std::string("Daily Reward: oneplay.io")));
+    transfer.send(0, _self, false);
+}
 eosio::asset dicegame::get_bet_reward(string bet_case, eosio::asset amount_atm)
 {
     auto tmp = amount_atm;
@@ -444,20 +482,13 @@ int dicegame::random(const int range)
     {                                                                                                           \
         void apply(uint64_t receiver, uint64_t code, uint64_t action)                                           \
         {                                                                                                       \
-            if (action == N(onerror))                                                                           \
-            {                                                                                                   \
-                /* onerror is only valid if it is for the "eosio" code account and authorized by "eosio"'s      \
-                 * "active permission */                                                                        \
-                eosio_assert(code == N(eosio),                                                                  \
-                             "onerror action's are only valid from the \"eosio\" system account");              \
-            }                                                                                                   \
             auto self = receiver;                                                                               \
-                                                                                                                \
-            bool valid_internal_actions = code == self &&                                                       \
-                                          action != N(transfer); /* put all external actions separated by && */ \
-                                                                                                                \
-            if (valid_internal_actions || code == N(eosio.token) || action == N(onerror))                       \
+            if (code == self || code == N(eosio.token) || code == GAME_TOKEN_CONTRACT || action == N(onerror))  \
             {                                                                                                   \
+                if (action == N(transfer))                                                                      \
+                {                                                                                               \
+                    eosio_assert(code == N(eosio.token) || code == GAME_TOKEN_CONTRACT, "Must transfer Token"); \
+                }                                                                                               \
                 TYPE thiscontract(self);                                                                        \
                 switch (action)                                                                                 \
                 {                                                                                               \
@@ -468,118 +499,4 @@ int dicegame::random(const int range)
         }                                                                                                       \
     }
 
-namespace eosio {
-
-void token::create( account_name issuer,
-                    asset        maximum_supply )
-{
-    require_auth( _self );
-
-    auto sym = maximum_supply.symbol;
-    eosio_assert( sym.is_valid(), "invalid symbol name" );
-    eosio_assert( maximum_supply.is_valid(), "invalid supply");
-    eosio_assert( maximum_supply.amount > 0, "max-supply must be positive");
-
-    stats statstable( _self, sym.name() );
-    auto existing = statstable.find( sym.name() );
-    eosio_assert( existing == statstable.end(), "token with symbol already exists" );
-
-    statstable.emplace( _self, [&]( auto& s ) {
-       s.supply.symbol = maximum_supply.symbol;
-       s.max_supply    = maximum_supply;
-       s.issuer        = issuer;
-    });
-}
-
-
-void token::issue( account_name to, asset quantity, string memo )
-{
-    auto sym = quantity.symbol;
-    eosio_assert( sym.is_valid(), "invalid symbol name" );
-    eosio_assert( memo.size() <= 256, "memo has more than 256 bytes" );
-
-    auto sym_name = sym.name();
-    stats statstable( _self, sym_name );
-    auto existing = statstable.find( sym_name );
-    eosio_assert( existing != statstable.end(), "token with symbol does not exist, create token before issue" );
-    const auto& st = *existing;
-
-    require_auth( st.issuer );
-    eosio_assert( quantity.is_valid(), "invalid quantity" );
-    eosio_assert( quantity.amount > 0, "must issue positive quantity" );
-
-    eosio_assert( quantity.symbol == st.supply.symbol, "symbol precision mismatch" );
-    eosio_assert( quantity.amount <= st.max_supply.amount - st.supply.amount, "quantity exceeds available supply");
-
-    statstable.modify( st, 0, [&]( auto& s ) {
-       s.supply += quantity;
-    });
-
-    add_balance( st.issuer, quantity, st.issuer );
-
-    // if( to != st.issuer ) {
-    //    SEND_INLINE_ACTION( *this, transfer, {st.issuer,N(active)}, {st.issuer, to, quantity, memo} );
-    // }
-}
-
-void token::transfer( account_name from,
-                      account_name to,
-                      asset        quantity,
-                      string       memo )
-{
-    eosio_assert( from != to, "cannot transfer to self" );
-    require_auth( from );
-    eosio_assert( is_account( to ), "to account does not exist");
-    auto sym = quantity.symbol.name();
-    stats statstable( _self, sym );
-    const auto& st = statstable.get( sym );
-
-    require_recipient( from );
-    require_recipient( to );
-
-    eosio_assert( quantity.is_valid(), "invalid quantity" );
-    eosio_assert( quantity.amount > 0, "must transfer positive quantity" );
-    eosio_assert( quantity.symbol == st.supply.symbol, "symbol precision mismatch" );
-    eosio_assert( memo.size() <= 256, "memo has more than 256 bytes" );
-
-
-    sub_balance( from, quantity );
-    add_balance( to, quantity, from );
-}
-
-void token::sub_balance( account_name owner, asset value ) {
-   accounts from_acnts( _self, owner );
-
-   const auto& from = from_acnts.get( value.symbol.name(), "no balance object found" );
-   eosio_assert( from.balance.amount >= value.amount, "overdrawn balance" );
-
-
-   if( from.balance.amount == value.amount ) {
-      from_acnts.erase( from );
-   } else {
-      from_acnts.modify( from, owner, [&]( auto& a ) {
-          a.balance -= value;
-      });
-   }
-}
-
-void token::add_balance( account_name owner, asset value, account_name ram_payer )
-{
-   accounts to_acnts( _self, owner );
-   auto to = to_acnts.find( value.symbol.name() );
-   if( to == to_acnts.end() ) {
-      to_acnts.emplace( ram_payer, [&]( auto& a ){
-        a.balance = value;
-      });
-   } else {
-      to_acnts.modify( to, 0, [&]( auto& a ) {
-        a.balance += value;
-      });
-   }
-}
-
-} /// namespace eosio
-
-EOSIO_ABI_EX( eosio::token, (create)(issue) )
-
-EOSIO_ABI_EX(dicegame, (mytransfer)(initialize)(setbettoken)(setglobal)(login)(startgame)(revealdice)(mine)(clearrow)(claimbet)(claimref))
+EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setglobal)(login)(startgame)(revealdice)(mine)(clearrow)(claimbet)(claimref)(dailyreward))
