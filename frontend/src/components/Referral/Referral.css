@@ -153,7 +153,7 @@
     height: 135px;
     margin-left: 26px;
     padding: 8px 8px 8px 8px;
-
+    overflow-y:auto;
 }
 .TableReferral{
     border-collapse: collapse;
@@ -161,11 +161,17 @@
     font-size: 18pt;
     max-height: 140px;
 }
+.TableReferral tr:nth-child(even) {
+    /* background-color: #14162c; */
+}
 .TableReferral tbody{
     background-color: #171933;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 10px;
+}
+.TableReferral thead tr{
+    background-color: #2c2f5e; 
 }
 
 .TableReferral td{
