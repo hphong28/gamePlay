@@ -10,6 +10,7 @@ import ScatterJS from 'scatterjs-core';
 import { Referral, HowToPlay } from 'components';
 
 import logo from './images/logo.png'
+import mail_icon from './images/MAIL.svg'
 import medium_icon from './images/MEDIUM.svg'
 import telegram_icon from './images/TELEGRAM.svg'
 
@@ -73,17 +74,6 @@ class Header extends Component {
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
-		// ApiService.GetData().then(RawData =>{
-		// 	console.log('tam_ my p ', RawData)
-		// 	// this.setState({
-		// 	// 	ReferralData: RawData
-		// 	// })
-
-		// 	this.state.ReferralData = RawData;
-
-		// })
-
-
 	}
 
 
@@ -225,6 +215,7 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
+							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
 							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 						</li>

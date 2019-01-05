@@ -22,9 +22,8 @@ class Referral extends Component {
                     </div>
 
                     <div className="DetailReferral">
-                        Refer a friend and earn 10% of house edge on all their wagers!<br /><br/>
-                        Referral bonus is not paid if a wagers is refunded.
-                </div>
+                        Refer a friend and earn 10% of house edge on all their wagers!
+                    </div>
 
                     <div className="SloganReferral">
                         Earn more money with OnePlay!
@@ -49,7 +48,7 @@ class Referral extends Component {
                                     return (
                                         <tr>
                                             <td>{data.bettor}</td>
-                                            <td>{data.bet_total}</td>
+                                            <td>{(parseFloat(data.bet_total)/10000).toFixed(4)} EOS</td>
                                         </tr>
                                     );
                                 }): null}

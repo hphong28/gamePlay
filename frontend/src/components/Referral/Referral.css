@@ -148,9 +148,9 @@
     background-color: #1C2041 ;
     border-radius: 5px;
     color: #FFFFFF;
-    font-size: 26pt;
+    font-size: 20pt;
     width: 645px;
-    height: 135px;
+    height: 180px;
     margin-left: 26px;
     padding: 8px 8px 8px 8px;
     overflow-y:auto;
@@ -158,7 +158,7 @@
 .TableReferral{
     border-collapse: collapse;
     width: 100%;
-    font-size: 18pt;
+    font-size: 14pt;
     max-height: 140px;
 }
 .TableReferral tr:nth-child(even) {
