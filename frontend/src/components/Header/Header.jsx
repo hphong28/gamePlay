@@ -73,15 +73,15 @@ class Header extends Component {
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
-		ApiService.GetData().then(RawData =>{
-			console.log('tam_ my p ', RawData)
-			// this.setState({
-			// 	ReferralData: RawData
-			// })
+		// ApiService.GetData().then(RawData =>{
+		// 	console.log('tam_ my p ', RawData)
+		// 	// this.setState({
+		// 	// 	ReferralData: RawData
+		// 	// })
 
-			this.state.ReferralData = RawData;
+		// 	this.state.ReferralData = RawData;
 
-		})
+		// })
 
 
 	}
@@ -130,6 +130,7 @@ class Header extends Component {
 				LoginStatus: false,
 				ScatterName: '',
 			});
+			this.state.ReferralData = null;
 		});
 
 	}
