@@ -211,7 +211,7 @@ class Header extends Component {
 								</li>
 						}
 
-						<li className="Menu"><div href="#" onClick={this.handleReferral}>Referral</div></li>
+						<li className="Menu"><a href="#" onClick={this.handleReferral}>Referral</a></li>
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
