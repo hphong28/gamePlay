@@ -10,7 +10,6 @@ import ScatterJS from 'scatterjs-core';
 import { Referral, HowToPlay } from 'components';
 
 import logo from './images/logo.png'
-import mail_icon from './images/MAIL.svg'
 import medium_icon from './images/MEDIUM.svg'
 import telegram_icon from './images/TELEGRAM.svg'
 
@@ -46,7 +45,6 @@ class Header extends Component {
 		this.handleLogoutClick = this.handleLogoutClick.bind(this);
 		this.toggleLogOutClick = this.toggleLogOutClick.bind(this);
 		this.handleReferral = this.handleReferral.bind(this);
-		this.handleRule = this.handleRule.bind(this);
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
 
 		this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -61,21 +59,27 @@ class Header extends Component {
 				this.setState({
 					LoginStatus: true,
 					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-					ReferralData: ApiService.GetData(),
+					// ReferralData: ApiService.GetData(),
 				});
+				ApiService.GetData().then(RawData =>{
+					console.log('tam_ my p ', RawData)
+	
+					this.state.ReferralData = RawData;
+		
+				})
 			}
 		});
 	}
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
-		var data = ApiService.GetData().then(p =>{
-			console.log('tam_ my p ', p)
+		ApiService.GetData().then(RawData =>{
+			console.log('tam_ my p ', RawData)
 			// this.setState({
-			// 	ReferralData: p,
-
+			// 	ReferralData: RawData
 			// })
-			this.state.ReferralData = p;
+
+			this.state.ReferralData = RawData;
 
 		})
 
@@ -103,6 +107,13 @@ class Header extends Component {
 							ScatterName: ScatterJS.scatter.identity.accounts[0].name,
 							LogoutingStatus: false,
 						});
+
+						ApiService.GetData().then(RawData =>{
+							console.log('tam_ my p ', RawData)
+			
+							this.state.ReferralData = RawData;
+				
+						})
 
 					}
 				});
@@ -140,10 +151,6 @@ class Header extends Component {
 			ReferralStatus: !this.state.ReferralStatus,
 			HowToPlayStatus: false,
 		});
-
-	}
-	handleRule() {
-		console.log('tam_ handleRule')
 
 	}
 
@@ -214,11 +221,9 @@ class Header extends Component {
 						}
 
 						<li className="Menu"><div href="#" onClick={this.handleReferral}>Referral</div></li>
-						<li className="Menu"><a href="#" onClick={this.handleRule}>Rule</a></li>
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
-							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
 							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
 						</li>

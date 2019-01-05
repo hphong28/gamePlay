@@ -4,38 +4,25 @@ import { connect } from 'react-redux';
 
 class Referral extends Component {
 
-    DisplayReferral(){
-        this.props.ReferralEarn.map(data => {
-            return(
-                <tr>
-                    <td>{data.Object}</td>
-                    <td>{data.bet_total}</td>
-                </tr>
-            );
-        })
-    }
-
-
-    
     render() {
         return (
             <div className="ReferralWrap">
                 <div className="ReferralCss">
                     <div>
-                        <button className="CloseButtonReferral" onClick={this.props.onCloseReferral}> X </button>
+                        <a href="#" onClick={this.props.onCloseReferral} class="CloseButtonReferral"></a>
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
                 </div>
-                {console.log('tam_ Referral props rec', this.props)}
+                    {console.log('tam_ Referral props rec', this.props)}
 
                     <div className="WrapLinkRefferal">
-                        <input className="InputRefferal" value={`https://1play.io/#ref=`+ this.props.NameScat} />
+                        <input className="InputRefferal" value={`https://1play.io/#ref=` + this.props.NameScat} />
                         <button className="CopyButton"> COPY </button>
                     </div>
 
                     <div className="DetailReferral">
-                        Refer a friend and earn 10% of house edge on all their wagers!<br />
+                        Refer a friend and earn 10% of house edge on all their wagers!<br /><br/>
                         Referral bonus is not paid if a wagers is refunded.
                 </div>
 
@@ -57,14 +44,15 @@ class Referral extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* {this.props.ReferralEarn.map(data =>)} */}
- 
-                                {/* <tr> */}
-                                    {/* <td>... </td> */}
-                                    {/* <td>... </td> */}
-                                    {console.log('tam_ table referal', this.props.ReferralEarn)}
-                                {/* </tr> */}
-                                {/* {DisplayReferral()} */}
+                                {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
+                                    console.log('tam_ data in map', data)
+                                    return (
+                                        <tr>
+                                            <td>{data.bettor}</td>
+                                            <td>{data.bet_total}</td>
+                                        </tr>
+                                    );
+                                }): null}
 
                             </tbody>
                         </table>
