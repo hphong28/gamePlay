@@ -9,7 +9,9 @@
     font-family: 'MyriadPro'; 
     color: white;
     font-size: 20px;
-    margin-left: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
 
 }
 
