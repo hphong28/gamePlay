@@ -20,6 +20,7 @@ class PlayMenu extends Component {
   }
   handleClick = (value) => (e) => {
     this.setState({ chip: value == this.state.chip ? 0 :value });
+    this.props.onSelectedChip(value == this.state.chip ? 0 :value );
   };  
 
   render() {

@@ -167,12 +167,19 @@ chip.namtrieu
     position: absolute;
     z-index: 5;
     color: white;
+    font-size: 12px;
     font-weight: bold;
     background: url(./images/bg_desc.png) no-repeat;
     text-shadow: 0px 1px 1px rgba(0,0,0,0.75);
     top: -52px;
     left: 0px;
+    vertical-align: text-bottom
 }
+
+.desc p{
+    padding-top:5px;
+    }
+
 
 .desc .top_cuoc
 {

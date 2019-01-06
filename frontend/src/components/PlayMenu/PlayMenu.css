@@ -34,8 +34,8 @@
     float: left;
 }
 .iconBet:hover{
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .iconBet.active{
     padding-top: 0px;
