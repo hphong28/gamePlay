@@ -68,10 +68,10 @@ class ApiService {
     static LogOutScatter() {
         Scatter.scatter.forgetIdentity();
     }
-
     static async  GetData() {
         console.log('tam123_ get data');
         try {
+
           const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
             method: 'POST',
             body: JSON.stringify({
@@ -89,11 +89,86 @@ class ApiService {
           const responseJson = await response.json();
           console.log('tam_ responseJson.rows', responseJson.rows)
           return responseJson.rows;
-        } catch (error) {
-          console.log(error);
-        }
-      }
 
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async  getMyBet(account,limit1) {
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'dicedice1234',
+                    code: 'dicedice1234',
+                    table: 'bet2s',
+                    lower_bound: account,
+                    upper_bound: account,
+                    index_position: "3",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                    limit: limit1
+                }),
+            });
+            const responseJson = await response.json();
+            return responseJson.rows;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async getAllBet(limit1) {
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'dicedice1234',
+                    code: 'dicedice1234',
+                    table: 'bet2s',
+                    // lower_bound: account,
+                    // upper_bound: account,
+                    // index_position: "1",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                    limit: limit1
+                }),
+            });
+            const responseJson = await response.json();
+            return responseJson.rows;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    static async getRecords(limit1) {
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'dicedice1234',
+                    code: 'dicedice1234',
+                    table: 'game1s',
+                    // lower_bound: account,
+                    // upper_bound: account,
+                    // index_position: "1",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                    limit: limit1
+                }),
+            });
+            const responseJson = await response.json();
+            // console.log("Phong Records",responseJson.rows)
+            return responseJson.rows;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 }
+
+
 
 export default ApiService;

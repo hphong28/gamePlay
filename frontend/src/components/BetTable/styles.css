@@ -42,7 +42,7 @@
   color: #b3b3b3;
   background-color: #1c2041;
 
-  max-height: 460px;
+  height: 460px;
   /*if you set overflow in "scroll", there will be 2 sroll: at the right side and at the bottom*/
   overflow: auto;
   
