@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { UserAction } from 'actions';
 import { ApiService } from 'services';
 
-import ScatterJS from 'scatterjs-core';
 
 import { Referral, HowToPlay } from 'components';
 
@@ -17,18 +16,6 @@ import telegram_icon from './images/TELEGRAM.svg'
 import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
 
-
-
-
-const { Blockchains } = ScatterJS
-
-export const MAIN_NETWORK = {
-	blockchain: Blockchains.EOS,
-	protocol: 'https',
-	host: 'nodes.get-scatter.com',
-	port: 443,
-	chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
-}
 
 class Header extends Component {
 	constructor(props) {
@@ -52,24 +39,19 @@ class Header extends Component {
 	}
 	//before render
 	componentWillMount() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			if (connected) {
-				window.ScatterJS = null;
-			}
-			if (ScatterJS.scatter.identity) {
+		ApiService.hasIdentity().then(rsp => {
+			if (rsp) {
 				this.setState({
 					LoginStatus: true,
-					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-					// ReferralData: ApiService.GetData(),
+					ScatterName: rsp.accounts[0].name,
 				});
-				ApiService.GetData().then(RawData =>{
-					console.log('tam_ my p ', RawData)
-	
+				ApiService.GetData().then(RawData => {
 					this.state.ReferralData = RawData;
-		
+
 				})
 			}
 		});
+
 	}
 	//after render
 	componentDidMount() {
@@ -78,49 +60,33 @@ class Header extends Component {
 
 
 	handleLoginClick() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			console.log('tam_ connected', connected);
-			if (!connected) {
-				console.log('tam_ SCATTER NOT Connect')
-				alert("Scatter NOT find")
-				return
-			} else {
-				console.log('tam_ SCATTER Connect');
-				const win = window
-				win.ScatterJS = win.ScatterEOS = win.scatter = undefined
-				//connect to scatter
-				ScatterJS.scatter.getIdentity({ accounts: [MAIN_NETWORK] }).then(res => {
-					console.log('tam_ res', res)
-					if (res) {
-						this.setState({
-							LoginStatus: true,
-							ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-							LogoutingStatus: false,
-						});
-
-						ApiService.GetData().then(RawData =>{
-							console.log('tam_ my p ', RawData)
-			
-							this.state.ReferralData = RawData;
-				
-						})
-
-					}
+		ApiService.LoginScatter().then(accounts => {
+			if (accounts) {
+				console.log("quoc123", accounts)
+				this.setState({
+					LoginStatus: true,
+					ScatterName: accounts[0].name,
+					LogoutingStatus: false,
 				});
+				ApiService.GetData().then(RawData => {
+					console.log('tam_ my p ', RawData)
+
+					this.state.ReferralData = RawData;
+
+				})
 			}
-		})
+		});
+
 	}
 	handleLogoutClick() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			if (connected) {
-				window.ScatterJS = null;
+		ApiService.LogOutScatter().then(resp => {
+			if (resp) {
+				this.setState({
+					LoginStatus: false,
+					ScatterName: '',
+				});
+				this.state.ReferralData = null;
 			}
-			ScatterJS.scatter.forgetIdentity();
-			this.setState({
-				LoginStatus: false,
-				ScatterName: '',
-			});
-			this.state.ReferralData = null;
 		});
 
 	}
@@ -162,7 +128,7 @@ class Header extends Component {
 		this.toggleLogOutClick();
 	}
 
-	closePopUp(){
+	closePopUp() {
 		console.log('tam_ close pop up');
 		this.setState({
 			HowToPlayStatus: false,
@@ -225,7 +191,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData} />
 						</div>
 
 						: null
@@ -233,7 +199,7 @@ class Header extends Component {
 				{
 					this.state.HowToPlayStatus ?
 						<div className='PopUp_Wrap'>
-							<HowToPlay onCloseHowToPlay={this.closePopUp.bind(this)}/>
+							<HowToPlay onCloseHowToPlay={this.closePopUp.bind(this)} />
 						</div>
 
 						: null

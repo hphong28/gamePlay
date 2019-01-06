@@ -1,8 +1,9 @@
 import { Eos, Rpc } from 'eosjs'
-import Scatter from 'scatterjs-core'
+// import Scatter from 'scatterjs-core'
 import ScatterEOS from 'scatterjs-plugin-eosjs'
+import ScatterJS from 'scatterjs-core';
 
-const { Blockchains } = Scatter
+const { Blockchains } = ScatterJS
 
 let _account = {
     name: null,
@@ -26,76 +27,70 @@ export const TEST_NETWORK = {
     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
 
-const network = {
-    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-    blockchain: 'eos',
-}
-
 class ApiService {
     static async LoginScatter() {
-        console.log('tam_ login scatter');
 
-        Scatter.plugins(new ScatterEOS())
-        const connected = await Scatter.scatter.connect(Scatter.Blockchains.EOS)
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
 
-        if (!connected) {
-            console.log('tam_ SCATTER NOT Connect')
-            alert("Scatter NOT find")
-            return
-        }
-        const win = window
-        win.ScatterJS = win.ScatterEOS = win.scatter = undefined
-
-        //If it connected to scatter, forget its Identify
-        // if(Scatter.scatter.identity){
-        //     Scatter.scatter.forgetIdentity()
-        // }
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
 
         //connect to scatter
-        Scatter.scatter.getIdentity({ accounts: [MAIN_NETWORK] });
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+        return res.accounts;
     }
 
-    static hasIdentity() {
-        Scatter.scatter.connect(Scatter.Blockchains.EOS).then(connected => {
+    static async hasIdentity() {
+        // ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+        if (ScatterJS.scatter.identity)
+            return ScatterJS.scatter.identity;
+
+        return null;
+    }
+    static async LogOutScatter() {
+        ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
             if (connected) {
                 window.ScatterJS = null;
             }
-            return Scatter.scatter.identity;
+            ScatterJS.scatter.forgetIdentity();
         });
-
-
-    }
-    static LogOutScatter() {
-        Scatter.scatter.forgetIdentity();
+        return true;
     }
     static async  GetData() {
         console.log('tam123_ get data');
         try {
 
-          const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
-            method: 'POST',
-            body: JSON.stringify({
-                scope: 'EOS',
-                code: 'dicedice1234',
-                table: 'players',
-                lower_bound: 'ilovedice123',
-                upper_bound: 'ilovedice123',
-                index_position: "2",
-                key_type: "i64",
-                reverse: "true",
-                json: "true",
-            }),
-          });
-          const responseJson = await response.json();
-          console.log('tam_ responseJson.rows', responseJson.rows)
-          return responseJson.rows;
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'EOS',
+                    code: 'dicedice1234',
+                    table: 'players',
+                    lower_bound: 'ilovedice123',
+                    upper_bound: 'ilovedice123',
+                    index_position: "2",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                }),
+            });
+            const responseJson = await response.json();
+            console.log('tam_ responseJson.rows', responseJson.rows)
+            return responseJson.rows;
 
         } catch (error) {
             console.log(error);
         }
     }
 
-    static async  getMyBet(account,limit1) {
+    static async  getMyBet(account, limit1) {
         try {
             const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
                 method: 'POST',
