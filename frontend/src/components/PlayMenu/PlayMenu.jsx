@@ -11,19 +11,28 @@ import LogoBetAmount from './images/LogoBetAmount.png'
 
 
 class PlayMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+        chip: 0,
+    };
+  }
+  handleClick = (value) => (e) => {
+    this.setState({ chip: value == this.state.chip ? 0 :value });
+  };  
 
   render() {
-
     return (
       <div className="menuPlay">
 
         <div className="WrapIconBet">
           <ul>
-            <li><img src={bet0_5} alt=" " className="iconBet" /></li>
-            <li><img src={bet1} alt=" " className="iconBet" /></li>
-            <li><img src={bet2} alt=" " className="iconBet" /></li>
-            <li><img src={bet5} alt=" " className="iconBet" /></li>
-            <li><img src={bet10} alt=" " className="iconBet" /></li>
+            <div onClick={this.handleClick(0.5)} className={`iconBet ${this.state.chip  == 0.5 ? "active" : ""}`} ><img src={bet0_5} alt=" " /></div>
+            <div onClick={this.handleClick(1)}  className={`iconBet ${this.state.chip  == 1 ? "active" : ""}`} ><img src={bet1} alt=" "/></div>
+            <div onClick={this.handleClick(2)} className={`iconBet ${this.state.chip  == 2 ? "active" : ""}`} ><img src={bet2} alt=" " /></div>
+            <div onClick={this.handleClick(5)} className={`iconBet ${this.state.chip  == 5 ? "active" : ""}`} ><img src={bet5} alt=" " /></div>
+            <div onClick={this.handleClick(10)} className={`iconBet ${this.state.chip  == 10 ? "active" : ""}`} ><img src={bet10} alt=" " /></div>
           </ul>
         </div>
 
@@ -46,12 +55,7 @@ class PlayMenu extends Component {
           </div>
 
 
-
-
         </div>
-
-
-
 
 
         {/* <div className="inforIcon_Wrap">

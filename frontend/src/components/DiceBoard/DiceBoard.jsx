@@ -157,6 +157,7 @@ class DiceBoard extends React.Component {
                         {this.renderSquare(25, 1, 6, 6)}
                     </div>
                 </div>
+                
                 <PlayMenu />
 
             </div>

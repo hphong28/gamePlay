@@ -17,24 +17,30 @@
 
 .WrapIconBet{
     display: flex;  
+
 }
-.WrapIconBet li{
+.WrapIconBet div{
     float: left;    
     cursor: pointer;
 }
+
 .iconBet{
-    width: 60px;
-    height: 60px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 20px;
+    width: 80px;
+    height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float: left;
 }
 .iconBet:hover{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 5px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
-
+.iconBet.active{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 .BetAmount_Wrap{
     display: block;
     margin-left: 75px;
