@@ -45,7 +45,7 @@ class Header extends Component {
 					LoginStatus: true,
 					ScatterName: rsp.accounts[0].name,
 				});
-				ApiService.GetData().then(RawData => {
+				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
 					this.state.ReferralData = RawData;
 
 				})
@@ -68,7 +68,7 @@ class Header extends Component {
 					ScatterName: accounts[0].name,
 					LogoutingStatus: false,
 				});
-				ApiService.GetData().then(RawData => {
+				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
 					console.log('tam_ my p ', RawData)
 
 					this.state.ReferralData = RawData;

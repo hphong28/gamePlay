@@ -1,5 +1,4 @@
-import { Eos, Rpc } from 'eosjs'
-// import Scatter from 'scatterjs-core'
+import Eos from 'eosjs';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
 import ScatterJS from 'scatterjs-core';
 
@@ -43,7 +42,7 @@ class ApiService {
     }
 
     static async hasIdentity() {
-        // ScatterJS.plugins(new ScatterEOS())
+        ScatterJS.plugins(new ScatterEOS())
         const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
 
         if (!connected) return false;
@@ -63,7 +62,7 @@ class ApiService {
         });
         return true;
     }
-    static async  GetData() {
+    static async  GetRefferal(account, limit) {
         console.log('tam123_ get data');
         try {
 
@@ -73,8 +72,8 @@ class ApiService {
                     scope: 'EOS',
                     code: 'dicedice1234',
                     table: 'players',
-                    lower_bound: 'ilovedice123',
-                    upper_bound: 'ilovedice123',
+                    lower_bound: account,
+                    upper_bound: account,
                     index_position: "2",
                     key_type: "i64",
                     reverse: "true",
@@ -162,6 +161,37 @@ class ApiService {
             console.log(error);
         }
     }
+
+    static async startBet(betAccount, betCase, betVal, betReffer) {
+
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+
+        //connect to scatter
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+
+                const eosOptions = {
+                    broadcast: true,
+                    sign: true,
+                    expireInSeconds: 60,
+                };
+
+                console.log("quoc12345", res)
+                const account = res.accounts[0];
+
+                const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
+                // const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
+                const eos = scatter.eos(TEST_NETWORK, Eos, eosOptions);
+                eos.transfer(account.name, 'dicedice1234', "0.0005 EOS", betCase + betReffer +"", transactionOptions).then(trx => {
+                    // That's it!
+                    console.log(`Transaction ID: ${trx.transaction_id}`);
+
+                });
+            }
 }
 
 
