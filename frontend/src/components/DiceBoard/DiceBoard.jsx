@@ -2,6 +2,8 @@
 import React from 'react';
 
 import Dice from 'components/Dice/Dice.jsx'
+import {PlayMenu } from 'components';
+
 import './DiceBoard.css';
 import RollingDice from 'components/Dice/RollingDice.jsx';
 
@@ -155,6 +157,8 @@ class DiceBoard extends React.Component {
                         {this.renderSquare(25, 1, 6, 6)}
                     </div>
                 </div>
+                <PlayMenu />
+
             </div>
         );
     }
