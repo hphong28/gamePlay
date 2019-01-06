@@ -31,9 +31,9 @@ function ResultTable(props) {
                   <td><DiceCase
                     type={1}
                     value={0}
-                    dice1={1}
-                    dice2={5}
-                    dice3={3} />
+                    dice1={row.dice1}
+                    dice2={row.dice2}
+                    dice3={row.dice3} />
                   </td>
                   <td>{row.Total}</td>
                 </tr>                
@@ -46,5 +46,6 @@ function ResultTable(props) {
     </div>
   );
 }
+
 
 export default ResultTable;

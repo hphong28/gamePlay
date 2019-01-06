@@ -1,4 +1,4 @@
-
+/* 
 .dice_group1{
     display:inline-block;
     text-align: center;
@@ -12,7 +12,7 @@
 
 .dice_group1:hover .desc{
     display:block;
-} 
+}  */
 .dice_group3{
     display:inline-block;
     width: 64px;
@@ -26,13 +26,13 @@
     padding-bottom: 2px;
     position: relative;
 }
-.dice_group3_border:hover{
+/* .dice_group3_border:hover{
     background-color: #ADFF2F;
 }
 
 .dice_group3_border:hover .desc{
     display:block;
-} 
+}  */
 .center{
     display: block;
     margin-left: auto;
@@ -48,22 +48,22 @@
     border-radius: 3px;
 }
 
-.dice_group2:hover{
+/* .dice_group2:hover{
     background-color: #ADFF2F;
 }
 
 .dice_group2:hover .desc{
     display:block;
-} 
+}  */
 
 .dice_group4{
     width: 116px;
     text-align: center;
 }
 
-.dice_group4:hover .desc{
+/* .dice_group4:hover .desc{
     display:block;
-} 
+}  */
 
 .dice_rate{
     color:white;
@@ -95,7 +95,7 @@
     text-shadow: 0px 1px 1px rgba(0,0,0,0.75);
 }
 
-.dice_name_small{
+.dice_small{
     font-family: arial;
     font-weight: bold;
     font-size: 30px;
@@ -103,9 +103,10 @@
     color: black;
     text-align: center;
     top:-20px;
+    /* border: solid blue 1px */
 }
 
-.dice_name_big{
+.dice_big{
     font-family: arial;
     font-weight: bold;
     font-size: 30px;
@@ -113,4 +114,5 @@
     color: red;
     text-align: center;
     top:-20px;
+    /* border: solid blue 1px */
 }
