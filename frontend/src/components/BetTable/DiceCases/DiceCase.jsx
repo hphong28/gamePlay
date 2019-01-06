@@ -35,7 +35,7 @@ class DiceCase extends React.Component {
         } else if (this.props.type === 4) {
             return (
                 <div className="case_bigsmall">
-                    {this.props.value <= 10 ? <div className="dice_name_small">SMALL</div> : <div className="dice_name_big">BIG</div>}
+                    {this.props.value <= 10 ? <div className="dice_small">SMALL</div> : <div className="dice_big">BIG</div>}
                 </div>
             );
         }
