@@ -38,13 +38,14 @@ class Header extends Component {
 			LogoutingStatus: false,
 			ScatterName: '',
 			ReferralStatus: false,
+			ReferralData: [],
 			HowToPlayStatus: false,
+
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
 		this.handleLogoutClick = this.handleLogoutClick.bind(this);
 		this.toggleLogOutClick = this.toggleLogOutClick.bind(this);
 		this.handleReferral = this.handleReferral.bind(this);
-		this.handleRule = this.handleRule.bind(this);
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
 
 		this.handleOutsideClick = this.handleOutsideClick.bind(this);
@@ -59,14 +60,20 @@ class Header extends Component {
 				this.setState({
 					LoginStatus: true,
 					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
+					// ReferralData: ApiService.GetData(),
 				});
+				ApiService.GetData().then(RawData =>{
+					console.log('tam_ my p ', RawData)
+	
+					this.state.ReferralData = RawData;
+		
+				})
 			}
 		});
 	}
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
-		ApiService.GetData();
 	}
 
 
@@ -91,6 +98,13 @@ class Header extends Component {
 							LogoutingStatus: false,
 						});
 
+						ApiService.GetData().then(RawData =>{
+							console.log('tam_ my p ', RawData)
+			
+							this.state.ReferralData = RawData;
+				
+						})
+
 					}
 				});
 			}
@@ -106,6 +120,7 @@ class Header extends Component {
 				LoginStatus: false,
 				ScatterName: '',
 			});
+			this.state.ReferralData = null;
 		});
 
 	}
@@ -127,10 +142,6 @@ class Header extends Component {
 			ReferralStatus: !this.state.ReferralStatus,
 			HowToPlayStatus: false,
 		});
-
-	}
-	handleRule() {
-		console.log('tam_ handleRule')
 
 	}
 
@@ -200,8 +211,7 @@ class Header extends Component {
 								</li>
 						}
 
-						<li className="Menu"><div href="#" onClick={this.handleReferral}>Referral</div></li>
-						<li className="Menu"><a href="#" onClick={this.handleRule}>Rule</a></li>
+						<li className="Menu"><a href="#" onClick={this.handleReferral}>Referral</a></li>
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
@@ -215,7 +225,7 @@ class Header extends Component {
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData}/>
 						</div>
 
 						: null

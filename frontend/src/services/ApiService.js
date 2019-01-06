@@ -68,27 +68,28 @@ class ApiService {
     static LogOutScatter() {
         Scatter.scatter.forgetIdentity();
     }
-
     static async  GetData() {
         console.log('tam123_ get data');
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
-                method: 'POST',
-                body: JSON.stringify({
-                    scope: 'EOS',
-                    code: 'dicedice1234',
-                    table: 'players',
-                    lower_bound: 'ilovedice123',
-                    upper_bound: 'ilovedice123',
-                    index_position: "2",
-                    key_type: "i64",
-                    reverse: "true",
-                    json: "true",
-                }),
-            });
-            const responseJson = await response.json();
-            // console.log(responseJson.rows)
-            return responseJson.rows;
+
+          const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            method: 'POST',
+            body: JSON.stringify({
+                scope: 'EOS',
+                code: 'dicedice1234',
+                table: 'players',
+                lower_bound: 'ilovedice123',
+                upper_bound: 'ilovedice123',
+                index_position: "2",
+                key_type: "i64",
+                reverse: "true",
+                json: "true",
+            }),
+          });
+          const responseJson = await response.json();
+          console.log('tam_ responseJson.rows', responseJson.rows)
+          return responseJson.rows;
+
         } catch (error) {
             console.log(error);
         }

@@ -350,3 +350,24 @@ $ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players
 
 
 ````
+
+##### get daily reward
+
+````bash
+
+$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice"]' -p eosluckydice
+executed transaction: 132a3fcf6754d890b828b649ffe72d9f005c0ee88f89e191f19040935f6a6d7c  144 bytes  913 us
+
+$ cleos -u http://jungle2.cryptolions.io:80 get table onetoken1234 eosluckydice accounts
+{
+  "rows": [{
+      "balance": "3.0000 ONE"
+    }
+  ],
+}
+
+$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice"]' -p eosluckydice
+
+assertion failure with message: Please wait after -86396 seconds
+
+````

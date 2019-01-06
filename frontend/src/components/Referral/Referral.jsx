@@ -3,27 +3,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Referral extends Component {
+
     render() {
         return (
             <div className="ReferralWrap">
                 <div className="ReferralCss">
                     <div>
-                        <button className="CloseButtonReferral" onClick={this.props.onCloseReferral}> X </button>
+                        <a href="#" onClick={this.props.onCloseReferral} class="CloseButtonReferral"></a>
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
                 </div>
-                {console.log('tam_ Referral props rec', this.props)}
+                    {console.log('tam_ Referral props rec', this.props)}
 
                     <div className="WrapLinkRefferal">
-                        <input className="InputRefferal" value={`https://1play.io/#ref=`+ this.props.NameScat} />
+                        <input className="InputRefferal" value={`https://1play.io/#ref=` + this.props.NameScat} />
                         <button className="CopyButton"> COPY </button>
                     </div>
 
                     <div className="DetailReferral">
-                        Refer a friend and earn 10% of house edge on all their wagers!<br />
-                        Referral bonus is not paid if a wagers is refunded.
-                </div>
+                        Refer a friend and earn 10% of house edge on all their wagers!
+                    </div>
 
                     <div className="SloganReferral">
                         Earn more money with OnePlay!
@@ -43,10 +43,15 @@ class Referral extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>... </td>
-                                    <td>... </td>
-                                </tr>
+                                {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
+                                    console.log('tam_ data in map', data)
+                                    return (
+                                        <tr>
+                                            <td>{data.bettor}</td>
+                                            <td>{(parseFloat(data.bet_total)/10000).toFixed(4)} EOS</td>
+                                        </tr>
+                                    );
+                                }): null}
 
                             </tbody>
                         </table>

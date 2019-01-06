@@ -5,15 +5,11 @@ import { connect } from 'react-redux';
 
 import { Header, BetTable, PlayMenu } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
-import RollingDice from 'components/Dice/RollingDice.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
-
-
-
   render() {
 
     return (
@@ -21,14 +17,6 @@ class App extends Component {
         <Header {...this.props} />
 
         <div className="dice_board">
-          <RollingDice
-            phase={0}
-            counttimer={12}
-            dice1={1}
-            dice2={5}
-            dice3={3}
-          />
-
           <div className="dice_board_center">
             <DiceBoard />
             <PlayMenu />
@@ -38,10 +26,6 @@ class App extends Component {
         <div className="dice_table">
           <BetTable />
         </div>
-
-
-
-
       </div>
     );
   }
