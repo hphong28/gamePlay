@@ -104,9 +104,9 @@ class ApiService {
                 }),
             });
             const responseJson = await response.json();
-            console.log("tam_ GetAccountDetail ", responseJson)
+            // console.log("tam_ GetAccountDetail ", responseJson)
 
-            return responseJson.rows;
+            return responseJson;
         } catch (error) {
             console.log(error);
         }

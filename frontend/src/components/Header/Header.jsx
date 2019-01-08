@@ -57,7 +57,7 @@ class Header extends Component {
 	componentDidMount() {
 		console.log('tam_ start to call');
 
-		ApiService.GetAccountDetail("dicedice1234");
+		// ApiService.GetAccountDetail("dicedice1234");
 	}
 
 

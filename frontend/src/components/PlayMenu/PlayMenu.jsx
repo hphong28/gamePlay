@@ -1,6 +1,7 @@
 // React core
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { ApiService } from 'services';
 
 import bet0_5 from './images/0_5.svg'
 import bet1 from './images/1.svg'
@@ -20,8 +21,35 @@ class PlayMenu extends Component {
     this.state = {
       chip: 0,
       token: 1,
+      net: 0,
+      CPU: 0,
+
     };
   }
+
+  updateNetCpu(){
+    console.log('tam_ updateNetCpu')
+    ApiService.hasIdentity().then(rsp => {
+			if (rsp) {
+        ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
+          // console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
+
+          this.setState({
+          	net: (rawData.net_limit.used /  rawData.cpu_limit.available).toFixed(0),
+          	CPU: (rawData.cpu_limit.used /  rawData.cpu_limit.available).toFixed(0),
+          });
+
+        });
+        
+			}
+    });
+  }
+
+  componentDidMount() {
+    this.updateNetCpu.bind(this);
+    setInterval( this.updateNetCpu.bind(this), 4000 );  
+  }
+  
   handleClick = (value) => (e) => {
     this.setState({ chip: value == this.state.chip ? 0 : value });
     this.props.onSelectedChip(value == this.state.chip ? 0 : value);
@@ -79,57 +107,20 @@ class PlayMenu extends Component {
               </div>
 
             </div>
-
           </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <div className="info_wrap">
-            <div className="info_value">100%</div>
+            <div className="info_value">{this.state.CPU} %</div>
             <div className="info_label">CPU</div>
           </div>
 
           <div className="info_wrap">
-            <div className="info_value">100%</div>
+            <div className="info_value">{this.state.net} %</div>
             <div className="info_label">NET</div>
           </div>
 
 
         </div>
-
-
-        {/* <div className="inforIcon_Wrap">
-          <div className="info_wrap">
-            <div className="info_value">100%</div>
-            <div className="info_label">CPU</div>
-          </div>
-
-          <div className="info_wrap">
-            <div className="info_value">100%</div>
-            <div className="info_label">NET</div>
-          </div>
-        </div> */}
-
-
       </div>
     );
   }
