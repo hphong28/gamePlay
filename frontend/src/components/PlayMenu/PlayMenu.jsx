@@ -9,30 +9,31 @@ import bet5 from './images/5.svg'
 import bet10 from './images/10.svg'
 import LogoBetAmount from './images/LogoBetAmount.png'
 
+const numbers = [1, 2, 3, 4, 5];
 
 class PlayMenu extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleChoseToken = this.handleChoseToken.bind(this);
+
     this.state = {
         chip: 0,
+        token: 1,
     };
   }
   handleClick = (value) => (e) => {
     this.setState({ chip: value == this.state.chip ? 0 :value });
     this.props.onSelectedChip(value == this.state.chip ? 0 :value );
-  };  
-  clickHandle(){
-    console.log('tam_ handle click');
+  }; 
+  
+  handleChoseToken = (value) => (e) => {
+    console.log('tam_ handleChoseToken', value);
+    this.setState({ token: value})
+  }
 
-  }
-  mouseLeave(){
-    console.log('tam_ mouse leave');
 
-  }
-  mouseLeaveHide(){
-    console.log('tam_ mouseLeaveHide');
-  }
+
 
   render() {
     return (
@@ -49,31 +50,34 @@ class PlayMenu extends Component {
         </div>
 
         <div className="BetAmount_Wrap" >
-
-
-        <div className="Dropdown_Wrap" onMouseLeave={this.mouseLeaveHide.bind(this)}>
-
+        <div onClick={this.handleChoseToken(0)}>
+          <div class="menu_playmenu icon_playmenu"></div>
+        </div>
         
 
-          <div className="BetAmountHidden" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
+        <div className="Dropdown_Wrap">
+
+          <div className={`BetAmount${(this.state.token  == 1) || (this.state.token  == 0) ? "Show" : "Hidden"}`} onClick={this.handleChoseToken(1)} >
             <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
             <div className="BetAmountValue"> 5.0</div>
             <div className="BetAmountToken"> EOS</div>
           </div>
 
-          <div className="BetAmountShow" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
+          <div className={`BetAmount${(this.state.token  == 2) || (this.state.token  == 0)  ? "Show" : "Hidden"}`} onClick={this.handleChoseToken(2)}>
             <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
             <div className="BetAmountValue"> 4</div>
             <div className="BetAmountToken"> EOS</div>
           </div>
 
-          <div className="BetAmountHidden" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
+          <div className={`BetAmount${(this.state.token  == 3) || (this.state.token  == 0)  ? "Show" : "Hidden"}`} onClick={this.handleChoseToken(3)}>
             <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
             <div className="BetAmountValue"> 3</div>
             <div className="BetAmountToken"> EOS</div>
           </div>
 
           </div>
+
+          
 
 
 

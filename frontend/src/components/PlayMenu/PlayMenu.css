@@ -47,13 +47,46 @@
 }
 
 .Dropdown_Wrap{
-    height: auto;
+    height: 120px;
     overflow-y: scroll;
     float: left;
     width: 200px;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: inline-block;
 }
+
+.menu_playmenu.icon_playmenu {
+    color: #000;
+    position: absolute;
+    margin-left: 2px;
+    margin-top: 30px;
+    width: 40px;
+    height: 3px;
+    background-color: white;
+    display: inline-block;
+    
+
+  }
+  
+  .menu_playmenu.icon_playmenu:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: white;
+  }
+  
+  .menu_playmenu.icon_playmenu:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background-color: white;
+  }
 
 .BetAmountShow{
     display: inline-block;
@@ -135,3 +168,6 @@
 
 }
 
+
+  
+  
