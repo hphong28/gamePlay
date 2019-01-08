@@ -15,6 +15,7 @@ import telegram_icon from './images/TELEGRAM.svg'
 
 import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
+import gift_icon from './images/gift.svg'
 
 
 class Header extends Component {
@@ -183,6 +184,7 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
+							<a href="#"><img src={gift_icon} alt=" " className="icon" /></a>
 							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
 							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
 							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
