@@ -1,4 +1,4 @@
-import Eos from 'eosjs';
+import {Eos, Rpc} from 'eosjs';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
 import ScatterJS from 'scatterjs-core';
 
@@ -25,6 +25,12 @@ export const TEST_NETWORK = {
     port: 80,
     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
+const networkOptions = {
+    broadcast: false,
+    sign: false,
+    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+    httpEndpoint: 'https://nodes.get-scatter.com:443',
+  };
 
 class ApiService {
     static async LoginScatter() {
@@ -87,6 +93,24 @@ class ApiService {
         } catch (error) {
             console.log(error);
         }
+    }
+    static async GetAccountDetail(account){
+        console.log('tam_ GetAccountDetail', account)
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_account ', {
+                method: 'POST',
+                body: JSON.stringify({
+                    account_name: account,
+                }),
+            });
+            const responseJson = await response.json();
+            console.log("tam_ GetAccountDetail ", responseJson)
+
+            return responseJson.rows;
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     static async  getMyBet(account, limit1) {

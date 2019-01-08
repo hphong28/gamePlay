@@ -60,12 +60,12 @@
 .Dropdown_Wrap{
     height: auto;
     overflow-y: scroll;
-    float: left;
-    width: 150px;
+    /* float: right; */
+    width: 170px;
     /* overflow: hidden; */
     display: inline-block;
 }
-.icon_wrap{
+.playmenu_icon_wrap{
     display: inline-block;
     width: 10px;
     float: right;
@@ -75,7 +75,7 @@
     color: #000;
     position: absolute;
     margin-top: 20px;
-    width: 40px;
+    width: 30px;
     height: 3px;
     background-color: white;
   }
@@ -85,7 +85,7 @@
     position: absolute;
     top: -10px;
     left: 0;
-    width: 40px;
+    width: 30px;
     height: 3px;
     background-color: white;
   }
@@ -95,7 +95,7 @@
     position: absolute;
     top: 10px;
     left: 0;
-    width: 40px;
+    width: 30px;
     height: 3px;
     background-color: white;
   }
