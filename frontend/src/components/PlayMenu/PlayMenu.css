@@ -94,6 +94,11 @@
     transform: rotate(-135deg);
   }
 
+  .menu_playmenu.icon_playmenu:hover {
+    color: #bbdefb;
+    box-shadow: 0 0 10px white;
+  }
+
 .Dropdown_Wrap{
     height: auto;
     overflow-y: scroll;
