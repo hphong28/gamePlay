@@ -25,12 +25,6 @@ export const TEST_NETWORK = {
     port: 80,
     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
-const networkOptions = {
-    broadcast: false,
-    sign: false,
-    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-    httpEndpoint: 'https://nodes.get-scatter.com:443',
-  };
 
 class ApiService {
     static async LoginScatter() {
