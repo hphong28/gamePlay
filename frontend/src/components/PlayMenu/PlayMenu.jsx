@@ -35,8 +35,8 @@ class PlayMenu extends Component {
           // console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
 
           this.setState({
-          	net: (rawData.net_limit.used /  rawData.cpu_limit.available).toFixed(0),
-          	CPU: (rawData.cpu_limit.used /  rawData.cpu_limit.available).toFixed(0),
+          	net: (rawData.net_limit.used /  rawData.cpu_limit.available * 100).toFixed(0),
+          	CPU: (rawData.cpu_limit.used /  rawData.cpu_limit.available * 100).toFixed(0),
           });
 
         });
@@ -109,12 +109,12 @@ class PlayMenu extends Component {
             </div>
           </div>
 
-          <div className="info_wrap">
+          <div className={`info_wrap ${this.state.CPU > 70 ? "_over" : ""}`}>
             <div className="info_value">{this.state.CPU} %</div>
             <div className="info_label">CPU</div>
           </div>
 
-          <div className="info_wrap">
+          <div className={`info_wrap ${this.state.CPU > 70 ? "_over" : ""}`}>
             <div className="info_value">{this.state.net} %</div>
             <div className="info_label">NET</div>
           </div>
