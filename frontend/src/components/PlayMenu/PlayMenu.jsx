@@ -81,10 +81,9 @@ class PlayMenu extends Component {
 
           <div className="MenuSelect_Wrap">
 
-            <div className="icon_wrap" onClick={this.handleChoseToken(0)}>
-              <div class="menu_playmenu icon_playmenu"></div>
-            </div>
-
+            <button className="showButton_wrap"  onClick={this.handleChoseToken(0)}>
+                <div class="menu_playmenu icon_playmenu"></div>
+            </button>
 
             <div className="Dropdown_Wrap">
 
