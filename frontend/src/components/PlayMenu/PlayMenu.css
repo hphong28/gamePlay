@@ -46,8 +46,72 @@
     margin-left: 75px;
 }
 
-.BetAmount{
+.MenuSelect_Wrap{
     display: inline-block;
+    margin-top: 5px;
+    padding: auto;
+    min-height: 65px;
+    width: auto;
+    float: left;
+    background-color: #21264e;
+    border-radius: 5px;
+}
+
+.Dropdown_Wrap{
+    height: auto;
+    overflow-y: scroll;
+    /* float: right; */
+    width: 170px;
+    /* overflow: hidden; */
+    display: inline-block;
+}
+.playmenu_icon_wrap{
+    display: inline-block;
+    width: 10px;
+    float: right;
+}
+
+.menu_playmenu.icon_playmenu {
+    color: #000;
+    position: absolute;
+    margin-top: 20px;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+  }
+  
+  .menu_playmenu.icon_playmenu:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+  }
+  
+  .menu_playmenu.icon_playmenu:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+  }
+
+.BetAmountShow{
+    display: inline-block;
+    float: left;
+    width: 150px;
+    height: 40px;
+    background-color: #1C2041;
+    border-radius: 10px;
+    margin-top: 10px;
+
+}
+.BetAmountHidden{
+    display: none;
     float: left;
     width: 150px;
     height: 40px;
@@ -99,6 +163,26 @@
     border:2px solid #5ec3df; 
     box-shadow: 0 0 11px #6be0ff; 
 }
+.info_wrap_over{
+    position: relative;
+    margin-top: 8px;
+    margin-left: 10px;
+    float: left;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:2px solid #ff1744; 
+    height: 40px;
+    width: 40px;
+}
+.info_wrap_over:hover{
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:2px solid #ff1744; 
+    box-shadow: 0 0 11px #ff4569; 
+}
+
 .info_value{
     position: absolute;
     font-size: 7pt;
@@ -116,3 +200,6 @@
 
 }
 
+
+  
+  
