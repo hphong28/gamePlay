@@ -22,6 +22,17 @@ class PlayMenu extends Component {
     this.setState({ chip: value == this.state.chip ? 0 :value });
     this.props.onSelectedChip(value == this.state.chip ? 0 :value );
   };  
+  clickHandle(){
+    console.log('tam_ handle click');
+
+  }
+  mouseLeave(){
+    console.log('tam_ mouse leave');
+
+  }
+  mouseLeaveHide(){
+    console.log('tam_ mouseLeaveHide');
+  }
 
   render() {
     return (
@@ -37,13 +48,51 @@ class PlayMenu extends Component {
           </ul>
         </div>
 
-        <div className="BetAmount_Wrap">
+        <div className="BetAmount_Wrap" >
 
-          <div className="BetAmount">
+
+        <div className="Dropdown_Wrap" onMouseLeave={this.mouseLeaveHide.bind(this)}>
+
+        
+
+          <div className="BetAmountHidden" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
             <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
             <div className="BetAmountValue"> 5.0</div>
             <div className="BetAmountToken"> EOS</div>
           </div>
+
+          <div className="BetAmountShow" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
+            <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+            <div className="BetAmountValue"> 4</div>
+            <div className="BetAmountToken"> EOS</div>
+          </div>
+
+          <div className="BetAmountHidden" onClick={this.clickHandle.bind(this)} onMouseLeave={this.mouseLeave.bind(this)}>
+            <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+            <div className="BetAmountValue"> 3</div>
+            <div className="BetAmountToken"> EOS</div>
+          </div>
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           <div className="info_wrap">
             <div className="info_value">100%</div>

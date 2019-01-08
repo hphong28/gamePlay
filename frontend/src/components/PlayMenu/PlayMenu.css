@@ -46,8 +46,27 @@
     margin-left: 75px;
 }
 
-.BetAmount{
+.Dropdown_Wrap{
+    height: auto;
+    overflow-y: scroll;
+    float: left;
+    width: 200px;
+    overflow: hidden;
     display: inline-block;
+}
+
+.BetAmountShow{
+    display: inline-block;
+    float: left;
+    width: 150px;
+    height: 40px;
+    background-color: #1C2041;
+    border-radius: 10px;
+    margin-top: 10px;
+
+}
+.BetAmountHidden{
+    display: none;
     float: left;
     width: 150px;
     height: 40px;
