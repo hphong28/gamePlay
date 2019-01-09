@@ -184,10 +184,10 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
-							<a href="#"><img src={gift_icon} alt=" " className="icon" /></a>
-							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
-							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
-							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
+							<a href="#"><img src={gift_icon} alt=" " className="gift_icon" /></a>
+							<div><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div>
+							<div><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div>
+							<div><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div>
 						</li>
 
 					</ul>
