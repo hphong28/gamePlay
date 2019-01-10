@@ -108,8 +108,6 @@
     display: inline-block;
 }
 
-  
-
 
 .BetAmountShow{
     display: inline-block;
@@ -142,13 +140,13 @@
     float: left;
     padding-left: 20px;
     padding-right: 10px;
-    padding-top: 8px;
+    padding-top: 2px;
     font-size: 25pt;
 
 }
 .BetAmountToken{
     float: left;
-    padding-top: 15px;
+    padding-top: 10px;
     font-size: 16pt;
 }
 
@@ -198,7 +196,9 @@
     position: absolute;
     font-size: 7pt;
     top: 8px;
-    margin-left: 3px;
+    width: 35px;
+    padding-left: auto;
+    padding-right: auto;
     font-weight: bold; 
 
 }
