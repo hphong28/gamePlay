@@ -1,4 +1,4 @@
-import {Eos, Rpc} from 'eosjs';
+import Eos from 'eosjs';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
 import ScatterJS from 'scatterjs-core';
 
@@ -88,7 +88,7 @@ class ApiService {
             console.log(error);
         }
     }
-    static async GetAccountDetail(account){
+    static async GetAccountDetail(account) {
         console.log('tam_ GetAccountDetail', account)
         try {
             const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_account ', {
@@ -192,24 +192,25 @@ class ApiService {
         //connect to scatter
         const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
 
-                const eosOptions = {
-                    broadcast: true,
-                    sign: true,
-                    expireInSeconds: 60,
-                };
+        const eosOptions = {
+            broadcast: true,
+            sign: true,
+            expireInSeconds: 60,
+        };
 
-                console.log("quoc12345", res)
-                const account = res.accounts[0];
+        console.log("quoc12345", res)
+        const account = res.accounts[0];
 
-                const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
-                // const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
-                const eos = scatter.eos(TEST_NETWORK, Eos, eosOptions);
-                eos.transfer(account.name, 'dicedice1234', "0.0005 EOS", betCase + betReffer +"", transactionOptions).then(trx => {
-                    // That's it!
-                    console.log(`Transaction ID: ${trx.transaction_id}`);
+        const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
+        const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        // const eos = scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        eos.transfer(betAccount, 'dicedice1234', "0.0005 EOS", betCase + betReffer + "", transactionOptions).then(trx => {
+            // That's it!
+            console.log(`Transaction ID: ${trx.transaction_id}`);
 
-                });
-            }
+        });
+    }
+
 }
 
 

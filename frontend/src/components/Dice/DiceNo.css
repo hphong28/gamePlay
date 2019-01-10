@@ -176,6 +176,30 @@ chip.namtrieu
     vertical-align: text-bottom
 }
 
+.bet {
+    display: none;
+    width: 40px;
+    height: 30px;
+    position: absolute;
+    z-index: 6;
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    font-weight: bold;
+    /* background: url(./images/play.png) no-repeat; */
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.75);
+    top: 60px;
+    left: 10px;
+    border-radius: 100%;
+}
+
+.bet:hover {
+    background-color: red;
+}
+.bet.active{
+    display: block;
+}
+
 .desc p{
     padding-top:5px;
     }
