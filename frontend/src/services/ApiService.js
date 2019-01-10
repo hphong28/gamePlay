@@ -89,7 +89,7 @@ class ApiService {
         }
     }
     static async GetAccountDetail(account){
-        console.log('tam_ GetAccountDetail', account)
+        // console.log('tam_ GetAccountDetail', account)
         try {
             const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_account ', {
                 method: 'POST',

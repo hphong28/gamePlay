@@ -34,7 +34,7 @@ class PlayMenu extends Component {
     ApiService.hasIdentity().then(rsp => {
       if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
-          console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
+          // console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
 
           this.setState({
             tokenValue: parseFloat(rawData.core_liquid_balance).toFixed(0),
