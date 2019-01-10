@@ -4,6 +4,7 @@ import BetTable from './BetTable'
 import PlayMenu from './PlayMenu'
 import Referral from './Referral'
 import HowToPlay from './HowToPlay'
+import GiftDaily from './GiftDaily'
 
 
 export {
@@ -13,4 +14,5 @@ export {
   PlayMenu,
   Referral,
   HowToPlay,
+  GiftDaily,
 }

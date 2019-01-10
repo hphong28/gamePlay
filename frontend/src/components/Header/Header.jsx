@@ -6,7 +6,7 @@ import { UserAction } from 'actions';
 import { ApiService } from 'services';
 
 
-import { Referral, HowToPlay } from 'components';
+import { Referral, HowToPlay, GiftDaily } from 'components';
 
 import logo from './images/logo.png'
 import mail_icon from './images/MAIL.svg'
@@ -28,6 +28,7 @@ class Header extends Component {
 			ReferralStatus: false,
 			ReferralData: [],
 			HowToPlayStatus: false,
+			GiftDailyStatus: false,
 
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -35,6 +36,7 @@ class Header extends Component {
 		this.toggleLogOutClick = this.toggleLogOutClick.bind(this);
 		this.handleReferral = this.handleReferral.bind(this);
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
+		this.handleGiftDaily = this.handleGiftDaily.bind(this);
 
 		this.handleOutsideClick = this.handleOutsideClick.bind(this);
 	}
@@ -110,16 +112,25 @@ class Header extends Component {
 		this.setState({
 			ReferralStatus: !this.state.ReferralStatus,
 			HowToPlayStatus: false,
+			GiftDailyStatus: false,
 		});
 
 	}
 
 	handleHowToPlay() {
 		console.log('tam_ handleHowToPlay')
-		console.log('tam_ handleReferral')
 		this.setState({
 			HowToPlayStatus: !this.state.HowToPlayStatus,
 			ReferralStatus: false,
+			GiftDailyStatus: false,
+		});
+	}
+	handleGiftDaily() {
+		console.log('tam_ handleGiftDaily')
+		this.setState({
+			GiftDailyStatus: !this.state.GiftDailyStatus,
+			ReferralStatus: false,
+			HowToPlayStatus: false,
 		});
 	}
 
@@ -136,6 +147,7 @@ class Header extends Component {
 		this.setState({
 			HowToPlayStatus: false,
 			ReferralStatus: false,
+			GiftDailyStatus: false,
 		});
 
 	}
@@ -184,7 +196,7 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 						<li className="icon_wrap">
-							<a href="#"><img src={gift_icon} alt=" " className="gift_icon" /></a>
+							<a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a>
 							<div><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div>
 							<div><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div>
 							<div><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div>
@@ -209,7 +221,16 @@ class Header extends Component {
 						: null
 
 				}
+				{
+					this.state.GiftDailyStatus ?
+						<div className='PopUp_Wrap'>
+							<GiftDaily onGiftDaily={this.closePopUp.bind(this)} />
+						</div>
 
+						: null
+
+
+				}
 
 
 			</div>

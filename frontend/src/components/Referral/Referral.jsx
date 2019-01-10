@@ -13,7 +13,7 @@ class Referral extends Component {
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
-                </div>
+                    </div>
                     {console.log('tam_ Referral props rec', this.props)}
 
                     <div className="WrapLinkRefferal">
