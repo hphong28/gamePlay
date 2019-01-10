@@ -8,7 +8,8 @@ import bet1 from './images/1.svg'
 import bet2 from './images/2.svg'
 import bet5 from './images/5.svg'
 import bet10 from './images/10.svg'
-import LogoBetAmount from './images/LogoBetAmount.png'
+import EOSLogoBet from './images/LogoBetAmount.png'
+import EBTCLogoBet from './images/EBTC.png'
 
 const numbers = [1, 2, 3, 4, 5];
 
@@ -28,30 +29,35 @@ class PlayMenu extends Component {
     };
   }
 
-  updateNetCpu(){
+  updateNetCpu() {
     console.log('tam_ updateNetCpu')
     ApiService.hasIdentity().then(rsp => {
-			if (rsp) {
+      if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
           console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
 
           this.setState({
             tokenValue: parseFloat(rawData.core_liquid_balance).toFixed(0),
-          	net: (rawData.net_limit.used /  rawData.net_limit.available * 100).toFixed(0),
-          	CPU: (rawData.cpu_limit.used /  rawData.cpu_limit.available * 100).toFixed(0),
+            net: (rawData.net_limit.used / rawData.net_limit.available * 100).toFixed(0),
+            CPU: (rawData.cpu_limit.used / rawData.cpu_limit.available * 100).toFixed(0),
           });
-
         });
-        
-			}
+      }
+      else {
+        this.setState({
+          tokenValue: 0,
+          net: 0,
+          CPU: 0,
+        });
+      }
     });
   }
 
   componentDidMount() {
     this.updateNetCpu.bind(this);
-    setInterval( this.updateNetCpu.bind(this), 4000 );  
+    setInterval(this.updateNetCpu.bind(this), 4000);
   }
-  
+
   handleClick = (value) => (e) => {
     this.setState({ chip: value == this.state.chip ? 0 : value });
     this.props.onSelectedChip(value == this.state.chip ? 0 : value);
@@ -83,26 +89,26 @@ class PlayMenu extends Component {
 
           <div className="MenuSelect_Wrap">
 
-            <button className="showButton_wrap"  onClick={this.handleChosetokenSelect(0)}>
-                <div class="menu_playmenu icon_playmenu"></div>
+            <button className="showButton_wrap" onClick={this.handleChosetokenSelect(0)}>
+              <div class="menu_playmenu icon_playmenu"></div>
             </button>
 
             <div className="Dropdown_Wrap">
 
               <div className={`BetAmount${(this.state.tokenSelect == 1) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)} >
-                <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+                <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue">{this.state.tokenValue}</div>
                 <div className="BetAmountToken"> EOS</div>
               </div>
 
               <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
-                <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+                <img src={EBTCLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue"> 4</div>
-                <div className="BetAmountToken"> EOS</div>
+                <div className="BetAmountToken"> EBTC</div>
               </div>
 
               <div className={`BetAmount${(this.state.tokenSelect == 3) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(3)}>
-                <img src={LogoBetAmount} alt=" " className="BetAmountLogo" />
+                <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue"> 3</div>
                 <div className="BetAmountToken"> EOS</div>
               </div>
