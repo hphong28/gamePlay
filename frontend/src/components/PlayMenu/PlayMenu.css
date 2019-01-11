@@ -43,32 +43,46 @@
 }
 .BetAmount_Wrap{
     display: block;
-    margin-left: 75px;
+    margin-left: 40px;
+    margin-top: 10px;
 }
 
 .MenuSelect_Wrap{
     display: inline-block;
     margin-top: 5px;
     padding: auto;
-    min-height: 65px;
+    min-height: 55px;
     width: auto;
     float: left;
-    background-color: #21264e;
+    /* background-color: #21264e; */
     border-radius: 5px;
+    border: 2px solid #5178e7 ;
+    border-radius: 16px;
 }
+.MenuSelect_Wrap:hover{
+    box-shadow: 0 0 2px #6be0ff; 
+}
+.Dropdown_Wrap{
+    height: auto;
+    overflow-y: scroll;
+    /* float: right; */
+    width: 170px;
+    /* overflow: hidden; */
+    display: inline-block;
+}
+
 .showButton_wrap{
     display: inline-block;
     float: right;
-    background-color: #1C2041;
+    /* background-color: #1C2041; */
     width: 40px;
     width: 40px;
     height: 40px;
     margin-top: 10px;
     margin-left: auto;
     margin-right: 8px;
-    
+    cursor: pointer;
 }
-
 
 .playmenu_icon_wrap{
     display: inline-block;
@@ -98,64 +112,55 @@
     color: #bbdefb;
     box-shadow: 0 0 10px white;
   }
-
-.Dropdown_Wrap{
-    height: auto;
-    overflow-y: scroll;
-    /* float: right; */
-    width: 170px;
-    /* overflow: hidden; */
-    display: inline-block;
-}
-
-
-.BetAmountShow{
-    display: inline-block;
-    float: left;
-    width: 150px;
-    height: 40px;
-    background-color: #1C2041;
-    border-radius: 10px;
-    margin-top: 10px;
-
-}
-.BetAmountHidden{
-    display: none;
-    float: left;
-    width: 150px;
-    height: 40px;
-    background-color: #1C2041;
-    border-radius: 10px;
-    margin-top: 10px;
-}
-
-.BetAmountLogo{
-    float: left;
-    width: 25px;
-    height: 25px;
-    margin-left: 4px;
-    margin-top: 8px;
-}
-.BetAmountValue{
-    float: left;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-top: 2px;
-    font-size: 25pt;
-
-}
-.BetAmountToken{
-    float: left;
-    padding-top: 10px;
-    font-size: 16pt;
-}
+  .BetAmountShow{
+      display: inline-block;
+      float: left;
+      width: 150px;
+      height: 40px;
+      /* background-color: #1C2041; */
+      border-radius: 10px;
+      margin-top: 10px;
+  }
+  .BetAmountShow:hover{
+    /* background-color: #1C2041;   */
+  }
+  .BetAmountHidden{
+      display: none;
+      float: left;
+      width: 150px;
+      height: 40px;
+      background-color: #1C2041;
+      border-radius: 10px;
+      margin-top: 10px;
+  }
+  
+  .BetAmountLogo{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-left: 4px;
+      margin-top: 8px;
+  }
+  .BetAmountValue{
+      float: left;
+      padding-left: 20px;
+      padding-right: 10px;
+      padding-top: 2px;
+      font-size: 25pt;
+  
+  }
+  .BetAmountToken{
+      float: left;
+      padding-top: 10px;
+      font-size: 16pt;
+  }
 
 .inforIcon_Wrap{
     display: inline-block;
 }
 .info_wrap{
     position: relative;
-    margin-top: 8px;
+    margin-top: 14px;
     margin-left: 10px;
     float: left;
     border-radius:50%;
