@@ -18,58 +18,37 @@
 }
 
 .icon_wrap{
-    /* margin-left: 100px; */
-    list-style-type: none;
-    margin-top: 6px;
-    margin-right: 30px;
     float: right;
-}
-
-.icon_wrap div{
-    margin-top: 8px;
-    margin-right: 10px;
     margin-left: 10px;
-    
-    border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    border:2px solid #00B8E9; 
-
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.div_gift_icon{
+    display: inline-block;
+    margin-top: 3px;
+}
+.gift_icon{
     width: 50px;
     height: 50px;
-    display: inline-block;
 }
-.icon_wrap div:hover{
+
+.div_icon{
+    display: inline-block;
+    margin-top: 4px;
+}
+.icon:hover{
     border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
     border:2px solid #5ec3df; 
     box-shadow: 0 0 11px #6be0ff; 
 }
 
-.gift_icon{
-    width: 40px;
-    height: 40px;
-    margin-right: 8px;
-    margin-left: 8px;
-    margin-top: 9px;  
-}
-.gift_icon:hover{
-
-}
-
 .icon{
-    width: 30px;
-    height: 30px;
-    /* margin-right: 5px; */
-    margin-left: 8px;
-    margin-top: 8px;
+    width: 50px;
+    height: 50px;
+    padding: 5px 12px 5px 12px;
 
-}
-
-.infoIcon{
-    width: 40px;
-    height: 40px;
+    border-radius:50%;
+    border:2px solid #5ec3df; 
 }
 
 .Menu{

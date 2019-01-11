@@ -195,12 +195,20 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleReferral}>Referral</a></li>
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
-						<li className="icon_wrap">
-							<a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a>
-							<div><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div>
-							<div><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div>
-							<div><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div>
-						</li>
+
+						<li className="icon_wrap"><div className="div_icon"><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div></li>
+
+
+
+						{/* <li className="icon_wrap">
+							<div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div>
+							<div className="div_icon"><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div>
+							<div className="div_icon"><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div>
+							<div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div>
+						</li> */}
 
 					</ul>
 				</div>
