@@ -191,6 +191,7 @@ chip.namtrieu
     top: 60px;
     left: 10px;
     border-radius: 100%;
+    text-align: center;
 }
 
 .bet:hover {

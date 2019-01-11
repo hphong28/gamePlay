@@ -29,6 +29,7 @@ class DiceBoard extends React.Component {
         this.setState({
             selectedBetCase: this.state.betCaseArray[value],
             betValArray: betVals,
+            betVal: betVals[value],
         });
     };
 

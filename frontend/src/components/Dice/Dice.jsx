@@ -20,6 +20,8 @@ class Dice extends React.Component {
                 <div className="dice_group1">
                     <div className={`dice_md_item ${"dice_md_num" + this.props.value}`} ></div>
                     <div className="desc" ><p>Total Bet: 0.0000 EOS</p><p> My Bet: {this.props.betVal[this.props.index]} EOS</p></div>
+                    <div className={`bet ${this.props.betVal[this.props.index] >0 ? "active":""}`} ><button class="btn" onClick ={this.handleClick}>Bet</button></div>
+
                 </div>
 
             );
@@ -29,6 +31,8 @@ class Dice extends React.Component {
                     {this.props.value <= 10 ? <div className="dice_num_top">{this.props.value}</div> : <div className="dice_num_bottom">{this.props.value}</div>}
                     <div className="dice_rate">1:{this.props.rate}</div>
                     <div className="desc" ><p>Total Bet: 0.0000 EOS</p><p> My Bet: {this.props.betVal[this.props.index]} EOS</p></div>
+                    <div className={`bet ${this.props.betVal[this.props.index] >0 ? "active":""}`} ><button class="btn" onClick ={this.handleClick}>Bet</button></div>
+
                 </div>
             );
         } else if (this.props.type === 3) {
@@ -53,6 +57,8 @@ class Dice extends React.Component {
                     <div className="dice_num_2" >{this.props.value ? "4-10" : "11-17"}</div>
                     <div className="dice_rate">1:{this.props.rate}</div>
                     <div className="desc" ><p>Total Bet: 0.0000 EOS</p><p> My Bet: {this.props.betVal[this.props.index]} EOS</p></div>
+                    <div className={`bet ${this.props.betVal[this.props.index] >0 ? "active":""}`} ><button class="btn" onClick ={this.handleClick}>Bet</button></div>
+
                 </div>
             );
         }

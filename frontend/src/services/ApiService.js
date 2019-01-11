@@ -206,7 +206,7 @@ class ApiService {
         const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
         const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
         // const eos = scatter.eos(TEST_NETWORK, Eos, eosOptions);
-        eos.transfer(betAccount, 'dicedice1234', "0.0005 EOS", betCase + betReffer + "", transactionOptions).then(trx => {
+        eos.transfer(betAccount, 'dicedice1234', `${Number(betVal).toFixed(4).toString()} EOS`, betCase + betReffer + "", transactionOptions).then(trx => {
             // That's it!
             console.log(`Transaction ID: ${trx.transaction_id}`);
 
