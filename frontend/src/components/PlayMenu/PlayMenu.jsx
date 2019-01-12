@@ -30,7 +30,7 @@ class PlayMenu extends Component {
   }
 
   updateNetCpu() {
-    console.log('tam_ updateNetCpu')
+    // console.log('tam_ updateNetCpu')
     ApiService.hasIdentity().then(rsp => {
       if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
