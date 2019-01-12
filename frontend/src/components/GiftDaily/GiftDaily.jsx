@@ -5,16 +5,44 @@ import { connect } from 'react-redux';
 import GiftImage from './images/gift.svg'
 
 class GiftDaily extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            CloseDialogue: false,
+        }
+
+        this.clickOutside = this.clickOutside.bind(this);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+    }
+    clickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            console.log('tam_ clickOutside');
+            this.props.onGiftDaily();
+        }
+    }
+    componentDidMount() {
+        document.addEventListener('click', this.clickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.clickOutside);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+
     render() {
         return (
-            <div className="GiftDailyWrap">
-                <div className="GiftDailyCss">
+            <div className="GiftDailyWrap" >
+                <div className="GiftDailyCss" ref={this.setWrapperRef}>
                     <div>
                         <a href="#" onClick={this.props.onGiftDaily} class="CloseButtonGift"></a>
                     </div>
 
                     <div className="HeaderGift">
-                        Daily Gift                  
+                        Daily Gift
                     </div>
 
                     <div className="wrap_gift_image">

@@ -3,11 +3,37 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Referral extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            CloseDialogue: false,
+        }
+
+        this.clickOutside = this.clickOutside.bind(this);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+    }
+    clickOutside(event) {
+        if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            console.log('tam_ clickOutside');
+            this.props.onCloseReferral();
+        }
+    }
+    componentDidMount() {
+        document.addEventListener('click', this.clickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.clickOutside);
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
 
     render() {
         return (
             <div className="ReferralWrap">
-                <div className="ReferralCss">
+                <div className="ReferralCss" ref={this.setWrapperRef}>
                     <div>
                         <a href="#" onClick={this.props.onCloseReferral} class="CloseButtonReferral"></a>
                     </div>
