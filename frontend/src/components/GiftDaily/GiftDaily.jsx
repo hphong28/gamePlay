@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import GiftImage from './images/gift.svg'
+
 class GiftDaily extends Component {
     render() {
         return (
@@ -12,8 +14,19 @@ class GiftDaily extends Component {
                     </div>
 
                     <div className="HeaderGift">
-                    Lien He Quoc Le Lay Qua
+                        Daily Gift                  
+                    </div>
 
+                    <div className="wrap_gift_image">
+                        <img src={GiftImage} alt=" " className="DailyGiftImage" />
+                    </div>
+
+                    <div className="wrap_detail">
+                        Get Your Gift EveryDay
+                    </div>
+
+                    <div className="wrap_button_claim">
+                        <button className="button_claim">CLAIM</button>
                     </div>
 
                 </div>
