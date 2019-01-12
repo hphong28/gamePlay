@@ -100,7 +100,6 @@
     padding-top: 33px;
     padding-left: 10px;
     padding-right: 30px;
-
 }
 
 .user_icon{
@@ -150,6 +149,8 @@
     margin-top: 28px;
     float: right;
     position: fixed;
+
+    z-index: 1;
 }
 
 .PopUp_Wrap{
