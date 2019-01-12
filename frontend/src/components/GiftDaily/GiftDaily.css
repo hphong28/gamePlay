@@ -63,4 +63,59 @@
     text-align: center;
     padding-top: 30px;
     padding-bottom: 20px;
+    display: block;
+  }
+
+  .wrap_gift_image{
+    display: block;
+    width: auto;
+  }
+  .DailyGiftImage{
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .wrap_detail{
+    color: #CCCCCC;
+    display: block;
+    font-size: 28pt;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    display: block;
+  }
+
+  .wrap_button_claim{
+    display: block;
+    margin-top: 20px;
+  }
+
+  .button_claim{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+    background-image: linear-gradient(to right, #4272E8 , #00B8E9);
+    text-align: center;
+    flex: 1 1 auto;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    letter-spacing: 1px;
+
+    height: 70px;
+    width: 200px;
+  }
+
+  .button_claim:hover{
+    color: white;
+    text-shadow: 0 0 10px white;
   }
