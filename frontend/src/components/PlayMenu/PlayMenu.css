@@ -9,7 +9,9 @@
     font-family: 'MyriadPro'; 
     color: white;
     font-size: 20px;
-    margin-left: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
 
 }
 
@@ -26,6 +28,11 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 20px;
+}
+.iconBet:hover{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
 }
 
 .BetAmount_Wrap{
@@ -78,7 +85,13 @@
     border:2px solid #00B8E9; 
     height: 40px;
     width: 40px;
-
+}
+.info_wrap:hover{
+        border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:2px solid #5ec3df; 
+    box-shadow: 0 0 11px #6be0ff; 
 }
 .info_value{
     position: absolute;

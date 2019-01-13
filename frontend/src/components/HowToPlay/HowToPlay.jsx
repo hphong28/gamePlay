@@ -8,11 +8,11 @@ class HowToPlay extends Component {
             <div className="HowToPlayWrap">
                 <div className="HowToPlayStyle">
                     <div>
-                        <button className="CloseButtonHowToPlay" onClick={this.props.onCloseHowToPlay}> X </button>
+                        <a href="#" onClick={this.props.onCloseHowToPlay} class="CloseButtonHowToPlay"></a>
                     </div>
                     <div className="HeaderHowToPlay">
                         How To Play
-                </div>
+                    </div>
 
                     <div className="DetailHowToPlay">
                         <p>1, Prepare your EOS account.<br /></p>
