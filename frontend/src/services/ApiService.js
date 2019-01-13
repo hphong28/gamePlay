@@ -118,7 +118,7 @@ class ApiService {
         }
     }
 
-    static async getAllBet(limit1) {
+    static async getAllBet(limit1, lower_bound1, upper_bound1) {
         try {
             const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
                 method: 'POST',
@@ -126,9 +126,9 @@ class ApiService {
                     scope: 'dicedice1234',
                     code: 'dicedice1234',
                     table: 'bet2s',
-                    // lower_bound: account,
-                    // upper_bound: account,
-                    // index_position: "1",
+                    lower_bound: lower_bound1,
+                    upper_bound: upper_bound1,
+                    index_position: "1",
                     key_type: "i64",
                     reverse: "true",
                     json: "true",
@@ -136,6 +136,7 @@ class ApiService {
                 }),
             });
             const responseJson = await response.json();
+            // console.log("Phong AllBet ", responseJson.rows)
             return responseJson.rows;
         } catch (error) {
             console.log(error);
@@ -160,12 +161,38 @@ class ApiService {
                 }),
             });
             const responseJson = await response.json();
-            // console.log("Phong Records",responseJson.rows)
+            // console.log("Phong Records",responseJson.rows);
             return responseJson.rows;
         } catch (error) {
             console.log(error);
         }
     }
+
+    static async getGlobal(limit1) {
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'dicedice1234',
+                    code: 'dicedice1234',
+                    table: 'globals',
+                    // lower_bound: account,
+                    // upper_bound: account,
+                    // index_position: "1",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                    limit: limit1
+                }),
+            });
+            const responseJson = await response.json();
+            // console.log("Phong Global",responseJson.rows);
+            return responseJson.rows;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 }
 
 
