@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 class HowToPlay extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            CloseDialogue: false,
-        }
 
         this.clickOutside = this.clickOutside.bind(this);
         this.setWrapperRef = this.setWrapperRef.bind(this);

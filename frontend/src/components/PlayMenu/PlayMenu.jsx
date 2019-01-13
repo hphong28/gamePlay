@@ -32,14 +32,14 @@ class PlayMenu extends Component {
   }
 
   updateNetCpu() {
-    console.log('tam_ updateNetCpu')
+    // console.log('tam_ updateNetCpu')
     ApiService.hasIdentity().then(rsp => {
       if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
           // console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
 
           this.setState({
-            tokenValue: parseFloat(rawData.core_liquid_balance).toFixed(0),
+            tokenValue: parseFloat(rawData.core_liquid_balance).toFixed(4),
             net: (rawData.net_limit.used / rawData.net_limit.available * 100).toFixed(0),
             CPU: (rawData.cpu_limit.used / rawData.cpu_limit.available * 100).toFixed(0),
           });
@@ -105,13 +105,13 @@ class PlayMenu extends Component {
                 <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue">{this.state.tokenValue}</div>
                 <div className="BetAmountToken"> EOS</div>
-                  <div class="menu_playmenu icon_playmenu"></div>
+                <div class="menu_playmenu icon_playmenu"></div>
               </div>
               
 
               <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
                 <img src={EBTCLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue"> 4</div>
+                <div className="BetAmountValue"> 4000.1234</div>
                 <div className="BetAmountToken"> EBTC</div>
               </div>
 

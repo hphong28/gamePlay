@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { ApiService } from 'services';
+
 import GiftImage from './images/gift.svg'
 
 class GiftDaily extends Component {
@@ -13,6 +15,7 @@ class GiftDaily extends Component {
 
         this.clickOutside = this.clickOutside.bind(this);
         this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleGetDailyReward = this.handleGetDailyReward.bind(this);
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
@@ -30,6 +33,20 @@ class GiftDaily extends Component {
 
     setWrapperRef(node) {
         this.wrapperRef = node;
+    }
+
+    handleGetDailyReward(){
+        console.log('tam_ get daily reward');
+
+        ApiService.hasIdentity().then(rsp => {
+            if (rsp) {
+                ApiService.GetDailyReward(rsp.accounts[0].name).then(rawData => {
+                    console.log('tam_ rawData', rawData);
+
+              });
+            }
+          });
+
     }
 
 
@@ -54,7 +71,7 @@ class GiftDaily extends Component {
                     </div>
 
                     <div className="wrap_button_claim">
-                        <button className="button_claim">CLAIM</button>
+                        <button className="button_claim" onClick={this.handleGetDailyReward}>CLAIM</button>
                     </div>
 
                 </div>

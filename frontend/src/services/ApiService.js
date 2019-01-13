@@ -89,7 +89,7 @@ class ApiService {
         }
     }
 
-    static async GetAccountDetail(account){
+    static async GetAccountDetail(account) {
         // console.log('tam_ GetAccountDetail', account)
 
         try {
@@ -211,6 +211,92 @@ class ApiService {
             console.log(`Transaction ID: ${trx.transaction_id}`);
 
         });
+    }
+
+    static async  GetDailyReward(AccountGetDailyGift) {
+        console.log('tam123_ get GetDailyReward', AccountGetDailyGift);
+
+
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+
+        //connect to scatter
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+
+        const eosOptions = {
+            broadcast: true,
+            sign: true,
+            expireInSeconds: 60,
+        };
+
+        console.log("tam123_", res)
+        const account = res.accounts[0];
+
+        const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
+        const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        console.log("tam1234_", eos, transactionOptions);
+
+        const transaction = {
+            // ...headers,
+            // context_free_actions: [],
+            actions: [
+                {
+                    // account: AccountGetDailyGift,
+                    account: "dicedice1234",
+                    name: 'dailyreward',
+                    authorization: [{
+                        actor: account.name,
+                        permission: account.authority
+                    }],
+                    data: {
+                        ref: AccountGetDailyGift,
+                        // name: AccountGetDailyGift,
+                        // name: AccountGetDailyGift,
+                        // dataTransaction: dataTransaction[0].input,
+                        // to: 'initb',
+
+                    }
+                }
+            ]
+
+        }
+        console.log('tam _ pushtransaction');
+
+        try {
+            const result = await eos.transaction(transaction) 
+            console.log(":tam_ Transaction ID:", result);
+            
+          } catch (e) {
+            console.log('\nCaught exception: ' + e);
+
+          }
+
+        // try {
+        //     eos.transaction(transaction).then(trx => {
+        //         console.log(`tam_ Transaction ID: ${trx.transaction_id}`);
+        //     })
+
+        // } catch (err) {
+        //     console.error(err);
+        //     return null;
+        // }
+
+
+
+
+
+
+        // eos.transfer(AccountGetDailyGift, 'dicedice1234', transactionOptions).then(trx => {
+        //     // That's it!
+        //     console.log(`tam_ Transaction ID: ${trx.transaction_id}`);
+
+        // });
+
+
     }
 
 }

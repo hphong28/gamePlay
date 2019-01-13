@@ -38,7 +38,8 @@ class Header extends Component {
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
 		this.handleGiftDaily = this.handleGiftDaily.bind(this);
 
-		this.handleOutsideClick = this.handleOutsideClick.bind(this);
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.clickOutsideLogoutButton = this.clickOutsideLogoutButton.bind(this);
 	}
 	//before render
 	componentWillMount() {
@@ -59,8 +60,12 @@ class Header extends Component {
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
+		document.addEventListener('click', this.clickOutsideLogoutButton);
 
 		// ApiService.GetAccountDetail("dicedice1234");
+	}
+	componentWillUnmount() {
+		document.removeEventListener('click', this.clickOutside);
 	}
 
 
@@ -97,12 +102,6 @@ class Header extends Component {
 	}
 	toggleLogOutClick() {
 		console.log('tam_ togle')
-		if (!this.state.LogoutingStatus) {
-			document.addEventListener('click', this.handleOutsideClick, false);
-		} else {
-			document.removeEventListener('click', this.handleOutsideClick, false);
-		}
-
 		this.setState({
 			LogoutingStatus: !this.state.LogoutingStatus,
 		});
@@ -133,13 +132,18 @@ class Header extends Component {
 			HowToPlayStatus: false,
 		});
 	}
+	setWrapperRef(node) {
+		this.wrapperRef = node;
+	}
 
-	handleOutsideClick(e) {
-		console.log("'tam_ test click");
-		if (this.node.contains(e.target))
-			return;
+	clickOutsideLogoutButton(event) {
+		console.log('tam_ clickOutsideLogoutButton');
+		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
 
-		this.toggleLogOutClick();
+			if (this.state.LogoutingStatus) {
+				this.toggleLogOutClick();
+			}
+		}
 	}
 
 	closePopUp() {
@@ -155,7 +159,7 @@ class Header extends Component {
 
 	render() {
 		return (
-			<div ref={node => { this.node = node; }} >
+			<div >
 				<div className="navbar" >
 					<ul className="nav">
 						<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
@@ -173,7 +177,7 @@ class Header extends Component {
 									</div>
 								</li> :
 
-								<li className="Logout_wrap">
+								<li className="Logout_wrap" ref={this.setWrapperRef} >
 									<div>
 										<ul>
 											<li>
@@ -201,15 +205,6 @@ class Header extends Component {
 						<li className="icon_wrap"><div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div></li>
 						<li className="icon_wrap"><div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div></li>
 
-
-
-						{/* <li className="icon_wrap">
-							<div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div>
-							<div className="div_icon"><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div>
-							<div className="div_icon"><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div>
-							<div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div>
-						</li> */}
-
 					</ul>
 				</div>
 				{
@@ -236,8 +231,6 @@ class Header extends Component {
 						</div>
 
 						: null
-
-
 				}
 
 
