@@ -18,9 +18,11 @@ class PlayMenu extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleChosetokenSelect = this.handleChosetokenSelect.bind(this);
+    this.handleOpenListToken = this.handleOpenListToken.bind(this);
 
     this.state = {
       chip: 0,
+      listtoken: 0,
       tokenSelect: 1,
       tokenValue: 0,
       net: 0,
@@ -51,12 +53,12 @@ class PlayMenu extends Component {
         });
       }
     });
-  }
+  };
 
   componentDidMount() {
     this.updateNetCpu.bind(this);
     setInterval(this.updateNetCpu.bind(this), 4000);
-  }
+  };
 
   handleClick = (value) => (e) => {
     this.setState({ chip: value == this.state.chip ? 0 : value });
@@ -65,9 +67,16 @@ class PlayMenu extends Component {
 
   handleChosetokenSelect = (value) => (e) => {
     console.log('tam_ handleChosetokenSelect', value);
-    this.setState({ tokenSelect: value })
-  }
+    this.setState({ 
+      tokenSelect: value,
+      listtoken: !this.state.listtoken,
+     })
+  };
 
+  handleOpenListToken= () => (e) =>{
+    console.log('tam_ handleOpenListToken');
+    this.setState({ listtoken: !this.state.listtoken });
+  };
 
 
 
@@ -87,27 +96,26 @@ class PlayMenu extends Component {
 
         <div className="BetAmount_Wrap" >
 
-          <div className="MenuSelect_Wrap">
+          <div className="MenuSelect_Wrap"  onClick={this.handleOpenListToken()}>
 
-            <button className="showButton_wrap" onClick={this.handleChosetokenSelect(0)}>
-              <div class="menu_playmenu icon_playmenu"></div>
-            </button>
 
             <div className="Dropdown_Wrap">
 
-              <div className={`BetAmount${(this.state.tokenSelect == 1) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)} >
+              <div className={`BetAmount${(this.state.tokenSelect == 1) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)} >
                 <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue">{this.state.tokenValue}</div>
                 <div className="BetAmountToken"> EOS</div>
+                  <div class="menu_playmenu icon_playmenu"></div>
               </div>
+              
 
-              <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
+              <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
                 <img src={EBTCLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue"> 4</div>
                 <div className="BetAmountToken"> EBTC</div>
               </div>
 
-              <div className={`BetAmount${(this.state.tokenSelect == 3) || (this.state.tokenSelect == 0) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(3)}>
+              <div className={`BetAmount${(this.state.tokenSelect == 3) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(3)}>
                 <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
                 <div className="BetAmountValue"> 3</div>
                 <div className="BetAmountToken"> EOS</div>
