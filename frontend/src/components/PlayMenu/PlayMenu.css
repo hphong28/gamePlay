@@ -11,14 +11,16 @@
     font-size: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 500px;
 
 }
 
 .WrapIconBet{
-    display: flex;  
-
+    display: block;  
+    padding-left: 15px;
+    padding-right: auto;
 }
+
 .WrapIconBet div{
     float: left;    
     cursor: pointer;
@@ -43,57 +45,37 @@
 }
 .BetAmount_Wrap{
     display: block;
-    margin-left: 40px;
-    margin-top: 10px;
+    padding-left: auto;
+    padding-right: auto;
 }
 
 .MenuSelect_Wrap{
-    margin-top: 5px;
-    padding: auto;
+    margin-top: 20px;
     min-height: 55px;
-    width: auto;
-    float: left;
-    /* background-color: #21264e; */
+    width: 330px;
     border-radius: 5px;
     border: 2px solid #5178e7 ;
     border-radius: 16px;
+    display: inline-block;
+    float: left;
 }
 .MenuSelect_Wrap:hover{
-    box-shadow: 0 0 2px #6be0ff; 
+    box-shadow: 0 0 4px #6be0ff; 
 }
 .Dropdown_Wrap{
-    height: auto;
     overflow-y: scroll;
-    /* float: right; */
-    width: 170px;
-    /* overflow: hidden; */
+    width: auto;
     display: inline-block;
-}
-
-.showButton_wrap{
-    /* display: inline-block; */
-    float: left;
-    /* background-color: #1C2041; */
-    width: 40px;
-    width: 40px;
-    height: 40px;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: 8px;
-    cursor: pointer;
+    padding: 5px 5px 5px 5px;
 }
 
 .playmenu_icon_wrap{
     display: inline-block;
-    /* width: 10px; */
-    /* float: right; */
 }
 
 .menu_playmenu.icon_playmenu {
     color: #90caf9;
-    /* position: absolute; */
-    /* margin-right: 20px;
-    margin-bottom: 25px; */
+
     
   }
 .menu_playmenu.icon_playmenu::before {
@@ -113,25 +95,17 @@
   }
   .BetAmountShow{
       float: left;
-      width: 170px;
-      /* height: 40px; */
-      /* background-color: #1C2041; */
+      width: 315px;
+      display: block;
       border-radius: 10px;
-      /* margin-top: 10px; */
-      padding: 5px;
+      margin-top: 4px;
   }
   .BetAmountShow:hover{
     background-color: #1C2041; 
-    border-radius: 15px;
+    border-radius: 10px;
   }
   .BetAmountHidden{
       display: none;
-      float: left;
-      width: 150px;
-      height: 40px;
-      background-color: #1C2041;
-      border-radius: 10px;
-      margin-top: 10px;
   }
   
   .BetAmountLogo{
@@ -139,13 +113,13 @@
       width: 25px;
       height: 25px;
       margin-left: 4px;
-      margin-top: 8px;
+      margin-top: 5px;
   }
   .BetAmountValue{
       float: left;
-      padding-left: 20px;
-      padding-right: 10px;
-      padding-top: 2px;
+      width: 200px;
+      padding-left: auto;
+      padding-right: auto;      
       font-size: 25pt;
   
   }
@@ -155,12 +129,10 @@
       font-size: 16pt;
   }
 
-.inforIcon_Wrap{
-    display: inline-block;
-}
+
 .info_wrap{
     position: relative;
-    margin-top: 14px;
+    margin-top: 29px;
     margin-left: 10px;
     float: left;
     border-radius:50%;
@@ -169,6 +141,7 @@
     border:2px solid #00B8E9; 
     height: 40px;
     width: 40px;
+    display: inline-block;
 }
 .info_wrap:hover{
         border-radius:50%;
@@ -188,6 +161,7 @@
     border:2px solid #ff1744; 
     height: 40px;
     width: 40px;
+    display: inline-block;
 }
 .info_wrap_over:hover{
     border-radius:50%;
