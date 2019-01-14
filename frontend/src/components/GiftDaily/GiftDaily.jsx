@@ -54,8 +54,7 @@ class GiftDaily extends Component {
         return (
             <div className="GiftDailyWrap" >
                 <div className="GiftDailyCss" ref={this.setWrapperRef}>
-                    <div>
-                        <a href="#" onClick={this.props.onGiftDaily} class="CloseButtonGift"></a>
+                    <div onClick={this.props.onGiftDaily} class="CloseButtonGift CloseButtonGiftWrap">
                     </div>
 
                     <div className="HeaderGift">

@@ -34,8 +34,7 @@ class Referral extends Component {
         return (
             <div className="ReferralWrap">
                 <div className="ReferralCss" ref={this.setWrapperRef}>
-                    <div>
-                        <a href="#" onClick={this.props.onCloseReferral} class="CloseButtonReferral"></a>
+                    <div class="CloseButtonReferral CloseButtonReferralWrap" onClick={this.props.onCloseReferral}>
                     </div>
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
