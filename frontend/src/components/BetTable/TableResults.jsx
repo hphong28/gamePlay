@@ -35,7 +35,19 @@ function ResultTable(props) {
                     dice2={row.dice2}
                     dice3={row.dice3} />
                   </td>
-                  <td>{row.Total}</td>
+                  <td>{row.Total}
+                    <span
+                      style={{
+                        color: "#fadb00",
+                        fontWeight: "600",
+                        textShadow: "0 0 3px #fadb00",
+                        display: "block",
+                        paddingTop: "5px"
+                      }}
+                    >
+                      {row.Total <= 10 ? <div>SMALL</div> : <div>BIG</div>}
+                    </span>
+                  </td>
                 </tr>                
               );              
             }

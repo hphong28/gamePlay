@@ -19,20 +19,54 @@ class Tab extends React.Component {
 
         ResultTable: []
       },
-      index: 0
+      index: 0,
+      lower_bound: 0,
+      upper_bound: 19,
+      latestBet:0,
+      pageIndex:0
     };
 
     this.timer = 0; // to contain the value return from setInterval function
     this.handleClick = this.handleClick.bind(this);
 
 }
+  getLatestBet = () => {
+    ApiService.getGlobal(20).then(data => {
+      if((data[4].val - 20*this.state.pageIndex)>=20)
+      {
+        this.setState({
+          latestBet: data[4].val,
+          upper_bound: (data[4].val - 20*this.state.pageIndex),
+          lower_bound: (data[4].val -20 - 20*this.state.pageIndex)
+        });
+      }
+      else if ((data[4].val - 20*this.state.pageIndex)>=0){
+        this.setState({
+          latestBet: data[4].val,
+          upper_bound: (data[4].val -20*this.state.pageIndex),
+          lower_bound: 0
+        });
+      }
+      else{
+        this.setState({
+          latestBet: data[4].val,
+          upper_bound: (data[4].val -20*(this.state.pageIndex -1)),
+          lower_bound: 0,
+          pageIndex: (this.state.pageIndex-1),
+        });
+      }
+    });
+
+  }
+
   getMyBet = () => {
     ApiService.getMyBet("ilovedice123", 20).then(bets => { 
       // if there is a new bet then myBetTable will be updated
-      if (bets.length > this.state.BetData.MyBetTable.length) {
+      // if (bets.length > this.state.BetData.MyBetTable.length) {
         //this temp variable is a workaround for updating nested state
         let temp = this.state.BetData.MyBetTable;
-        temp = [];
+        // only this way "temp.length = 0" can empty the array not "temp = []""
+        temp.length = 0;
         this.setState({
           temp
         });
@@ -54,7 +88,8 @@ class Tab extends React.Component {
           const tempAllBet = this.state.BetData.MyBetTable[index];
           tempAllBet.round = item.round;
           tempAllBet.bet = item.bet_amount;
-          [tempAllBet.type, tempAllBet.value] = this.betCaseMapping(item.bet_case);
+          [tempAllBet.type, tempAllBet.value, tempAllBet.dice1, tempAllBet.dice2, tempAllBet.dice3] = 
+          this.betCaseMapping(item.bet_case);
 
           // when the variable contain the reference is changed then the original 
           // element is changed also
@@ -62,25 +97,25 @@ class Tab extends React.Component {
             tempAllBet
           });
         });
-      }
-      else {
-        //do nothing
-      }
+      // }
+      // else {
+      //   //do nothing
+      // }
 
     });
   }
 
   getAllBet = () => {
-    ApiService.getAllBet(20).then(bets => { 
+    ApiService.getAllBet(20, this.state.lower_bound, this.state.upper_bound).then(bets => { 
       // if there is a new bet then myBetTable will be updated
-      if (bets.length > this.state.BetData.AllBetTable.length) {
+      // if (bets.length > this.state.BetData.AllBetTable.length) {
         //this temp variable is a workaround for updating nested state
         let temp = this.state.BetData.AllBetTable;
-        temp = [];
+        // only this way "temp.length = 0" can empty the array not "temp = []""
+        temp.length = 0;
         this.setState({
           temp
         });
-
         bets.map((item, index) => {
           this.state.BetData.AllBetTable.push(
             {
@@ -98,7 +133,8 @@ class Tab extends React.Component {
           const tempAllBet = this.state.BetData.AllBetTable[index];
           tempAllBet.player = item.bettor;
           tempAllBet.bet = item.bet_amount;
-          [tempAllBet.type, tempAllBet.value] = this.betCaseMapping(item.bet_case);
+          [tempAllBet.type, tempAllBet.value, tempAllBet.dice1, tempAllBet.dice2, tempAllBet.dice3] = 
+          this.betCaseMapping(item.bet_case);
 
           // when the variable contain the reference is changed then the original 
           // element is changed also
@@ -106,26 +142,29 @@ class Tab extends React.Component {
             tempAllBet
           });
         });
-      }
-      else {
-        //do nothing
-      }
+      // }
+      // else {
+      //   //do nothing
+      // }
 
     });
   }
 
   getRecords = () => {
-    ApiService.getRecords(20).then(bets => { 
-      // if there is a new bet then myBetTable will be updated
-      if (bets.length > this.state.BetData.ResultTable.length) {
-        //this temp variable is a workaround for updating nested state
-        let temp = this.state.BetData.ResultTable;
-        temp = [];
-        this.setState({
-          temp
-        });
+    ApiService.getRecords(20).then(bets => {
+      //this temp variable is a workaround for updating nested state
+      let temp = this.state.BetData.ResultTable;
+      // only this way "temp.length = 0" can empty the array not "temp = []""
+      temp.length = 0;
+      this.setState({
+        temp
+      });
 
-        bets.map((item, index) => {
+      let indexResult = 0;
+  
+      bets.map((item, index) => {
+        if ((item.dice_one + item.dice_two + item.dice_three) > 0) {
+          
           this.state.BetData.ResultTable.push(
             {
               dice1: 1,
@@ -133,35 +172,37 @@ class Tab extends React.Component {
               dice3: 1,
               Total: 3
             });
-          // - tempAllBet is the reference to the BetData.AllBetTable[index]
+          // - tempAllBet is the reference to the BetData.AllBetTable[indexResult]
           // - Cannot take the reference to BetData because we can only take reference 
           //   to "one level" oject
-          const tempAllBet = this.state.BetData.ResultTable[index];
+          const tempAllBet = this.state.BetData.ResultTable[indexResult];
           [tempAllBet.dice1, tempAllBet.dice2, tempAllBet.dice3] = [item.dice_one, item.dice_two, item.dice_three];
 
-          tempAllBet.Total = (item.dice_one + item.dice_two + item.dice_three);          
+          tempAllBet.Total = (item.dice_one + item.dice_two + item.dice_three);
 
           // when the variable contain the reference is changed then the original 
           // element is changed also
-          this.setState({
-            tempAllBet
-          });
-        });
-      }
-      else {
-        //do nothing
-      }
+          this.setState({tempAllBet});
 
+          indexResult += 1;
+        }
+        else
+        {
+          // do nothing
+        }
+
+      });
     });
   }
 
   componentDidMount() {
+
     this.timer = setInterval(this.updateData, 1000);
-    
+
   }
 
-
   updateData = () => { 
+    this.getLatestBet();
     this.getMyBet();
     this.getAllBet();
     this.getRecords();
@@ -173,11 +214,11 @@ class Tab extends React.Component {
     //-passing data between object is by reference 
     if(/SMALL/.test(param))
     {
-      returnValue = [4,4];
+      returnValue = [4,4,null,null,null];
     }
     else if(/BIG/.test(param))
     {
-      returnValue = [4,17];
+      returnValue = [4,17,null,null,null];
     }
     else if(/SINGLE/.test(param))
     {
@@ -186,11 +227,11 @@ class Tab extends React.Component {
     }
     else if(/TRIPLE/.test(param))
     {
-      returnValue = [1,/\d/.exec(param)[0]];
+      returnValue = [5,null, /\d/.exec(param)[0], /\d/.exec(param)[0],/\d/.exec(param)[0]];
     }
     else if(/NUM/.test(param))
     {
-      returnValue = [2,/\d/.exec(param)[0]];
+      returnValue = [2,/\d.*/.exec(param)[0],null, null, null];
     }
     else
     {
@@ -202,6 +243,27 @@ class Tab extends React.Component {
   handleClick(i) {
     this.setState({ index: i });
 
+  }
+  nextPage = (i) => {
+    if(this.state.pageIndex>0)
+    {
+      this.setState({
+        pageIndex: (this.state.pageIndex - 1),
+      });
+      this.getLatestBet();
+      this.getAllBet();
+    }
+  }
+
+  previousPage = (i) => {
+    if(this.state.pageIndex<4)
+    {
+      this.setState({
+        pageIndex: (this.state.pageIndex + 1),
+      });
+      this.getLatestBet();
+      this.getAllBet();
+    }
   }
 
   render() {
@@ -225,8 +287,10 @@ class Tab extends React.Component {
         </div>
         <div className="footWrapper">
           <div className="footerContent">
-              <p className="column"> BlockDevTeam </p>
-              <p className="column"> 25 EOS </p>
+              <a href="#" class="nextPage next" onClick={() => this.previousPage(0)}>&laquo;Previous </a>
+              <a href="#" class="nextPage previous" onClick={() => this.nextPage(0)}> Next&raquo;</a>
+              {/* <p className="column"> BlockDevTeam </p>
+              <p className="column"> 25 EOS </p> */}
           </div>
         </div>
       </div>
