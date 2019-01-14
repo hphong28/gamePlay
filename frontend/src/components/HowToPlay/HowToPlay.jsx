@@ -30,8 +30,7 @@ class HowToPlay extends Component {
         return (
             <div className="HowToPlayWrap">
                 <div className="HowToPlayStyle" ref={this.setWrapperRef}>
-                    <div>
-                        <a href="#" onClick={this.props.onCloseHowToPlay} class="CloseButtonHowToPlay"></a>
+                    <div className="HowToPlayCloseButtonWrap CloseButtonHowToPlay" onClick={this.props.onCloseHowToPlay}>
                     </div>
                     <div className="HeaderHowToPlay">
                         How To Play
