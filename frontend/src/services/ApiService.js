@@ -1,8 +1,8 @@
-import { Eos, Rpc } from 'eosjs'
-import Scatter from 'scatterjs-core'
+import Eos from 'eosjs';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
+import ScatterJS from 'scatterjs-core';
 
-const { Blockchains } = Scatter
+const { Blockchains } = ScatterJS
 
 let _account = {
     name: null,
@@ -26,74 +26,89 @@ export const TEST_NETWORK = {
     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
 
-const network = {
-    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-    blockchain: 'eos',
-}
-
 class ApiService {
     static async LoginScatter() {
-        console.log('tam_ login scatter');
 
-        Scatter.plugins(new ScatterEOS())
-        const connected = await Scatter.scatter.connect(Scatter.Blockchains.EOS)
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
 
-        if (!connected) {
-            console.log('tam_ SCATTER NOT Connect')
-            alert("Scatter NOT find")
-            return
-        }
-        const win = window
-        win.ScatterJS = win.ScatterEOS = win.scatter = undefined
-
-        //If it connected to scatter, forget its Identify
-        // if(Scatter.scatter.identity){
-        //     Scatter.scatter.forgetIdentity()
-        // }
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
 
         //connect to scatter
-        Scatter.scatter.getIdentity({ accounts: [MAIN_NETWORK] });
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+        return res.accounts;
     }
 
-    static hasIdentity() {
-        Scatter.scatter.connect(Scatter.Blockchains.EOS).then(connected => {
+    static async hasIdentity() {
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+        if (ScatterJS.scatter.identity)
+            return ScatterJS.scatter.identity;
+
+        return null;
+    }
+    static async LogOutScatter() {
+        ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
             if (connected) {
                 window.ScatterJS = null;
             }
-            return Scatter.scatter.identity;
+            ScatterJS.scatter.forgetIdentity();
         });
-
-
+        return true;
     }
-    static LogOutScatter() {
-        Scatter.scatter.forgetIdentity();
-    }
-    static async  GetData() {
+    static async  GetRefferal(account, limit) {
         console.log('tam123_ get data');
         try {
 
-          const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
-            method: 'POST',
-            body: JSON.stringify({
-                scope: 'EOS',
-                code: 'dicedice1234',
-                table: 'players',
-                lower_bound: 'ilovedice123',
-                upper_bound: 'ilovedice123',
-                index_position: "2",
-                key_type: "i64",
-                reverse: "true",
-                json: "true",
-            }),
-          });
-          const responseJson = await response.json();
-          console.log('tam_ responseJson.rows', responseJson.rows)
-          return responseJson.rows;
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+                method: 'POST',
+                body: JSON.stringify({
+                    scope: 'EOS',
+                    code: 'dicedice1234',
+                    table: 'players',
+                    lower_bound: account,
+                    upper_bound: account,
+                    index_position: "2",
+                    key_type: "i64",
+                    reverse: "true",
+                    json: "true",
+                }),
+            });
+            const responseJson = await response.json();
+            console.log('tam_ responseJson.rows', responseJson.rows)
+            return responseJson.rows;
 
         } catch (error) {
             console.log(error);
         }
     }
+
+    static async GetAccountDetail(account) {
+        // console.log('tam_ GetAccountDetail', account)
+
+        try {
+            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_account ', {
+                method: 'POST',
+                body: JSON.stringify({
+                    account_name: account,
+                }),
+            });
+            const responseJson = await response.json();
+            // console.log("tam_ GetAccountDetail ", responseJson)
+
+            return responseJson;
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
 
     static async  getMyBet(account,limit1) {
         try {
@@ -193,8 +208,123 @@ class ApiService {
             console.log(error);
         }
     }
+
+    static async startBet(betAccount, betCase, betVal, betReffer) {
+
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+
+        //connect to scatter
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+
+        const eosOptions = {
+            broadcast: true,
+            sign: true,
+            expireInSeconds: 60,
+        };
+
+        console.log("quoc12345", res)
+        const account = res.accounts[0];
+
+        const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
+        const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        // const eos = scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        eos.transfer(betAccount, 'dicedice1234', `${Number(betVal).toFixed(4).toString()} EOS`, betCase + betReffer + "", transactionOptions).then(trx => {
+            // That's it!
+            console.log(`Transaction ID: ${trx.transaction_id}`);
+
+        });
+    }
+
+    static async  GetDailyReward(AccountGetDailyGift) {
+        console.log('tam123_ get GetDailyReward', AccountGetDailyGift);
+
+
+        ScatterJS.plugins(new ScatterEOS())
+        const connected = await ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS)
+
+        if (!connected) return false;
+        const scatter = ScatterJS.scatter;
+        window.ScatterJS = null;
+
+        //connect to scatter
+        const res = await ScatterJS.scatter.getIdentity({ accounts: [TEST_NETWORK] });
+
+        const eosOptions = {
+            broadcast: true,
+            sign: true,
+            expireInSeconds: 60,
+        };
+
+        console.log("tam123_", res)
+        const account = res.accounts[0];
+
+        const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
+        const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
+        console.log("tam1234_", eos, transactionOptions);
+
+        const transaction = {
+            // ...headers,
+            // context_free_actions: [],
+            actions: [
+                {
+                    // account: AccountGetDailyGift,
+                    account: "dicedice1234",
+                    name: 'dailyreward',
+                    authorization: [{
+                        actor: account.name,
+                        permission: account.authority
+                    }],
+                    data: {
+                        ref: AccountGetDailyGift,
+                        // name: AccountGetDailyGift,
+                        // name: AccountGetDailyGift,
+                        // dataTransaction: dataTransaction[0].input,
+                        // to: 'initb',
+
+                    }
+                }
+            ]
+
+        }
+        console.log('tam _ pushtransaction');
+
+        try {
+            const result = await eos.transaction(transaction) 
+            console.log(":tam_ Transaction ID:", result);
+            
+          } catch (e) {
+            console.log('\nCaught exception: ' + e);
+
+          }
+
+        // try {
+        //     eos.transaction(transaction).then(trx => {
+        //         console.log(`tam_ Transaction ID: ${trx.transaction_id}`);
+        //     })
+
+        // } catch (err) {
+        //     console.error(err);
+        //     return null;
+        // }
+
+
+
+
+
+
+        // eos.transfer(AccountGetDailyGift, 'dicedice1234', transactionOptions).then(trx => {
+        //     // That's it!
+        //     console.log(`tam_ Transaction ID: ${trx.transaction_id}`);
+
+        // });
+
+
+    }
+
 }
-
-
-
 export default ApiService;

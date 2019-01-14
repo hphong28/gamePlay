@@ -19,7 +19,7 @@ class App extends Component {
         <div className="dice_board">
           <div className="dice_board_center">
             <DiceBoard />
-            <PlayMenu />
+            {/* <PlayMenu /> */}
           </div>
 
         </div>

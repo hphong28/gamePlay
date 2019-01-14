@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import { UserAction } from 'actions';
 import { ApiService } from 'services';
 
-import ScatterJS from 'scatterjs-core';
 
-import { Referral, HowToPlay } from 'components';
+import { Referral, HowToPlay, GiftDaily } from 'components';
 
 import logo from './images/logo.png'
 import mail_icon from './images/MAIL.svg'
@@ -16,19 +15,8 @@ import telegram_icon from './images/TELEGRAM.svg'
 
 import user_icon from './images/user.png'
 import exit_icon from './images/exit.svg'
+import gift_icon from './images/gift.svg'
 
-
-
-
-const { Blockchains } = ScatterJS
-
-export const MAIN_NETWORK = {
-	blockchain: Blockchains.EOS,
-	protocol: 'https',
-	host: 'nodes.get-scatter.com',
-	port: 443,
-	chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
-}
 
 class Header extends Component {
 	constructor(props) {
@@ -40,6 +28,7 @@ class Header extends Component {
 			ReferralStatus: false,
 			ReferralData: [],
 			HowToPlayStatus: false,
+			GiftDailyStatus: false,
 
 		}
 		this.handleLoginClick = this.handleLoginClick.bind(this);
@@ -47,91 +36,72 @@ class Header extends Component {
 		this.toggleLogOutClick = this.toggleLogOutClick.bind(this);
 		this.handleReferral = this.handleReferral.bind(this);
 		this.handleHowToPlay = this.handleHowToPlay.bind(this);
+		this.handleGiftDaily = this.handleGiftDaily.bind(this);
 
-		this.handleOutsideClick = this.handleOutsideClick.bind(this);
+		this.setWrapperRef = this.setWrapperRef.bind(this);
+		this.clickOutsideLogoutButton = this.clickOutsideLogoutButton.bind(this);
 	}
 	//before render
 	componentWillMount() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			if (connected) {
-				window.ScatterJS = null;
-			}
-			if (ScatterJS.scatter.identity) {
+		ApiService.hasIdentity().then(rsp => {
+			if (rsp) {
 				this.setState({
 					LoginStatus: true,
-					ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-					// ReferralData: ApiService.GetData(),
+					ScatterName: rsp.accounts[0].name,
 				});
-				ApiService.GetData().then(RawData =>{
-					console.log('tam_ my p ', RawData)
-	
+				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
 					this.state.ReferralData = RawData;
-		
+
 				})
 			}
 		});
+
 	}
 	//after render
 	componentDidMount() {
 		console.log('tam_ start to call');
+		document.addEventListener('click', this.clickOutsideLogoutButton);
+
+		// ApiService.GetAccountDetail("dicedice1234");
+	}
+	componentWillUnmount() {
+		document.removeEventListener('click', this.clickOutside);
 	}
 
 
 	handleLoginClick() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			console.log('tam_ connected', connected);
-			if (!connected) {
-				console.log('tam_ SCATTER NOT Connect')
-				alert("Scatter NOT find")
-				return
-			} else {
-				console.log('tam_ SCATTER Connect');
-				const win = window
-				win.ScatterJS = win.ScatterEOS = win.scatter = undefined
-				//connect to scatter
-				ScatterJS.scatter.getIdentity({ accounts: [MAIN_NETWORK] }).then(res => {
-					console.log('tam_ res', res)
-					if (res) {
-						this.setState({
-							LoginStatus: true,
-							ScatterName: ScatterJS.scatter.identity.accounts[0].name,
-							LogoutingStatus: false,
-						});
-
-						ApiService.GetData().then(RawData =>{
-							console.log('tam_ my p ', RawData)
-			
-							this.state.ReferralData = RawData;
-				
-						})
-
-					}
+		ApiService.LoginScatter().then(accounts => {
+			if (accounts) {
+				console.log("quoc123", accounts)
+				this.setState({
+					LoginStatus: true,
+					ScatterName: accounts[0].name,
+					LogoutingStatus: false,
 				});
+				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
+					console.log('tam_ my p ', RawData)
+
+					this.state.ReferralData = RawData;
+
+				})
 			}
-		})
+		});
+
 	}
 	handleLogoutClick() {
-		ScatterJS.scatter.connect(ScatterJS.Blockchains.EOS).then(connected => {
-			if (connected) {
-				window.ScatterJS = null;
+		ApiService.LogOutScatter().then(resp => {
+			if (resp) {
+				this.setState({
+					LoginStatus: false,
+					ScatterName: '',
+				});
+				this.state.ReferralData = null;
 			}
-			ScatterJS.scatter.forgetIdentity();
-			this.setState({
-				LoginStatus: false,
-				ScatterName: '',
-			});
-			this.state.ReferralData = null;
 		});
 
 	}
 	toggleLogOutClick() {
 		console.log('tam_ togle')
-		if (!this.state.LogoutingStatus) {
-			document.addEventListener('click', this.handleOutsideClick, false);
-		} else {
-			document.removeEventListener('click', this.handleOutsideClick, false);
-		}
-
 		this.setState({
 			LogoutingStatus: !this.state.LogoutingStatus,
 		});
@@ -141,32 +111,47 @@ class Header extends Component {
 		this.setState({
 			ReferralStatus: !this.state.ReferralStatus,
 			HowToPlayStatus: false,
+			GiftDailyStatus: false,
 		});
 
 	}
 
 	handleHowToPlay() {
 		console.log('tam_ handleHowToPlay')
-		console.log('tam_ handleReferral')
 		this.setState({
 			HowToPlayStatus: !this.state.HowToPlayStatus,
 			ReferralStatus: false,
+			GiftDailyStatus: false,
 		});
 	}
-
-	handleOutsideClick(e) {
-		console.log("'tam_ test click");
-		if (this.node.contains(e.target))
-			return;
-
-		this.toggleLogOutClick();
+	handleGiftDaily() {
+		console.log('tam_ handleGiftDaily')
+		this.setState({
+			GiftDailyStatus: !this.state.GiftDailyStatus,
+			ReferralStatus: false,
+			HowToPlayStatus: false,
+		});
+	}
+	setWrapperRef(node) {
+		this.wrapperRef = node;
 	}
 
-	closePopUp(){
+	clickOutsideLogoutButton(event) {
+		console.log('tam_ clickOutsideLogoutButton');
+		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+
+			if (this.state.LogoutingStatus) {
+				this.toggleLogOutClick();
+			}
+		}
+	}
+
+	closePopUp() {
 		console.log('tam_ close pop up');
 		this.setState({
 			HowToPlayStatus: false,
 			ReferralStatus: false,
+			GiftDailyStatus: false,
 		});
 
 	}
@@ -174,7 +159,7 @@ class Header extends Component {
 
 	render() {
 		return (
-			<div ref={node => { this.node = node; }} >
+			<div >
 				<div className="navbar" >
 					<ul className="nav">
 						<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
@@ -192,7 +177,7 @@ class Header extends Component {
 									</div>
 								</li> :
 
-								<li className="Logout_wrap">
+								<li className="Logout_wrap" ref={this.setWrapperRef} >
 									<div>
 										<ul>
 											<li>
@@ -214,18 +199,18 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleReferral}>Referral</a></li>
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
-						<li className="icon_wrap">
-							<a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a>
-							<a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a>
-							<a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a>
-						</li>
+
+						<li className="icon_wrap"><div className="div_icon"><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div></li>
 
 					</ul>
 				</div>
 				{
 					this.state.ReferralStatus ?
 						<div className='PopUp_Wrap'>
-							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData}/>
+							<Referral onCloseReferral={this.closePopUp.bind(this)} NameScat={this.state.ScatterName} ReferralEarn={this.state.ReferralData} />
 						</div>
 
 						: null
@@ -233,13 +218,20 @@ class Header extends Component {
 				{
 					this.state.HowToPlayStatus ?
 						<div className='PopUp_Wrap'>
-							<HowToPlay onCloseHowToPlay={this.closePopUp.bind(this)}/>
+							<HowToPlay onCloseHowToPlay={this.closePopUp.bind(this)} />
 						</div>
 
 						: null
 
 				}
+				{
+					this.state.GiftDailyStatus ?
+						<div className='PopUp_Wrap'>
+							<GiftDaily onGiftDaily={this.closePopUp.bind(this)} />
+						</div>
 
+						: null
+				}
 
 
 			</div>

@@ -11,72 +11,128 @@
     font-size: 20px;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    width: 500px;
 
 }
 
 .WrapIconBet{
-    display: flex;  
+    display: block;  
+    padding-left: 15px;
+    padding-right: auto;
 }
-.WrapIconBet li{
+
+.WrapIconBet div{
     float: left;    
     cursor: pointer;
 }
+
 .iconBet{
-    width: 60px;
-    height: 60px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 20px;
+    width: 80px;
+    height: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float: left;
 }
 .iconBet:hover{
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
+.iconBet.active{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
 .BetAmount_Wrap{
     display: block;
-    margin-left: 75px;
+    padding-left: auto;
+    padding-right: auto;
 }
 
-.BetAmount{
+.MenuSelect_Wrap{
+    margin-top: 20px;
+    min-height: 55px;
+    width: 330px;
+    border-radius: 5px;
+    border: 2px solid #5178e7 ;
+    border-radius: 16px;
     display: inline-block;
     float: left;
-    width: 150px;
-    height: 40px;
-    background-color: #1C2041;
+}
+.MenuSelect_Wrap:hover{
+    box-shadow: 0 0 4px #6be0ff; 
+}
+.Dropdown_Wrap{
+    overflow-y: scroll;
+    width: auto;
+    display: inline-block;
+    padding: 5px 5px 5px 5px;
+}
+
+.playmenu_icon_wrap{
+    display: inline-block;
+}
+
+.menu_playmenu.icon_playmenu {
+    color: #90caf9;
+
+    
+  }
+.menu_playmenu.icon_playmenu::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-left: solid 4px currentColor;
+    border-top: solid 4px currentColor;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+
+  .menu_playmenu.icon_playmenu:hover {
+    color: #bbdefb;
+    box-shadow: 0 0 10px white;
+  }
+  .BetAmountShow{
+      float: left;
+      width: 315px;
+      display: block;
+      border-radius: 10px;
+      margin-top: 4px;
+  }
+  .BetAmountShow:hover{
+    background-color: #1C2041; 
     border-radius: 10px;
-    margin-top: 10px;
-}
+  }
+  .BetAmountHidden{
+      display: none;
+  }
+  
+  .BetAmountLogo{
+      float: left;
+      width: 25px;
+      height: 25px;
+      margin-left: 4px;
+      margin-top: 5px;
+  }
+  .BetAmountValue{
+      float: left;
+      width: 200px;
+      padding-left: auto;
+      padding-right: auto;      
+      font-size: 25pt;
+  
+  }
+  .BetAmountToken{
+      float: left;
+      padding-top: 10px;
+      font-size: 16pt;
+  }
 
-.BetAmountLogo{
-    float: left;
-    width: 25px;
-    height: 25px;
-    margin-left: 4px;
-    margin-top: 8px;
-}
-.BetAmountValue{
-    float: left;
-    padding-left: 20px;
-    padding-right: 10px;
-    padding-top: 8px;
-    font-size: 25pt;
 
-}
-.BetAmountToken{
-    float: left;
-    padding-top: 15px;
-    font-size: 16pt;
-}
-
-.inforIcon_Wrap{
-    display: inline-block;
-}
 .info_wrap{
     position: relative;
-    margin-top: 8px;
+    margin-top: 29px;
     margin-left: 10px;
     float: left;
     border-radius:50%;
@@ -85,6 +141,7 @@
     border:2px solid #00B8E9; 
     height: 40px;
     width: 40px;
+    display: inline-block;
 }
 .info_wrap:hover{
         border-radius:50%;
@@ -93,11 +150,34 @@
     border:2px solid #5ec3df; 
     box-shadow: 0 0 11px #6be0ff; 
 }
+.info_wrap_over{
+    position: relative;
+    margin-top: 8px;
+    margin-left: 10px;
+    float: left;
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:2px solid #ff1744; 
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
+.info_wrap_over:hover{
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border:2px solid #ff1744; 
+    box-shadow: 0 0 11px #ff4569; 
+}
+
 .info_value{
     position: absolute;
     font-size: 7pt;
     top: 8px;
-    margin-left: 3px;
+    width: 35px;
+    padding-left: auto;
+    padding-right: auto;
     font-weight: bold; 
 
 }
@@ -110,3 +190,6 @@
 
 }
 
+
+  
+  
