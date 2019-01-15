@@ -8,10 +8,9 @@ import bet1 from './images/1.svg'
 import bet2 from './images/2.svg'
 import bet5 from './images/5.svg'
 import bet10 from './images/10.svg'
-import EOSLogoBet from './images/LogoBetAmount.png'
-import EBTCLogoBet from './images/EBTC.png'
-
-const numbers = [1, 2, 3, 4, 5];
+import EOSLogo from './images/eos-icon.png'
+import OnePlayLogo from './images/oneplay-icon.png'
+import dropdown from './images/dropdown.png'
 
 class PlayMenu extends Component {
   constructor(props) {
@@ -23,9 +22,14 @@ class PlayMenu extends Component {
     this.state = {
       chip: 0,
       listtoken: 0,
-      tokenSelect: 1,
+      tokenSelect: 0,
+      tokenValue: Array(2).fill(""),
+      tokenLogo:[EOSLogo, OnePlayLogo],
+
       EOSTokenValue: "",
       ONETokenValue: "",
+      currentTokenBalance:"",
+      currentTokenIcon:EOSLogo,
       net: 0,
       CPU: 0,
 
@@ -44,13 +48,17 @@ class PlayMenu extends Component {
         });
 
         ApiService.GetTokenInfo(rsp.accounts[0].name,"EOS","eosio.token").then(EOSValue =>{
+          const tmpTokenValue = this.state.tokenValue;
+          tmpTokenValue[0] = EOSValue
           this.setState({
-            EOSTokenValue: EOSValue,
+            tokenValue: tmpTokenValue,
           })
         })
         ApiService.GetTokenInfo(rsp.accounts[0].name,"ONE","onetoken1234").then(ONEValue =>{
+          const tmpTokenValue = this.state.tokenValue;
+          tmpTokenValue[1] = ONEValue
           this.setState({
-            ONETokenValue: ONEValue,
+            tokenValue: tmpTokenValue,
           })
         })
 
@@ -94,8 +102,9 @@ class PlayMenu extends Component {
 
   render() {
     return (
+      
       <div className="menuPlay">
-
+      {console.log(this.state.EOSValue)}
         <div className="WrapIconBet">
           <ul>
             <div onClick={this.handleClick(0.5)} className={`iconBet ${this.state.chip == 0.5 ? "active" : ""}`} ><img src={bet0_5} alt=" " /></div>
@@ -111,23 +120,24 @@ class PlayMenu extends Component {
           <div className="MenuSelect_Wrap"  onClick={this.handleOpenListToken()}>
 
 
-            <div className="Dropdown_Wrap">
 
-              <div className={`BetAmount${(this.state.tokenSelect == 1) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)} >
-                <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue">{this.state.EOSTokenValue}</div>
-                {/* <div className="BetAmountToken"> EOS</div> */}
-                <div class="menu_playmenu icon_playmenu"></div>
+              <div className={`BetAmountShow`}>
+                <img src={this.state.tokenLogo[this.state.tokenSelect]} alt=" " className="BetAmountLogo" />
+                <div className="BetAmountValue">{this.state.tokenValue[this.state.tokenSelect]}</div>
+                <img src={dropdown} alt=" " className="dropdownicon" />
               </div>
-              
+              <div className={`BetAmount${(this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(0)}>
+                <img src={this.state.tokenLogo[0]} alt=" " className="BetAmountLogo" />
+                <div className="BetAmountValue">{this.state.tokenValue[0]}</div>
+                <div  className="dropdownicon" />
+              </div>           
 
-              <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
-                <img src={EBTCLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue">{this.state.ONETokenValue}</div>
-                {/* <div className="BetAmountToken"> ONE</div> */}
+              <div className={`BetAmount${(this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)}>
+                <img src={this.state.tokenLogo[1]} alt=" " className="BetAmountLogo" />
+                <div className="BetAmountValue">{this.state.tokenValue[1]}</div>
+                <div className="dropdownicon" />
               </div>
 
-            </div>
           </div>
 
           <div className={`info_wrap${this.state.CPU > 70 ? "_over" : ""}`}>

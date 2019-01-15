@@ -18,7 +18,10 @@
 .WrapIconBet{
     display: block;  
     padding-left: 15px;
-    padding-right: auto;
+    height:100px;
+    width:420px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .WrapIconBet div{
@@ -45,60 +48,44 @@
 }
 .BetAmount_Wrap{
     display: block;
-    padding-left: auto;
-    padding-right: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width:350px;
+    height:100px;
 }
 
 .MenuSelect_Wrap{
-    margin-top: 20px;
-    min-height: 55px;
-    width: 330px;
+    /* margin-top: 20px;
+    min-height: 55px; */
+    width: 250px;
     border-radius: 5px;
     border: 2px solid #5178e7 ;
-    border-radius: 16px;
-    display: inline-block;
+    border-radius: 10px;
     float: left;
 }
 .MenuSelect_Wrap:hover{
     box-shadow: 0 0 4px #6be0ff; 
 }
-.Dropdown_Wrap{
-    overflow-y: scroll;
-    width: auto;
-    display: inline-block;
-    padding: 5px 5px 5px 5px;
-}
+
 
 .playmenu_icon_wrap{
     display: inline-block;
 }
 
-.menu_playmenu.icon_playmenu {
-    color: #90caf9;
-
-    
-  }
-.menu_playmenu.icon_playmenu::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-left: solid 4px currentColor;
-    border-top: solid 4px currentColor;
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-  }
-
-  .menu_playmenu.icon_playmenu:hover {
+.dropdownicon{
+    float: right;
+    width: 25px;
+    height: 25px;
+}
+.icon_playmenu:hover {
     color: #bbdefb;
     box-shadow: 0 0 10px white;
   }
   .BetAmountShow{
-      float: left;
-      width: 315px;
-      display: block;
-      border-radius: 10px;
-      margin-top: 4px;
+    float: left;
+    display: block;
+    border-radius: 10px;
+    padding: 9px 4px 9px 5px;
   }
   .BetAmountShow:hover{
     background-color: #1C2041; 
@@ -112,15 +99,12 @@
       float: left;
       width: 25px;
       height: 25px;
-      margin-left: 4px;
-      margin-top: 5px;
+
   }
   .BetAmountValue{
       float: left;
-      width: 200px;
-      padding-left: auto;
-      padding-right: auto;      
-      font-size: 25pt;
+      width: 185px;   
+      font-size: 20pt;
   
   }
   .BetAmountToken{
@@ -132,16 +116,14 @@
 
 .info_wrap{
     position: relative;
-    margin-top: 29px;
     margin-left: 10px;
-    float: left;
     border-radius:50%;
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
     border:2px solid #00B8E9; 
     height: 40px;
     width: 40px;
-    display: inline-block;
+    float: left;
 }
 .info_wrap:hover{
         border-radius:50%;
