@@ -61,7 +61,6 @@ class Header extends Component {
 	componentDidMount() {
 		console.log('tam_ start to call');
 		document.addEventListener('click', this.clickOutsideLogoutButton);
-
 		// ApiService.GetAccountDetail("dicedice1234");
 	}
 	componentWillUnmount() {

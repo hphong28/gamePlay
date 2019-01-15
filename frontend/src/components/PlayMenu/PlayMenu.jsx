@@ -24,7 +24,8 @@ class PlayMenu extends Component {
       chip: 0,
       listtoken: 0,
       tokenSelect: 1,
-      tokenValue: 0,
+      EOSTokenValue: "",
+      ONETokenValue: "",
       net: 0,
       CPU: 0,
 
@@ -36,18 +37,29 @@ class PlayMenu extends Component {
     ApiService.hasIdentity().then(rsp => {
       if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
-          // console.log('tam_ playmenu rawData', rawData, rawData.net_limit.available);
-
           this.setState({
-            tokenValue: parseFloat(rawData.core_liquid_balance).toFixed(4),
             net: (rawData.net_limit.used / rawData.net_limit.available * 100).toFixed(0),
             CPU: (rawData.cpu_limit.used / rawData.cpu_limit.available * 100).toFixed(0),
           });
         });
+
+        ApiService.GetTokenInfo(rsp.accounts[0].name,"EOS","eosio.token").then(EOSValue =>{
+          this.setState({
+            EOSTokenValue: EOSValue,
+          })
+        })
+        ApiService.GetTokenInfo(rsp.accounts[0].name,"ONE","onetoken1234").then(ONEValue =>{
+          this.setState({
+            ONETokenValue: ONEValue,
+          })
+        })
+
+        console.log('tam_ GetTokenInfo')
       }
       else {
         this.setState({
-          tokenValue: 0,
+          EOSTokenValue: "0",
+          ONETokenValue: "0",
           net: 0,
           CPU: 0,
         });
@@ -103,22 +115,16 @@ class PlayMenu extends Component {
 
               <div className={`BetAmount${(this.state.tokenSelect == 1) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(1)} >
                 <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue">{this.state.tokenValue}</div>
-                <div className="BetAmountToken"> EOS</div>
+                <div className="BetAmountValue">{this.state.EOSTokenValue}</div>
+                {/* <div className="BetAmountToken"> EOS</div> */}
                 <div class="menu_playmenu icon_playmenu"></div>
               </div>
               
 
               <div className={`BetAmount${(this.state.tokenSelect == 2) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(2)}>
                 <img src={EBTCLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue"> 4000.1234</div>
-                <div className="BetAmountToken"> EBTC</div>
-              </div>
-
-              <div className={`BetAmount${(this.state.tokenSelect == 3) || (this.state.listtoken == 1) ? "Show" : "Hidden"}`} onClick={this.handleChosetokenSelect(3)}>
-                <img src={EOSLogoBet} alt=" " className="BetAmountLogo" />
-                <div className="BetAmountValue"> 3</div>
-                <div className="BetAmountToken"> EOS</div>
+                <div className="BetAmountValue">{this.state.ONETokenValue}</div>
+                {/* <div className="BetAmountToken"> ONE</div> */}
               </div>
 
             </div>
