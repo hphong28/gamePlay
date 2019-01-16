@@ -18,7 +18,7 @@ class Referral extends Component {
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            console.log('tam_ clickOutside');
+            // console.log('tam_ clickOutside');
             this.props.onCloseReferral();
         }
     }
@@ -55,7 +55,7 @@ class Referral extends Component {
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
                     </div>
-                    {console.log('tam_ Referral props rec', this.props)}
+                    {/* {console.log('tam_ Referral props rec', this.props)} */}
 
                     <div className="WrapLinkRefferal">
                         <input className="InputRefferal" id="myReferralInput" value={`http://207.137.6.121:3000/#ref=`+this.props.NameScat} />
@@ -91,7 +91,7 @@ class Referral extends Component {
                             </thead>
                             <tbody>
                                 {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
-                                    console.log('tam_ data in map', data)
+                                    // console.log('tam_ data in map', data)
                                     return (
                                         <tr>
                                             <td>{data.bettor}</td>

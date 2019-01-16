@@ -41,25 +41,10 @@ class Header extends Component {
 		this.setWrapperRef = this.setWrapperRef.bind(this);
 		this.clickOutsideLogoutButton = this.clickOutsideLogoutButton.bind(this);
 	}
-	//before render
-	componentWillMount() {
-		// ApiService.hasIdentity().then(rsp => {
-		// 	if (rsp) {
-		// 		this.setState({
-		// 			LoginStatus: true,
-		// 			ScatterName: rsp.accounts[0].name,
-		// 		});
-		// 		ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
-		// 			this.state.ReferralData = RawData;
 
-		// 		})
-		// 	}
-		// });
-
-	}
 	//after render
 	componentDidMount() {
-		console.log('tam_ start to call');
+		// console.log('tam_ start to call');
 		ApiService.hasIdentity().then(rsp => {
 			if (rsp) {
 				this.setState({
@@ -76,10 +61,10 @@ class Header extends Component {
 		document.addEventListener('click', this.clickOutsideLogoutButton);
 
 		var currentURL = window.location.href;
-		// if(currentURL.search("http://207.137.6.121:3000/#ref=") != -1){
+		if(currentURL.search("http://207.137.6.121:3000/#ref=") != -1){
 			var ReferralName = currentURL.replace('http://207.137.6.121:3000/#ref=','')
 			console.log('tam_ ReferralName', ReferralName);
-		// }
+		}
 
 	}
 	componentWillUnmount() {
@@ -97,7 +82,7 @@ class Header extends Component {
 					LogoutingStatus: false,
 				});
 				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
-					console.log('tam_ my p ', RawData)
+					// console.log('tam_ my p ', RawData)
 					this.state.ReferralData = RawData;
 				})
 			}
@@ -117,13 +102,13 @@ class Header extends Component {
 
 	}
 	toggleLogOutClick() {
-		console.log('tam_ togle')
+		// console.log('tam_ togle')
 		this.setState({
 			LogoutingStatus: !this.state.LogoutingStatus,
 		});
 	}
 	handleReferral() {
-		console.log('tam_ handleReferral')
+		// console.log('tam_ handleReferral')
 		this.setState({
 			ReferralStatus: !this.state.ReferralStatus,
 			HowToPlayStatus: false,
@@ -133,7 +118,7 @@ class Header extends Component {
 	}
 
 	handleHowToPlay() {
-		console.log('tam_ handleHowToPlay')
+		// console.log('tam_ handleHowToPlay')
 		this.setState({
 			HowToPlayStatus: !this.state.HowToPlayStatus,
 			ReferralStatus: false,
@@ -141,7 +126,7 @@ class Header extends Component {
 		});
 	}
 	handleGiftDaily() {
-		console.log('tam_ handleGiftDaily')
+		// console.log('tam_ handleGiftDaily')
 		this.setState({
 			GiftDailyStatus: !this.state.GiftDailyStatus,
 			ReferralStatus: false,
@@ -153,7 +138,7 @@ class Header extends Component {
 	}
 
 	clickOutsideLogoutButton(event) {
-		console.log('tam_ clickOutsideLogoutButton');
+		// console.log('tam_ clickOutsideLogoutButton');
 		if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
 
 			if (this.state.LogoutingStatus) {
@@ -163,7 +148,7 @@ class Header extends Component {
 	}
 
 	closePopUp() {
-		console.log('tam_ close pop up');
+		// console.log('tam_ close pop up');
 		this.setState({
 			HowToPlayStatus: false,
 			ReferralStatus: false,
