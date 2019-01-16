@@ -18,7 +18,7 @@
     display:inline-block;
 } */
 .DiceBoardRow1 {
-    width:800px;
+    width:796px;
     height:120px;
     display: table;
     position: relative;
@@ -30,16 +30,15 @@
     align-items: center;
 } */
 .group1{
-    width: 80px;
+    width: 77px;
     display:inline-block;
     text-align: center;
     margin:3px;
     /* background-color:#FF0000; */
 }
 
-
  .ThreeDice{
-    width:160px;
+    width:166px;
     height:86px;
     display:inline-block;
     text-align: center;
@@ -69,7 +68,7 @@
     
 }
  .group2{
-    width:65.5px;
+    width:66px;
     display:inline-block;
     text-align: center;
     margin-right:3px;
@@ -113,9 +112,45 @@
 }
 
 .board-row2{
-    margin-top:3px;
+    /* margin-top:3px; */
 }
 .board-row3{
     margin-top:6px;
     /* margin-bottom:1px; */
+}
+
+.diceboard_hover_item{
+    background: url("./images/ban_remove.png") no-repeat ;
+    width: 41px;
+    height: 41px;
+    float: left;
+
+}
+
+.diceboard_hover_num1{
+    width: 502px;
+    height: 82px;
+    background: url("./images/ban_remove.png") no-repeat 0px -259px;
+    float: left;
+    margin-top: 5px;
+    margin-left: 138px;
+    position: relative;}
+
+.diceboard_hover_num2{
+    background-position:-41px -1px;
+}
+
+.diceboard_hover_num3{
+    background-position:-82px -1px;
+}
+.diceboard_hover_num4{
+    background-position:-122px -2px;
+}
+
+.diceboard_hover_num5{
+    background-position:-162px -2px;
+}
+
+.diceboard_hover_num6{
+    background-position:-202px -2px;
 }

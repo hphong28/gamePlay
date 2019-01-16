@@ -41,7 +41,7 @@ class RollingDice extends React.Component {
             this.stopTimer();
             this.setState({
                 timeout: 2,
-                msg: "the result..."
+                msg: "waiting for next round..."
             })
         }
 

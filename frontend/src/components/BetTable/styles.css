@@ -81,13 +81,9 @@ table tr {
 }
 
 .footerContent {
-  text-align: left;
+  text-align: center;
   background-color: #21264e;
   color: #b3b3b3;
-
-  overflow: hidden;
-  padding: 25px;
-  padding-left: 30px;
 }
 
 .column {

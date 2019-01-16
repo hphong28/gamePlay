@@ -10,6 +10,7 @@
     background-color: #ADFF2F;
 }
 
+
 .dice_group1:hover .desc{
     display:block;
 } 
@@ -28,6 +29,7 @@
 }
 .dice_group3_border:hover{
     background-color: #ADFF2F;
+    border-radius:50%;
 }
 
 .dice_group3_border:hover .desc{
@@ -42,8 +44,8 @@
 
 .dice_group2{
     display:inline-block;
-    width: 55px;
-    height:55px;
+    width: 65.1px;
+    height:56px;
     text-align: center;
     border-radius: 3px;
 }
