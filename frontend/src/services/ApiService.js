@@ -16,13 +16,12 @@ export const MAIN_NETWORK = {
     port: 443,
     chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
 }
-
 // testnet
 export const TEST_NETWORK = {
     blockchain: Blockchains.EOS,
-    protocol: 'http',
+    protocol: 'https',
     host: 'jungle2.cryptolions.io',
-    port: 80,
+    port: 443,
     chainId: 'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473'
 }
 
@@ -66,7 +65,7 @@ class ApiService {
         console.log('tam123_ get data');
         try {
 
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
                     scope: 'EOS',
@@ -93,7 +92,7 @@ class ApiService {
         // console.log('tam_ GetAccountDetail', account)
 
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_account ', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_account ', {
                 method: 'POST',
                 body: JSON.stringify({
                     account_name: account,
@@ -112,7 +111,7 @@ class ApiService {
 
     static async  getMyBet(account, limit1) {
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
                     scope: 'dicedice1234',
@@ -136,7 +135,7 @@ class ApiService {
 
     static async getAllBet(limit1, lower_bound1, upper_bound1) {
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
                     scope: 'dicedice1234',
@@ -161,7 +160,7 @@ class ApiService {
 
     static async getRecords(limit1) {
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
                     scope: 'dicedice1234',
@@ -186,7 +185,7 @@ class ApiService {
 
     static async getGlobal(limit1) {
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_table_rows', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
                     scope: 'dicedice1234',
@@ -298,7 +297,7 @@ class ApiService {
     static async GetTokenInfo(account, symbol, code) {
         // console.log('GetTokenInfo;', account, symbol, code);
         try {
-            const response = await fetch('http://jungle2.cryptolions.io:80/v1/chain/get_currency_balance ', {
+            const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_currency_balance ', {
                 method: 'POST',
                 body: JSON.stringify({
                     code: code,

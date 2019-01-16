@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { Header, BetTable, PlayMenu } from 'components';
 import DiceBoard from 'components/DiceBoard/DiceBoard.jsx';
+import HttpsRedirect from 'react-https-redirect';
 
 class App extends Component {
   constructor(props) {
@@ -13,6 +14,8 @@ class App extends Component {
   render() {
 
     return (
+      <HttpsRedirect>
+
       <div className="App">
         <Header {...this.props} />
 
@@ -27,6 +30,8 @@ class App extends Component {
           <BetTable />
         </div>
       </div>
+      </HttpsRedirect>
+
     );
   }
 }
