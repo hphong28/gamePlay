@@ -62,7 +62,7 @@ class PlayMenu extends Component {
           })
         })
 
-        console.log('tam_ GetTokenInfo')
+        // console.log('tam_ GetTokenInfo')
       }
       else {
         this.setState({
@@ -86,7 +86,7 @@ class PlayMenu extends Component {
   };
 
   handleChosetokenSelect = (value) => (e) => {
-    console.log('tam_ handleChosetokenSelect', value);
+    // console.log('tam_ handleChosetokenSelect', value);
     this.setState({ 
       tokenSelect: value,
       listtoken: !this.state.listtoken,
@@ -94,7 +94,7 @@ class PlayMenu extends Component {
   };
 
   handleOpenListToken= () => (e) =>{
-    console.log('tam_ handleOpenListToken');
+    // console.log('tam_ handleOpenListToken');
     this.setState({ listtoken: !this.state.listtoken });
   };
 

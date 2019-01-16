@@ -62,7 +62,7 @@ class ApiService {
         return true;
     }
     static async  GetRefferal(account, limit) {
-        console.log('tam123_ get data');
+        // console.log('tam123_ get data');
         try {
 
             const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
@@ -80,7 +80,7 @@ class ApiService {
                 }),
             });
             const responseJson = await response.json();
-            console.log('tam_ responseJson.rows', responseJson.rows)
+            // console.log('tam_ responseJson.rows', responseJson.rows)
             return responseJson.rows;
 
         } catch (error) {
@@ -240,7 +240,7 @@ class ApiService {
     }
 
     static async  GetDailyReward(AccountGetDailyGift) {
-        console.log('tam123_ get GetDailyReward', AccountGetDailyGift);
+        // console.log('tam123_ get GetDailyReward', AccountGetDailyGift);
         try {
 
             ScatterJS.plugins(new ScatterEOS())
@@ -259,12 +259,12 @@ class ApiService {
                 expireInSeconds: 60,
             };
 
-            console.log("tam123_", res)
+            // console.log("tam123_", res)
             const account = res.accounts[0];
 
             const transactionOptions = { authorization: [`${account.name}@${account.authority}`] };
             const eos = ScatterJS.scatter.eos(TEST_NETWORK, Eos, eosOptions);
-            console.log("tam1234_", eos, transactionOptions);
+            // console.log("tam1234_", eos, transactionOptions);
 
             const transaction = {
                 // ...headers,
@@ -286,7 +286,7 @@ class ApiService {
 
             }
             const result = await eos.transaction(transaction)
-            console.log(":tam_ Transaction ID:", result);
+            // console.log(":tam_ Transaction ID:", result);
 
         } catch (e) {
             console.log('\nCaught exception: ' + e);

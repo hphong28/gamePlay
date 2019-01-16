@@ -1,20 +1,24 @@
 // React core
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Tooltip from "react-simple-tooltip"
 
 class Referral extends Component {
     constructor(props) {
         super(props);
         this.state = {
             CloseDialogue: false,
+            copyStatus: false,
         }
 
         this.clickOutside = this.clickOutside.bind(this);
         this.setWrapperRef = this.setWrapperRef.bind(this);
+
+        this.copyReferralLink = this.copyReferralLink.bind(this);
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            console.log('tam_ clickOutside');
+            // console.log('tam_ clickOutside');
             this.props.onCloseReferral();
         }
     }
@@ -24,10 +28,22 @@ class Referral extends Component {
 
     componentWillUnmount() {
         document.removeEventListener('click', this.clickOutside);
+        this.setState({
+            copyStatus: false,
+        })
     }
 
     setWrapperRef(node) {
         this.wrapperRef = node;
+    }
+
+    copyReferralLink(){
+        var copyText = document.getElementById("myReferralInput");
+        copyText.select();
+        document.execCommand("copy");
+        this.setState({
+            copyStatus: true,
+        })
     }
 
     render() {
@@ -39,11 +55,17 @@ class Referral extends Component {
                     <div className="HeaderReferral">
                         Invite friend for Rewards!
                     </div>
-                    {console.log('tam_ Referral props rec', this.props)}
+                    {/* {console.log('tam_ Referral props rec', this.props)} */}
 
                     <div className="WrapLinkRefferal">
-                        <input className="InputRefferal" value={`https://1play.io/#ref=` + this.props.NameScat} />
-                        <button className="CopyButton"> COPY </button>
+                        <input className="InputRefferal" id="myReferralInput" value={`http://207.137.6.121:3000/#ref=`+this.props.NameScat} />
+                        <Tooltip content={this.state.copyStatus?"Copied":"Copy to clipboard"}
+                                    fadeDuration={350}
+                                    background="#555"
+                                    border="#555"
+                                    color="#fff"
+                                    radius={10}
+                                ><button className="CopyButton" onClick={this.copyReferralLink}> COPY </button></Tooltip>
                     </div>
 
                     <div className="DetailReferral">
@@ -69,7 +91,7 @@ class Referral extends Component {
                             </thead>
                             <tbody>
                                 {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
-                                    console.log('tam_ data in map', data)
+                                    // console.log('tam_ data in map', data)
                                     return (
                                         <tr>
                                             <td>{data.bettor}</td>

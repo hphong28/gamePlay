@@ -19,7 +19,7 @@ class GiftDaily extends Component {
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            console.log('tam_ clickOutside');
+            // console.log('tam_ clickOutside');
             this.props.onGiftDaily();
         }
     }
@@ -36,12 +36,12 @@ class GiftDaily extends Component {
     }
 
     handleGetDailyReward(){
-        console.log('tam_ get daily reward');
+        // console.log('tam_ get daily reward');
 
         ApiService.hasIdentity().then(rsp => {
             if (rsp) {
                 ApiService.GetDailyReward(rsp.accounts[0].name).then(rawData => {
-                    console.log('tam_ rawData', rawData);
+                    // console.log('tam_ rawData', rawData);
 
               });
             }

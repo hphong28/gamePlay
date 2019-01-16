@@ -11,7 +11,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ActionTypes.SET_USER: {
-        console.log('tam_ ', action);
+        // console.log('tam_ ', action);
 
       return Object.assign({}, state, {
         // If the name is not specified, do not change it
