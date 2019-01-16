@@ -43,6 +43,23 @@ class Header extends Component {
 	}
 	//before render
 	componentWillMount() {
+		// ApiService.hasIdentity().then(rsp => {
+		// 	if (rsp) {
+		// 		this.setState({
+		// 			LoginStatus: true,
+		// 			ScatterName: rsp.accounts[0].name,
+		// 		});
+		// 		ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
+		// 			this.state.ReferralData = RawData;
+
+		// 		})
+		// 	}
+		// });
+
+	}
+	//after render
+	componentDidMount() {
+		console.log('tam_ start to call');
 		ApiService.hasIdentity().then(rsp => {
 			if (rsp) {
 				this.setState({
@@ -56,12 +73,14 @@ class Header extends Component {
 			}
 		});
 
-	}
-	//after render
-	componentDidMount() {
-		console.log('tam_ start to call');
 		document.addEventListener('click', this.clickOutsideLogoutButton);
-		// ApiService.GetAccountDetail("dicedice1234");
+
+		var currentURL = window.location.href;
+		// if(currentURL.search("http://207.137.6.121:3000/#ref=") != -1){
+			var ReferralName = currentURL.replace('http://207.137.6.121:3000/#ref=','')
+			console.log('tam_ ReferralName', ReferralName);
+		// }
+
 	}
 	componentWillUnmount() {
 		document.removeEventListener('click', this.clickOutside);
@@ -79,9 +98,7 @@ class Header extends Component {
 				});
 				ApiService.GetRefferal(this.state.ScatterName, 10).then(RawData => {
 					console.log('tam_ my p ', RawData)
-
 					this.state.ReferralData = RawData;
-
 				})
 			}
 		});
