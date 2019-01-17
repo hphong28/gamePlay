@@ -163,7 +163,7 @@ class Header extends Component {
 			<div >
 				<div className="navbar" >
 					<ul className="nav">
-						<li><img src={logo} alt=" " className="logo" /><a href="https://www.google.com/"></a></li>
+						<li><a href="http://localhost:3000/"><img src={logo} alt=" " className="logo" /></a></li>
 
 						{
 							(!this.state.LoginStatus) ?
@@ -201,9 +201,9 @@ class Header extends Component {
 						<li className="Menu"><a href="#" onClick={this.handleHowToPlay}>How To Play</a></li>
 
 
-						<li className="icon_wrap"><div className="div_icon"><a href="https://mail.google.com/"><img src={mail_icon} alt=" " className="icon" /></a></div></li>
-						<li className="icon_wrap"><div className="div_icon"><a href="https://medium.com/"><img src={medium_icon} alt=" " className="icon" /></a></div></li>
-						<li className="icon_wrap"><div className="div_icon"><a href="https://telegram.org/"><img src={telegram_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="#"><img src={mail_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="#"><img src={medium_icon} alt=" " className="icon" /></a></div></li>
+						<li className="icon_wrap"><div className="div_icon"><a href="#"><img src={telegram_icon} alt=" " className="icon" /></a></div></li>
 						<li className="icon_wrap"><div className="div_gift_icon"><a href="#"><img src={gift_icon} alt=" " className="gift_icon" onClick={this.handleGiftDaily} /></a></div></li>
 
 					</ul>
