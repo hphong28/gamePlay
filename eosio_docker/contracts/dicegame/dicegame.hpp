@@ -30,26 +30,28 @@ private:
       {"TRIPLE_4", 150},
       {"TRIPLE_5", 150},
       {"TRIPLE_6", 150},
-      {"NUM_4", 150},
-      {"NUM_5", 150},
-      {"NUM_6", 150},
-      {"NUM_7", 150},
-      {"NUM_8", 150},
-      {"NUM_9", 150},
-      {"NUM_10", 150},
-      {"NUM_11", 150},
-      {"NUM_12", 150},
-      {"NUM_13", 150},
-      {"NUM_14", 150},
-      {"NUM_15", 150},
-      {"NUM_16", 150},
-      {"NUM_17", 150},
+      {"NUM_4", 50},
+      {"NUM_5", 18},
+      {"NUM_6", 14},
+      {"NUM_7", 12},
+      {"NUM_8", 8},
+      {"NUM_9", 6},
+      {"NUM_10", 6},
+      {"NUM_11", 6},
+      {"NUM_12", 6},
+      {"NUM_13", 8},
+      {"NUM_14", 12},
+      {"NUM_15", 14},
+      {"NUM_16", 18},
+      {"NUM_17", 50},
       {"SINGLE_1", 1},
       {"SINGLE_2", 1},
       {"SINGLE_3", 1},
       {"SINGLE_4", 1},
       {"SINGLE_5", 1},
-      {"SINGLE_6", 1}};
+      {"SINGLE_6", 1},
+      {"OVEN", 1},
+      {"ODD", 1}};
 
   struct st_transfer
   {
@@ -87,11 +89,11 @@ private:
   {
     account_name bettor;
     account_name referral;
-    uint64_t bet_total; // only accept EOS
+    std::vector<eosio::asset> referral_bonus;
     eosio::time_point_sec last_update;
     uint64_t primary_key() const { return bettor; }
     uint64_t get_referral() const { return referral; }
-    EOSLIB_SERIALIZE(player, (bettor)(referral)(bet_total)(last_update))
+    EOSLIB_SERIALIZE(player, (bettor)(referral)(referral_bonus)(last_update))
   };
 
   typedef eosio::multi_index<N(players), player,
@@ -158,6 +160,8 @@ private:
   games_table _games;
   bets_table _bets;
   bettoken_table _bettokens;
+  players_table _players;
+  
   seed_table _seed;
 
   int random(const int range);
@@ -196,16 +200,13 @@ public:
   void setglobal(uint64_t id, uint64_t val);
 
   ///@abi action
-  void login(account_name player, account_name referal);
-
-  ///@abi action
   void startgame();
 
   ///@abi action
   void revealdice();
 
   ///@abi action
-  void mine(uint64_t bet_id);
+  void mine(uint64_t round_id);
 
   ///@abi action
   void clearrow(uint64_t table, uint64_t row);
@@ -217,5 +218,5 @@ public:
   void claimref(account_name ref);
 
       ///@abi action
-  void dailyreward(account_name ref);
+  void dailyreward(account_name account, account_name referral);
 };

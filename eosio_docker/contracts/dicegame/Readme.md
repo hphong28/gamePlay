@@ -140,7 +140,7 @@ $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice123
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.6000 EOS" "SMALL-dicedicedice"
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.4000 EOS" "SINGLE_1-dicedicedice"
 $ cleos -u http://jungle2.cryptolions.io:80 transfer "ilovedice123" "dicedice1234" "0.5000 EOS" "TRIPLE_3-ilovedice123"
-
+$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 bet2s
 {
   "rows": [{
       "id": 0,
@@ -321,32 +321,21 @@ $ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players
 
 ##### search by referral...
 ````bash
-$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players --index 2 --key-type i64 --lower "ilovedice123" --upper "ilovedice123"
+$ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 dicedice1234 players --index 2 --key-type i64 --lower "ilovedice123" --upper "ilovedice123"
 {
   "rows": [{
-      "bettor": "dicedicedice",
+      "bettor": "eosluckydice",
       "referral": "ilovedice123",
-      "bet_total": 5000,
-      "last_update": "2018-12-26T15:32:46"
-    },{
-      "bettor": "quoctest1234",
-      "referral": "ilovedice123",
-      "bet_total": 5000,
-      "last_update": "2018-12-26T15:43:45"
-    },{
-      "bettor": "quoctest1243",
-      "referral": "ilovedice123",
-      "bet_total": 25000,
-      "last_update": "2018-12-26T15:44:24"
-    },{
-      "bettor": "tamtest12345",
-      "referral": "ilovedice123",
-      "bet_total": 15000,
-      "last_update": "2018-12-26T15:53:40"
+      "referral_bonus": [
+        "0.0000 ONE",
+        "0.0000 EOS"
+      ],
+      "last_update": "2019-01-17T09:19:52"
     }
   ],
   "more": false
 }
+
 
 
 ````
@@ -355,19 +344,19 @@ $ cleos -u http://jungle2.cryptolions.io:80 get table dicedice1234 "EOS" players
 
 ````bash
 
-$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice"]' -p eosluckydice
-executed transaction: 132a3fcf6754d890b828b649ffe72d9f005c0ee88f89e191f19040935f6a6d7c  144 bytes  913 us
+$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice", "ilovedice123"]' -p eosluckydice
 
 $ cleos -u http://jungle2.cryptolions.io:80 get table onetoken1234 eosluckydice accounts
 {
   "rows": [{
-      "balance": "3.0000 ONE"
+      "balance": "9.0000 ONE"
     }
   ],
+  "more": false
 }
 
-$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice"]' -p eosluckydice
-
-assertion failure with message: Please wait after -86396 seconds
+$ cleos -u http://jungle2.cryptolions.io:80 push action dicedice1234 dailyreward '["eosluckydice", "ilovedice123"]' -p eosluckydice
+Error 3050003: eosio_assert_message assertion failure
+assertion failure with message: Please wait next day
 
 ````

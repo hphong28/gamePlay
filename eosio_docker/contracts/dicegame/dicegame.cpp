@@ -2,6 +2,9 @@
 #include "eosio.token.hpp"
 #include <eosiolib/transaction.hpp>
 #include <algorithm>
+#include <iostream>
+#include <iterator>
+#include <vector>
 
 #define GLOBAL_ID_BET 101
 #define GLOBAL_ID_ACTIVE 102
@@ -9,23 +12,25 @@
 #define GLOBAL_ID_ROUND_DURATION_SEC 104
 #define GLOBAL_ID_ROUND_MAX_PLAYERS 105
 
-#define REF_REWARD_PERCENT 1
+const double REF_REWARD_PERCENT = 0.01;     // 1%
+const double SINGLE_BET_MAX_PERCENT = 0.05; // 5%
 
-#define SINGLE_BET_MAX_PERCENT 5
+const int DAILY_BONUS_REWARD_DURATION = 24 * 60 * 60;
 
-#define DAILY_BONUS_REWARD_DURATION 24 * 60 * 60
-#define DAILY_BONUS_REWARD_AMOUNT 30000
+const int DAILY_BONUS_REWARD_AMOUNT = 30000;
 
 #define GAME_SYMBOL S(4, ONE)
+#define EOS_SYMBOL S(4, EOS)
 #define GAME_TOKEN_CONTRACT N(onetoken1234)
+#define EOS_TOKEN_CONTRACT N(eosio.token)
 
-dicegame::dicegame(account_name _self)
-    : contract(_self),
-      _globals(_self, _self),
-      _games(_self, _self),
-      _bets(_self, _self),
-      _bettokens(_self, _self),
-      _seed(_self, _self)
+dicegame::dicegame(account_name _self) : contract(_self),
+                                         _globals(_self, _self),
+                                         _games(_self, _self),
+                                         _bets(_self, _self),
+                                         _bettokens(_self, _self),
+                                         _players(_self, _self),
+                                         _seed(_self, _self)
 {
 }
 
@@ -58,7 +63,7 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
         eosio::token bet_token(token_iter->contract);
         eosio::asset balance = bet_token.get_balance(_self, sym_name);
 
-        int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT / 100);
+        int64_t max = (balance.amount * SINGLE_BET_MAX_PERCENT);
         eosio_assert(transfer_data.quantity.amount <= max, "Bet amount exceeds");
 
         const std::size_t first_break = transfer_data.memo.find("-");
@@ -66,33 +71,50 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
         std::string bet_str = transfer_data.memo.substr(0, first_break);
         std::string ref_str = transfer_data.memo.substr(first_break + 1, second_break - first_break - 1);
 
-        account_name referral = N('dicegame');
+        account_name tmp_referral = N("");
 
         const account_name possible_ref = eosio::string_to_name(ref_str.c_str());
 
         if (possible_ref != _self && possible_ref != transfer_data.from && is_account(possible_ref))
         {
-            referral = possible_ref;
+            tmp_referral = possible_ref;
         }
 
-        players_table _players_table(_self, sym_name);
-        auto existing = _players_table.find(transfer_data.from);
+        auto existing = _players.find(transfer_data.from);
 
-        if (existing == _players_table.end())
+        auto referral_quantity = transfer_data.quantity;
+        referral_quantity.amount *= REF_REWARD_PERCENT;
+
+        if (existing == _players.end())
         {
-            _players_table.emplace(_self, [&](auto &player) {
+            std::vector<eosio::asset> init_amount;
+            init_amount.push_back(referral_quantity);
+            _players.emplace(_self, [&](auto &player) {
                 player.bettor = transfer_data.from;
-                player.referral = referral;
-                player.bet_total = transfer_data.quantity.amount;
-                player.last_update = eosio::time_point_sec(now());
+                player.referral = N("");
+                player.referral_bonus = init_amount;
             });
         }
         else
         {
-            _players_table.modify(existing, 0, [&](auto &player) {
-                player.referral = referral;
-                player.bet_total += transfer_data.quantity.amount;
-                player.last_update = eosio::time_point_sec(now());
+            auto temp_referral_bonus = existing->referral_bonus;
+
+            for (auto it = temp_referral_bonus.begin(); it != temp_referral_bonus.cend(); ++it)
+            {
+
+                if ((*it).symbol.name() == referral_quantity.symbol.name())
+                {
+                    *it += referral_quantity;
+                    break;
+                }
+                else if (std::next(it) == temp_referral_bonus.end())
+                {
+                    temp_referral_bonus.push_back(referral_quantity);
+                }
+            }
+            _players.modify(existing, 0, [&](auto &player) {
+                player.referral = player.referral == N("") ? tmp_referral : player.referral;
+                player.referral_bonus = temp_referral_bonus;
             });
         }
 
@@ -117,6 +139,8 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
 
         eosio_assert((game_itr->player_num < round_max_players), "Game was reached to max players ");
 
+        eosio_assert((game_itr->stop_at.sec_since_epoch() >= eosio::time_point_sec(now()).sec_since_epoch()), "Game has ended");
+
         _games.modify(game_itr, 0, [&](auto &game) {
             game.player_num += 1;
         });
@@ -128,6 +152,7 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
             bet.bettor = transfer_data.from;
             bet.bet_case = bet_str;
             bet.bet_amount = transfer_data.quantity;
+            bet.pay_out = eosio::asset(0, token_iter->token_name);
             bet.active = 1;
             bet.bet_at = eosio::time_point_sec(now());
         });
@@ -209,24 +234,6 @@ void dicegame::setglobal(uint64_t id, uint64_t val)
         });
     }
 }
-void dicegame::login(account_name bettor, account_name referral)
-{
-    require_auth(_self);
-    // auto pos = _players.find(bettor);
-    // if (pos == _players.end())
-    // {
-    //     _players.emplace(_self, [&](auto &player) {
-    //         player.bettor = bettor;
-    //         player.referral = referral;
-    //     });
-    // }
-    // else
-    // {
-    //     _players.modify(pos, 0, [&](auto &player) {
-    //         player.referral = referral;
-    //     });
-    // }
-}
 
 void dicegame::startgame()
 {
@@ -266,6 +273,13 @@ void dicegame::startgame()
     _globals.modify(round_itr, 0, [&](auto &round) {
         round.val = next;
     });
+
+    // end game
+
+    eosio::transaction out;
+    out.actions.emplace_back(eosio::permission_level{_self, N(active)}, _self, N(revealdice), std::make_tuple());
+    out.delay_sec = duration;
+    out.send(0, _self, false);
 }
 
 void dicegame::revealdice()
@@ -291,10 +305,16 @@ void dicegame::revealdice()
 
     //Check Big, Small
     auto sum_dice = dice1 + dice2 + dice3;
-    if ((sum_dice >= 4) && (sum_dice <= 10))
+    if ((sum_dice >= 4) && (sum_dice <= 10) && !(dice1 & dice2 & dice3))
         result_tmp.push_back("SMALL");
-    else if ((sum_dice >= 11) && (sum_dice <= 17))
+    else if ((sum_dice >= 11) && (sum_dice <= 17) && !(dice1 & dice2 & dice3))
         result_tmp.push_back("BIG");
+
+    //Check Oven, Odd
+    if (!(sum_dice % 2) && !(dice1 & dice2 & dice3))
+        result_tmp.push_back("OVEN");
+    else if ((sum_dice % 2) && !(dice1 & dice2 & dice3))
+        result_tmp.push_back("ODD");
 
     // Check Number
     if ((sum_dice >= 4) && (sum_dice <= 17))
@@ -327,32 +347,43 @@ void dicegame::revealdice()
         game.stop_at = eosio::time_point_sec(now());
         game.status = MINING;
     });
+
+    eosio::transaction out;
+    out.actions.emplace_back(eosio::permission_level{_self, N(active)}, _self, N(mine), std::make_tuple(current_round));
+    out.send(0, _self, false);
 }
 
-void dicegame::mine(uint64_t bet_id)
+void dicegame::mine(uint64_t round_id)
 {
     require_auth(_self);
-    auto round = get_global_val(GLOBAL_ID_ROUND);
-    auto game_itr = _games.find(round);
+
+    auto game_itr = _games.find(round_id);
     eosio_assert(game_itr->status == MINING, "game hasn't in minning mode");
     vector<string> bet_result = game_itr->result;
 
     auto round_idx = _bets.get_index<N(by_round)>();
-    auto round_find = round_idx.find(round);
+    auto round_find = round_idx.find(round_id);
     eosio_assert(round_find != round_idx.end(), "round doesn't exist");
+
     eosio::transaction transfer;
 
-    for (auto round_it = round_find; round_it != round_idx.cend() && (round_find->round == round); ++round_it)
+    for (auto round_it = round_find; round_it != round_idx.cend() && (round_find->round == round_id); ++round_it)
     {
-
-        if (std::find(bet_result.begin(), bet_result.end(), round_it->bet_case) != bet_result.end())
+        auto tmp_reward = round_it->bet_amount;
+        for (auto result_itr = bet_result.begin(); result_itr != bet_result.cend() && (round_find->bet_case == *result_itr); ++result_itr)
+        {
+            tmp_reward += get_bet_reward(round_it->bet_case, round_it->bet_amount);
+        }
+        if (tmp_reward.amount != round_it->bet_amount.amount)
         {
             round_idx.modify(round_it, 0, [&](auto &bet) {
-                bet.pay_out += bet.bet_amount + get_bet_reward(round_it->bet_case, round_it->bet_amount);
+                bet.pay_out = tmp_reward;
             });
-            transfer.actions.emplace_back(eosio::permission_level{_self, N(active)}, N(eosio.token), N(transfer), std::make_tuple(_self, round_it->bettor, round_it->pay_out, std::string("Bet Reward: oneplay.io")));
+
+            transfer.actions.emplace_back(eosio::permission_level{_self, N(active)}, round_it->contract, N(transfer), std::make_tuple(_self, round_it->bettor, tmp_reward, std::string("Bet Reward: oneplay.io")));
         }
     }
+    if(transfer.actions.size())
     transfer.send(0, _self, false);
 
     _games.modify(game_itr, 0, [&](auto &game) {
@@ -380,6 +411,13 @@ void dicegame::clearrow(uint64_t table, uint64_t row)
         _bets.erase(bet_itr);
         break;
     }
+    case 2:
+    {
+        auto player_itr = _players.find(row);
+        eosio_assert(player_itr != _players.end(), "Player row not found");
+        _players.erase(player_itr);
+        break;
+    }
     default:
     {
         break;
@@ -397,28 +435,39 @@ void dicegame::claimref(account_name ref)
     // send
 }
 
-void dicegame::dailyreward(account_name account)
+void dicegame::dailyreward(account_name account, account_name referral)
 {
     require_auth(account);
-
-    eosio::symbol_name sym_name = eosio::symbol_type(GAME_SYMBOL).name();
-    players_table _players_table(_self, sym_name);
-    auto existing = _players_table.find(account);
-
-    if (existing == _players_table.end())
+    account_name tmp_referral = N("");
+    if (referral != _self && is_account(referral))
     {
-        _players_table.emplace(_self, [&](auto &player) {
+        tmp_referral = referral;
+    }
+
+    auto player = _players.find(account);
+
+    if (player == _players.end())
+    {
+        std::vector<eosio::asset> init_amount;
+        init_amount.push_back(eosio::asset(0, GAME_SYMBOL));
+        init_amount.push_back(eosio::asset(0, EOS_SYMBOL));
+        _players.emplace(_self, [&](auto &player) {
             player.bettor = account;
+            player.referral = tmp_referral;
             player.last_update = eosio::time_point_sec(now());
+            player.referral_bonus = init_amount;
         });
     }
     else
     {
-        int remain_time = eosio::time_point_sec(now()).sec_since_epoch() - existing->last_update.sec_since_epoch() - (int)DAILY_BONUS_REWARD_DURATION;
-        char str_remain_time[128];
-        sprintf(str_remain_time, "Please wait after %d seconds", remain_time);
-        eosio_assert(remain_time >= 0, str_remain_time);
-        _players_table.modify(existing, 0, [&](auto &player) {
+        int remain_time = DAILY_BONUS_REWARD_DURATION - player->last_update.sec_since_epoch() % DAILY_BONUS_REWARD_DURATION;
+        int last_time_count = player->last_update.sec_since_epoch() / DAILY_BONUS_REWARD_DURATION;
+        int current_time_count = eosio::time_point_sec(now()).sec_since_epoch() / DAILY_BONUS_REWARD_DURATION;
+
+        eosio_assert(last_time_count > current_time_count, "Please wait next day");
+
+        _players.modify(player, 0, [&](auto &player) {
+            player.referral = player.referral == N("") ? tmp_referral : player.referral;
             player.last_update = eosio::time_point_sec(now());
         });
     }
@@ -499,4 +548,4 @@ int dicegame::random(const int range)
         }                                                                                                       \
     }
 
-EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setglobal)(login)(startgame)(revealdice)(mine)(clearrow)(claimbet)(claimref)(dailyreward))
+EOSIO_ABI_EX(dicegame, (transfer)(initialize)(setbettoken)(setglobal)(startgame)(revealdice)(mine)(clearrow)(claimbet)(claimref)(dailyreward))
