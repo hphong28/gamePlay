@@ -50,7 +50,7 @@ private:
       {"SINGLE_4", 1},
       {"SINGLE_5", 1},
       {"SINGLE_6", 1},
-      {"OVEN", 1},
+      {"EVEN", 1},
       {"ODD", 1}};
 
   struct st_transfer
