@@ -130,16 +130,29 @@
     float: left;
     display: inline;
     margin-left: 50px;
+    margin-top: 15px;
 }
 .ValueTotal{
     color: orange;
     display: inline;
 }
-
-.TextTotalEarn{
+.claimButton{
+    width: 100px;
+    height: 55px;
     float: right;
-    display: inline;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    background-color: #409EFF ;
+    border-color: #409EFF;
+    border-radius: 10px;
+    font-size: 24pt;
+    cursor: pointer;
 }
+.claimButton:hover{
+    background-color: #79c4fc;
+}
+
 .ValueTotalEarn{
     color: orange;
     display: inline;
@@ -147,14 +160,13 @@
 }
 
 .WrapTableReferral{
-    margin-top: 60px;
     display: block;
     background-color: #1C2041 ;
     border-radius: 5px;
     color: #FFFFFF;
     font-size: 20pt;
     width: 645px;
-    height: 180px;
+    height: 150px;
     margin-left: 26px;
     padding: 8px 8px 8px 8px;
     overflow-y:auto;
