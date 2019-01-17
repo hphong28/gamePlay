@@ -19,8 +19,8 @@
     font-family: 'Helvetica'; 
     color: white;
     background-color: #424D55;
-    width: 600px;
-    height: 400px;
+    width: 700px;
+    height: 500px;
     border-radius: 20px;
     margin: auto;
     position: fixed;
@@ -78,7 +78,7 @@
 
 }
 .DetailHowToPlay p{
-    font-size: 12pt;
+    font-size: 15pt;
     text-align: left;
     padding-top: 5px;
     padding-bottom: 5px;
