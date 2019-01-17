@@ -19,6 +19,8 @@ class PlayMenu extends Component {
     this.handleChosetokenSelect = this.handleChosetokenSelect.bind(this);
     this.handleOpenListToken = this.handleOpenListToken.bind(this);
 
+    this.GetCpuEmergency = this.GetCpuEmergency.bind(this);
+
     this.state = {
       chip: 0,
       listtoken: 0,
@@ -34,6 +36,9 @@ class PlayMenu extends Component {
       CPU: 0,
 
     };
+  }
+  GetCpuEmergency(){
+    window.open('https://cpuemergency.com/embed_betdice.html');
   }
 
   updateNetCpu() {
@@ -142,12 +147,12 @@ class PlayMenu extends Component {
 
           </div>
 
-          <div className={`info_wrap${this.state.CPU > 70 ? "_over" : ""}`}>
+          <div onClick={this.GetCpuEmergency} className={`info_wrap${this.state.CPU > 70 ? "_over" : ""}`}>
             <div className="info_value">{this.state.CPU} %</div>
             <div className="info_label">CPU</div>
           </div>
 
-          <div className={`info_wrap${this.state.net > 70 ? "_over" : ""}`}>
+          <div onClick={this.GetCpuEmergency} className={`info_wrap${this.state.net > 70 ? "_over" : ""}`}>
             <div className="info_value">{this.state.net} %</div>
             <div className="info_label">NET</div>
           </div>
