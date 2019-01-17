@@ -152,7 +152,7 @@ void dicegame::transfer(uint64_t sender, uint64_t receiver)
             bet.bettor = transfer_data.from;
             bet.bet_case = bet_str;
             bet.bet_amount = transfer_data.quantity;
-            bet.pay_out = eosio::asset(0, S(4, token_iter->token_name));
+            bet.pay_out = eosio::asset(0, transfer_data.quantity.symbol);
             bet.active = 1;
             bet.bet_at = eosio::time_point_sec(now());
         });
