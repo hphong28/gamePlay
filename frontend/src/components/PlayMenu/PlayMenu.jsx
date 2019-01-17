@@ -41,10 +41,16 @@ class PlayMenu extends Component {
     ApiService.hasIdentity().then(rsp => {
       if (rsp) {
         ApiService.GetAccountDetail(rsp.accounts[0].name).then(rawData => {
+          rawData?
           this.setState({
             net: (rawData.net_limit.used / rawData.net_limit.available * 100).toFixed(0),
             CPU: (rawData.cpu_limit.used / rawData.cpu_limit.available * 100).toFixed(0),
-          });
+          }):
+          this.setState({
+            net: 0,
+            CPU: 0,
+          })
+
         });
 
         ApiService.GetTokenInfo(rsp.accounts[0].name,"EOS","eosio.token").then(EOSValue =>{
@@ -54,6 +60,7 @@ class PlayMenu extends Component {
             tokenValue: tmpTokenValue,
           })
         })
+
         ApiService.GetTokenInfo(rsp.accounts[0].name,"ONE","onetoken1234").then(ONEValue =>{
           const tmpTokenValue = this.state.tokenValue;
           tmpTokenValue[1] = ONEValue
@@ -61,8 +68,6 @@ class PlayMenu extends Component {
             tokenValue: tmpTokenValue,
           })
         })
-
-        // console.log('tam_ GetTokenInfo')
       }
       else {
         this.setState({
@@ -104,7 +109,6 @@ class PlayMenu extends Component {
     return (
       
       <div className="menuPlay">
-      {console.log(this.state.EOSValue)}
         <div className="WrapIconBet">
           <ul>
             <div onClick={this.handleClick(0.5)} className={`iconBet ${this.state.chip == 0.5 ? "active" : ""}`} ><img src={bet0_5} alt=" " /></div>
@@ -118,8 +122,6 @@ class PlayMenu extends Component {
         <div className="BetAmount_Wrap" >
 
           <div className="MenuSelect_Wrap"  onClick={this.handleOpenListToken()}>
-
-
 
               <div className={`BetAmountShow`}>
                 <img src={this.state.tokenLogo[this.state.tokenSelect]} alt=" " className="BetAmountLogo" />
