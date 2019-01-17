@@ -124,6 +124,7 @@
     height: 40px;
     width: 40px;
     float: left;
+    cursor: pointer;
 }
 .info_wrap:hover{
         border-radius:50%;

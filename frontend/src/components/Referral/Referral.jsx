@@ -15,6 +15,7 @@ class Referral extends Component {
         this.setWrapperRef = this.setWrapperRef.bind(this);
 
         this.copyReferralLink = this.copyReferralLink.bind(this);
+        this.claimReferral = this.claimReferral.bind(this);
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
@@ -44,6 +45,9 @@ class Referral extends Component {
         this.setState({
             copyStatus: true,
         })
+    }
+    claimReferral(){
+
     }
 
     render() {
@@ -78,7 +82,14 @@ class Referral extends Component {
 
                     <div className="WrapTotalReferral">
                         <p className="TextTotal">Total: <p className="ValueTotal"> 1000 refferal</p> </p>
-                        <p className="TextTotalEarn">Total earn: <p className="ValueTotalEarn"> 1000 EOS</p> </p>
+                        {/* <Tooltip content="claim your reward"
+                                    fadeDuration={350}
+                                    background="#555"
+                                    border="#555"
+                                    color="#fff"
+                                    radius={10}> */}
+                            <button onClick={this.claimReferral} className="claimButton">Claim</button>
+                        {/* </Tooltip> */}
                     </div>
 
                     <div className="WrapTableReferral">
@@ -91,7 +102,7 @@ class Referral extends Component {
                             </thead>
                             <tbody>
                                 {this.props.ReferralEarn?this.props.ReferralEarn.map(data => {
-                                    // console.log('tam_ data in map', data)
+                                    console.log('tam_ data in map', data)
                                     return (
                                         <tr>
                                             <td>{data.bettor}</td>
