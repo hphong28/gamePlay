@@ -11,7 +11,7 @@ class HowToPlay extends Component {
     }
     clickOutside(event) {
         if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            console.log('tam_ clickOutside');
+            // console.log('tam_ clickOutside');
             this.props.onCloseHowToPlay();
         }
     }
