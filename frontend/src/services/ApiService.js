@@ -62,13 +62,13 @@ class ApiService {
         return true;
     }
     static async  GetRefferal(account, limit) {
-        // console.log('tam123_ get data');
+        console.log('tam123_ get data', account);
         try {
 
             const response = await fetch('https://jungle2.cryptolions.io:443/v1/chain/get_table_rows', {
                 method: 'POST',
                 body: JSON.stringify({
-                    scope: 'EOS',
+                    scope: 'dicedice1234',
                     code: 'dicedice1234',
                     table: 'players',
                     lower_bound: account,
@@ -80,7 +80,7 @@ class ApiService {
                 }),
             });
             const responseJson = await response.json();
-            // console.log('tam_ responseJson.rows', responseJson.rows)
+            console.log('tam_ responseJson.rows', responseJson.rows)
             return responseJson.rows;
 
         } catch (error) {

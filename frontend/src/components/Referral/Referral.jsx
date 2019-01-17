@@ -106,7 +106,7 @@ class Referral extends Component {
                                     return (
                                         <tr>
                                             <td>{data.bettor}</td>
-                                            <td>{(parseFloat(data.bet_total)/10000).toFixed(4)} EOS</td>
+                                            <td>{data.referral_bonus[0]}</td>
                                         </tr>
                                     );
                                 }): null}
